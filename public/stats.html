@@ -2,28 +2,73 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" href="sml-256.png" type="image/png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sementsul Network — Телеметрия SML</title>
+<title>Sementsul Network — живая телеметрия SML</title>
+<meta name="description" content="Живая телеметрия Sementsul Network: база бот-IP, сожжено SML, резерв сжигания, год контракта. Обновление каждые 15 минут.">
+<link rel="canonical" href="https://gennadii75.github.io/sml-network-v2/stats.html">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0A1C2E">
+<link rel="icon" href="sml-256.png" type="image/png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sementsul Network — телеметрия SML">
+<meta property="og:description" content="База бот-IP, сжигание SML и резерв контракта в реальном времени.">
+<meta property="og:url" content="https://gennadii75.github.io/sml-network-v2/stats.html">
+<meta property="og:image" content="https://gennadii75.github.io/sml-network-v2/sml-256.png">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"Sementsul Network — телеметрия SML","url":"https://gennadii75.github.io/sml-network-v2/stats.html","about":{"@type":"Thing","name":"Sementsul (SML) BEP-20 token","identifier":"0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7"}}
+</script>
 <style>
-body{font-family:monospace;background:#0e1117;color:#c9d1d9;padding:40px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.card{background:#161b22;padding:25px;border:1px solid #30363d;border-radius:6px}
-.number{font-size:1.6rem;color:#58a6ff;font-weight:bold;margin-top:10px;word-break:break-all}
-.burn{color:#f85149}
-.small{font-size:.8rem;color:#888}
+:root{--navy:#0A1C2E;--gold:#D4AF37;--gold-light:#F4D03F;--text:#E0E0E0;--muted:#A0A0A0;--border:rgba(212,175,55,.35)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--navy);background-image:radial-gradient(circle at 50% 0%,rgba(212,175,55,.07),transparent 60%);color:var(--text);font-family:Montserrat,sans-serif;line-height:1.7}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+h1{font-family:Cinzel,serif;color:var(--gold);text-transform:uppercase;letter-spacing:2px;margin:8px 0 4px}
+header.top{border-bottom:1px solid var(--border);padding:14px 0;background:rgba(10,28,46,.92);position:sticky;top:0;z-index:10}
+.top-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;color:var(--gold);font-family:Cinzel,serif;font-weight:700;font-size:1.1rem;text-decoration:none}
+.brand img{height:44px;border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.4)}
+nav.main{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto}
+nav.main a{color:var(--text);text-decoration:none;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
+nav.main a:hover{color:var(--gold)}
+nav.main a.home{color:var(--gold)}
+main{padding:32px 0}
+.sub{color:var(--muted);font-size:.85rem;margin-bottom:8px}
+.sub a{color:var(--gold-light)}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:20px}
+.stat{background:rgba(15,39,64,.7);border:1px solid var(--gold);border-radius:8px;padding:24px 16px;text-align:center}
+.stat .v{font-family:Cinzel,serif;font-size:1.6rem;color:var(--gold);word-break:break-all}
+.stat .l{font-size:.78rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px}
+.stat .v.burn{color:#f85149}
+footer{border-top:1px solid var(--border);padding:28px 0;text-align:center;color:var(--muted);font-size:.85rem}
+footer nav{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--gold)}
 </style>
 </head>
 <body>
-<a href="stats.html"><img src="sml-256.png" alt="Sementsul (SML)" style="height:52px;border-radius:50%;box-shadow:0 0 18px rgba(88,166,255,.35)"></a>
-<h1>Телеметрия сети SML (live)</h1>
-<p class="small">IP-база: <a href="blocklist.txt">blocklist.txt</a> · телеметрия от оракула · обновление каждые 15 мин</p>
-<div class="grid">
-<div class="card"><h3>IP в базе</h3><div class="number" id="botCount">…</div></div>
-<div class="card"><h3>Всего сожжено (totalBurned)</h3><div class="number burn" id="burned">…</div></div>
-<div class="card"><h3>Резерв на контракте</h3><div class="number" id="reserve">…</div></div>
-<div class="card"><h3>Год / лимит года</h3><div class="number" id="year">…</div></div>
+<header class="top"><div class="wrap top-in">
+<a class="brand" href="stats.html"><img src="sml-256.png" alt="Sementsul (SML)">SEMENTSUL NETWORK</a>
+<nav class="main">
+<a href="stats.html">Статистика</a><a href="earn.html">Заработок</a><a href="harm.html">Вред ботов</a><a href="cloudflare-connect.html">Подключение</a><a href="blog/">Блог</a><a href="faq.html">FAQ</a><a class="home" href="https://sementsul.net/">Главная →</a>
+</nav></div></header>
+<main class="wrap">
+<h1>Телеметрия сети SML</h1>
+<p class="sub">IP-база: <a href="blocklist.txt">blocklist.txt</a> · телеметрия от оракула · обновление каждые 15 мин · контракт <a href="https://bscscan.com/address/0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7">SementsulV2</a></p>
+<div class="stat-grid">
+<div class="stat"><div class="l">IP в базе</div><div class="v" id="botCount">…</div></div>
+<div class="stat"><div class="l">Всего сожжено (totalBurned)</div><div class="v burn" id="burned">…</div></div>
+<div class="stat"><div class="l">Резерв на контракте</div><div class="v" id="reserve">…</div></div>
+<div class="stat"><div class="l">Год / лимит года</div><div class="v" id="year">…</div></div>
 </div>
+</main>
+<footer><div class="wrap">
+<nav><a href="stats.html">Статистика</a><a href="earn.html">Заработок</a><a href="harm.html">Вред ботов</a><a href="cloudflare-connect.html">Подключение</a><a href="blog/">Блог</a><a href="faq.html">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
+<div>Sementsul Network · контракт SML: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
+</div></footer>
 <script>
 // Телеметрию пишет оракул в telemetry.json (тот же домен — без CORS-проблем прямого RPC).
 async function main(){

@@ -2,19 +2,57 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" href="../sml-256.png" type="image/png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Математика заработка 3/7/10 — SML блог</title>
+<meta name="description" content="Сколько приносит бот-трафик в SML: +3 за уникальный IP, +7 в treasury за рецидив, сжигание 10, лимиты 500 в сутки и 2.5M в год.">
+<link rel="canonical" href="https://gennadii75.github.io/sml-network-v2/blog/math.html">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0A1C2E">
+<link rel="icon" href="../sml-256.png" type="image/png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Математика заработка 3/7/10">
+<meta property="og:url" content="https://gennadii75.github.io/sml-network-v2/blog/math.html">
+<meta property="og:image" content="https://gennadii75.github.io/sml-network-v2/sml-256.png">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-body{font-family:monospace;background:#0e1117;color:#c9d1d9;padding:40px;max-width:900px;margin:0 auto;line-height:1.7}
-h1,h2{color:#58a6ff}table{border-collapse:collapse;width:100%}td,th{border:1px solid #30363d;padding:8px;text-align:left}
-.card{background:#161b22;padding:20px;border:1px solid #30363d;border-radius:6px;margin:20px 0}
-a{color:#58a6ff}.warn{color:#f85149}
+:root{--navy:#0A1C2E;--gold:#D4AF37;--gold-light:#F4D03F;--text:#E0E0E0;--muted:#A0A0A0;--border:rgba(212,175,55,.35)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--navy);background-image:radial-gradient(circle at 50% 0%,rgba(212,175,55,.07),transparent 60%);color:var(--text);font-family:Montserrat,sans-serif;line-height:1.7}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+h1,h2{font-family:Cinzel,serif;color:var(--gold);text-transform:uppercase;letter-spacing:1px}
+h1{margin:8px 0 12px;font-size:1.5rem}h2{font-size:1.1rem;margin-bottom:8px}
+header.top{border-bottom:1px solid var(--border);padding:14px 0;background:rgba(10,28,46,.92);position:sticky;top:0;z-index:10}
+.top-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;color:var(--gold);font-family:Cinzel,serif;font-weight:700;font-size:1.1rem;text-decoration:none}
+.brand img{height:44px;border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.4)}
+nav.main{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto}
+nav.main a{color:var(--text);text-decoration:none;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
+nav.main a:hover{color:var(--gold)}
+nav.main a.home{color:var(--gold)}
+main{padding:32px 0}
+.card{background:rgba(15,39,64,.7);border:1px solid var(--border);border-radius:8px;padding:24px;margin:20px 0}
+.card ul{padding-left:20px}.card li{margin-bottom:8px}
+a{color:var(--gold-light)}
+table{border-collapse:collapse;width:100%}td,th{border:1px solid var(--border);padding:8px;text-align:left}
+.warn{color:#f85149}
+footer{border-top:1px solid var(--border);padding:28px 0;text-align:center;color:var(--muted);font-size:.85rem}
+footer nav{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--gold)}
 </style>
 </head>
 <body>
-<a href="../stats.html"><img src="../sml-256.png" alt="Sementsul (SML)" style="height:52px;border-radius:50%;box-shadow:0 0 18px rgba(88,166,255,.35)"></a>
-<p><a href="index.html">← Блог</a></p>
+<header class="top"><div class="wrap top-in">
+<a class="brand" href="../stats.html"><img src="../sml-256.png" alt="Sementsul (SML)">SEMENTSUL NETWORK</a>
+<nav class="main">
+<a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a class="home" href="https://sementsul.net/">Главная →</a>
+</nav></div></header>
+<main class="wrap">
+<article>
+<p><a href="index.html">← Все статьи</a></p>
 <h1>Математика заработка: 3 / 7 / 10 и лимиты</h1>
 <table>
 <tr><th>Событие</th><th>Вам</th><th>Сжигается</th></tr>
@@ -22,13 +60,20 @@ a{color:#58a6ff}.warn{color:#f85149}
 <tr><td>Повторная атака того же IP</td><td>0 (идет в treasury)</td><td>−10 SML</td></tr>
 </table>
 <div class="card"><h2>Пример</h2>
-<p>Сайт ловит 100 уникальных ботов в сутки → <b>300 SML/день</b> вам, 1000 SML/день сжигается из резерва. Рецидивисты (сканеры, которые долбятся ежедневно) дополнительно жгут резерв и растят treasury проекта — то есть дефицит.</p></div>
+<p>Сайт ловит 100 уникальных ботов в сутки → <b>300 SML/день</b> вам, 1000 SML/день сжигается из резерва. Рецидивисты дополнительно жгут резерв — дефицит растет. Живые цифры — на <a href="../stats.html">телеметрии</a>.</p></div>
 <div class="card"><h2>Лимиты (защита от накруток)</h2>
 <ul>
 <li>Не более <b>500 минтов в сутки</b> на всю сеть — слать фейковые IP бессмысленно.</li>
 <li>Не более <b>2.5M сжигания в год</b> — эра растянута на 100 лет.</li>
 <li>Оплата только за IP, который реально видел edge (проверка оракула по D1).</li>
 </ul>
-<p class="warn">Честно: доход в долларах зависит от цены SML и ликвидности пула. Считайте консервативно и держите часть в холде.</p></div>
+<p class="warn">Честно: доход в долларах зависит от цены SML и ликвидности пула. Считайте консервативно.</p></div>
+<p>Дальше: <a href="connect-10-min.html">подключение</a> · <a href="../faq.html">FAQ</a></p>
+</article>
+</main>
+<footer><div class="wrap">
+<nav><a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
+<div>Sementsul Network · контракт SML: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
+</div></footer>
 </body>
 </html>

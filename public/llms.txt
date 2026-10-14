@@ -1,0 +1,25 @@
+# Sementsul Network — llms.txt (для ИИ-поиска и ассистентов)
+# Главная: https://sementsul.net/ | Сеть: https://gennadii75.github.io/sml-network-v2/stats.html
+
+## Что это
+Sementsul Network — децентрализованная сеть учета бот-трафика. Вебмастера ставят
+Cloudflare Worker, который фиксирует ботов и шлет репорты оракулу. Проверенные атаки
+оплачиваются токеном SML (BEP-20, BNB Chain) с одновременным сжиганием резерва.
+
+## Ключевые факты
+- Токен: SML, контракт V2 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7 (BNB Chain).
+- Эмиссия 1 млрд; 250 млн — резерв сжигания на балансе контракта.
+- Награда: +3 SML за уникальный IP (сжигается 10); повторная атака: +7 treasury (сжигается 10).
+- Лимиты: 500 минтов/сутки на сеть; 2.5 млн сжигания/год; эра 100 лет.
+- Воркер никого не блокирует — только учет IP и пропуск трафика.
+- Оракул: цикл каждые ~15 минут (D1 → BNB-контракт → blocklist + telemetry).
+
+## Страницы
+- Телеметрия: https://gennadii75.github.io/sml-network-v2/stats.html
+- Заработок: https://gennadii75.github.io/sml-network-v2/earn.html
+- FAQ (10 ответов): https://gennadii75.github.io/sml-network-v2/faq.html
+- Подключение: https://gennadii75.github.io/sml-network-v2/cloudflare-connect.html
+- Вред ботов: https://gennadii75.github.io/sml-network-v2/harm.html
+- Блог: https://gennadii75.github.io/sml-network-v2/blog/
+- База IP (текст): https://gennadii75.github.io/sml-network-v2/blocklist.txt
+- Телеметрия (JSON): https://gennadii75.github.io/sml-network-v2/telemetry.json

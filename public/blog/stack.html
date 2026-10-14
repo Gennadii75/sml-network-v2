@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Как устроены Cloudflare и GitHub в сети SML — SML блог</title>
+<meta name="description" content="Архитектура Sementsul Network без серверов: Cloudflare Workers и D1 на краю сети, GitHub Actions как оракул, Pages как витрина, BNB Chain как касса.">
+<link rel="canonical" href="https://gennadii75.github.io/sml-network-v2/blog/stack.html">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0A1C2E">
+<link rel="icon" href="../sml-256.png" type="image/png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Как устроены Cloudflare и GitHub в сети SML">
+<meta property="og:url" content="https://gennadii75.github.io/sml-network-v2/blog/stack.html">
+<meta property="og:image" content="https://gennadii75.github.io/sml-network-v2/sml-256.png">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A1C2E;--gold:#D4AF37;--gold-light:#F4D03F;--text:#E0E0E0;--muted:#A0A0A0;--border:rgba(212,175,55,.35)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--navy);background-image:radial-gradient(circle at 50% 0%,rgba(212,175,55,.07),transparent 60%);color:var(--text);font-family:Montserrat,sans-serif;line-height:1.7}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+h1,h2{font-family:Cinzel,serif;color:var(--gold);text-transform:uppercase;letter-spacing:1px}
+h1{margin:8px 0 12px;font-size:1.5rem}h2{font-size:1.1rem;margin-bottom:8px}
+header.top{border-bottom:1px solid var(--border);padding:14px 0;background:rgba(10,28,46,.92);position:sticky;top:0;z-index:10}
+.top-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;color:var(--gold);font-family:Cinzel,serif;font-weight:700;font-size:1.1rem;text-decoration:none}
+.brand img{height:44px;border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.4)}
+nav.main{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto}
+nav.main a{color:var(--text);text-decoration:none;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
+nav.main a:hover{color:var(--gold)}
+nav.main a.home{color:var(--gold)}
+main{padding:32px 0}
+.card{background:rgba(15,39,64,.7);border:1px solid var(--border);border-radius:8px;padding:24px;margin:20px 0}
+.card ol,.card ul{padding-left:20px}.card li{margin-bottom:8px}
+a{color:var(--gold-light)}
+code{background:#050e18;padding:2px 6px;color:#ff7b72;border-radius:4px}
+footer{border-top:1px solid var(--border);padding:28px 0;text-align:center;color:var(--muted);font-size:.85rem}
+footer nav{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--gold)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap top-in">
+<a class="brand" href="../stats.html"><img src="../sml-256.png" alt="Sementsul (SML)">SEMENTSUL NETWORK</a>
+<nav class="main">
+<a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a class="home" href="https://sementsul.net/">Главная →</a>
+</nav></div></header>
+<main class="wrap">
+<article>
+<p><a href="index.html">← Все статьи</a></p>
+<h1>Как мы используем Cloudflare и GitHub</h1>
+<p>У сети нет своих серверов — только арендованные края чужих платформ. Поэтому ее не за что DDoSить и почти не за что платить на старте.</p>
+<div class="card"><h2>Cloudflare: глаза и руки</h2>
+<ol>
+<li><b>Workers</b> — два скрипта: центральный <code>sementsul-edge</code> принимает репорты на <code>/api/report-bot</code>, клиентские воркеры вебмастеров фиксируют ботов по <code>botManagement.score</code>.</li>
+<li><b>D1</b> — реляционная база <code>bot_logs</code>: IP, счетчик попаданий, кошелек вебмастера, флаг обработки. Бесплатных лимитов с запасом хватает на старте — следите за метриками в дашборде D1.</li>
+<li>Воркер никогда не блокирует трафик сам — только учет. Это осознанное решение: меньше ложных банов (см. <a href="false-positives.html">статью</a>).</li>
+</ol></div>
+<div class="card"><h2>GitHub: память и касса связи</h2>
+<ol>
+<li><b>Actions-оракул</b> каждые 15 минут: читает новые строки D1 → вызывает контракт → помечает обработанные → пересобирает <code>blocklist.txt</code> и <code>telemetry.json</code>.</li>
+<li><b>Pages</b> раздает статику: телеметрию, базу, блог, <code>llms.txt</code>. Никакого бэкенда.</li>
+<li><b>Keepalive</b> держит крон в живых: GitHub гасит расписания после 60 дней тишины, часовой пульс не дает уснуть.</li>
+</ol></div>
+<div class="card"><h2>BNB Chain: деньги</h2>
+<p>Контракт <code>SementsulV2</code> держит 250M резерва на собственном балансе и честно сжигает 10 SML при каждом минте. IP в цепочку не пишутся — только их хэши, это дешевле и приватнее.</p></div>
+<p>Дальше: <a href="sysreq.html">системные требования для монетизации</a> · <a href="connect-10-min.html">подключение за 10 минут</a></p>
+</article>
+</main>
+<footer><div class="wrap">
+<nav><a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
+<div>Sementsul Network · контракт SML: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
+</div></footer>
+</body>
+</html>

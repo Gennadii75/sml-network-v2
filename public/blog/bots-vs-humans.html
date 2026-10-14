@@ -2,31 +2,68 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" href="../sml-256.png" type="image/png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Как отличить ботов от живых — SML блог</title>
+<meta name="description" content="Bot Score Cloudflare, ASN, User-Agent, ритм запросов и TLS-отпечатки: как вебмастеру отличать ботов от живых посетителей.">
+<link rel="canonical" href="https://gennadii75.github.io/sml-network-v2/blog/bots-vs-humans.html">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0A1C2E">
+<link rel="icon" href="../sml-256.png" type="image/png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Как отличить ботов от живых — SML блог">
+<meta property="og:url" content="https://gennadii75.github.io/sml-network-v2/blog/bots-vs-humans.html">
+<meta property="og:image" content="https://gennadii75.github.io/sml-network-v2/sml-256.png">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-body{font-family:monospace;background:#0e1117;color:#c9d1d9;padding:40px;max-width:900px;margin:0 auto;line-height:1.7}
-h1,h2{color:#58a6ff}code{background:#0d1117;padding:2px 6px;color:#ff7b72;border-radius:4px}
-.card{background:#161b22;padding:20px;border:1px solid #30363d;border-radius:6px;margin:20px 0}
-a{color:#58a6ff}table{border-collapse:collapse;width:100%}td,th{border:1px solid #30363d;padding:8px;text-align:left}
+:root{--navy:#0A1C2E;--gold:#D4AF37;--gold-light:#F4D03F;--text:#E0E0E0;--muted:#A0A0A0;--border:rgba(212,175,55,.35)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--navy);background-image:radial-gradient(circle at 50% 0%,rgba(212,175,55,.07),transparent 60%);color:var(--text);font-family:Montserrat,sans-serif;line-height:1.7}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+h1,h2{font-family:Cinzel,serif;color:var(--gold);text-transform:uppercase;letter-spacing:1px}
+h1{margin:8px 0 12px;font-size:1.5rem}h2{font-size:1.1rem;margin-bottom:8px}
+header.top{border-bottom:1px solid var(--border);padding:14px 0;background:rgba(10,28,46,.92);position:sticky;top:0;z-index:10}
+.top-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;color:var(--gold);font-family:Cinzel,serif;font-weight:700;font-size:1.1rem;text-decoration:none}
+.brand img{height:44px;border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.4)}
+nav.main{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto}
+nav.main a{color:var(--text);text-decoration:none;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
+nav.main a:hover{color:var(--gold)}
+nav.main a.home{color:var(--gold)}
+main{padding:32px 0}
+.card{background:rgba(15,39,64,.7);border:1px solid var(--border);border-radius:8px;padding:24px;margin:20px 0}
+a{color:var(--gold-light)}
+code{background:#050e18;padding:2px 6px;color:#ff7b72;border-radius:4px}
+table{border-collapse:collapse;width:100%;font-size:.9rem}td,th{border:1px solid var(--border);padding:8px;text-align:left}
+footer{border-top:1px solid var(--border);padding:28px 0;text-align:center;color:var(--muted);font-size:.85rem}
+footer nav{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--gold)}
 </style>
 </head>
 <body>
-<a href="../stats.html"><img src="../sml-256.png" alt="Sementsul (SML)" style="height:52px;border-radius:50%;box-shadow:0 0 18px rgba(88,166,255,.35)"></a>
-<p><a href="index.html">← Блог</a></p>
+<header class="top"><div class="wrap top-in">
+<a class="brand" href="../stats.html"><img src="../sml-256.png" alt="Sementsul (SML)">SEMENTSUL NETWORK</a>
+<nav class="main">
+<a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a class="home" href="https://sementsul.net/">Главная →</a>
+</nav></div></header>
+<main class="wrap">
+<article>
+<p><a href="index.html">← Все статьи</a></p>
 <h1>Как отличить ботов от живых посетителей</h1>
-<p>Наш воркер опирается на оценку Cloudflare, но понимать сигналы стоит каждому вебмастеру.</p>
+<p>Воркер сети опирается на оценку Cloudflare, но понимать сигналы стоит каждому. Смежная тема — <a href="false-positives.html">ложные срабатывания</a>.</p>
 <div class="card">
 <h2>1. Bot Score</h2>
-<p><code>request.cf.botManagement.score</code> — от 1 (точно бот) до 99 (точно человек). Порог сети SML: все, у кого инвертированная угроза &gt; 10, считаются ботами. Старое поле <code>threatScore</code> deprecated, но оставлено как fallback.</p>
+<p><code>request.cf.botManagement.score</code> — от 1 (точно бот) до 99 (точно человек). Порог сети SML: инвертированная угроза &gt; 10 считается ботом. Старое поле <code>threatScore</code> deprecated, но оставлено как fallback.</p>
 </div>
 <div class="card">
 <h2>2. Быстрые признаки бота</h2>
 <table>
 <tr><th>Сигнал</th><th>Бот</th><th>Человек</th></tr>
 <tr><td>JavaScript / cookies</td><td>часто нет</td><td>есть</td></tr>
-<tr><td>ASN</td><td>дата-центр (хостинг)</td><td>домашний провайдер</td></tr>
+<tr><td>ASN</td><td>дата-центр</td><td>домашний провайдер</td></tr>
 <tr><td>User-Agent</td><td>пустой, curl, python</td><td>браузерный</td></tr>
 <tr><td>Ритм запросов</td><td>ровный, десятки в секунду</td><td>неровный</td></tr>
 <tr><td>TLS-отпечаток (JA3)</td><td>библиотечный</td><td>браузерный</td></tr>
@@ -34,7 +71,14 @@ a{color:#58a6ff}table{border-collapse:collapse;width:100%}td,th{border:1px solid
 </div>
 <div class="card">
 <h2>3. Почему не стоит банить вручную</h2>
-<p>Ручные баны по одному признаку бьют по живым (мобильные сети, корпоративные прокси). Поэтому воркер SML <b>никого не блокирует</b> — он только фиксирует IP с высоким скором и отдает дальше. Блокировка — на вашей стороне и только осознанная, через <a href="fail2ban-blocklist.html">blocklist</a>.</p>
+<p>Ручные баны по одному признаку бьют по живым (мобильные сети, корпоративные прокси). Воркер SML <b>никого не блокирует</b> — только фиксирует IP. Блокировка — осознанно, через <a href="fail2ban-blocklist.html">blocklist</a>.</p>
 </div>
+<p>Дальше: <a href="connect-10-min.html">подключение за 10 минут</a> · <a href="../faq.html">FAQ</a></p>
+</article>
+</main>
+<footer><div class="wrap">
+<nav><a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
+<div>Sementsul Network · контракт SML: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
+</div></footer>
 </body>
 </html>

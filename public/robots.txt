@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gennadii75.github.io/sml-network-v2/sitemap.xml
