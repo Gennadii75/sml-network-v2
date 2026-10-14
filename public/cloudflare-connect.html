@@ -76,6 +76,14 @@ footer a:hover{color:var(--gold)}
 <h3 data-i18n="c_s3">Step 3: paste the code into your Cloudflare Worker as is</h3>
 <code id="output"></code>
 </div>
+<div class="step">
+<h3 data-i18n="c_s4">Step 4: route with Fail open</h3>
+<p data-i18n="c_s4p">Worker → Domains → Add → Route: zone your-domain, route your-domain/*, mode Fail open (the site stays up even if the worker dies). Redeploy.</p>
+</div>
+<div class="step">
+<h3 data-i18n="c_s5">Step 5: test and first mint</h3>
+<p data-i18n="c_s5p">Open https://your-domain/?bot_trigger=1, then wait: the first mint usually arrives within 30 minutes after a real bot attack. Rewards land on the wallet from step 1.</p>
+</div>
 </main>
 <footer><div class="wrap">
 <nav><a href="stats.html" data-i18n="nav_stats">Stats</a><a href="earn.html" data-i18n="nav_earn">Earn</a><a href="harm.html" data-i18n="nav_harm">Bot harm</a><a href="cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="blog/" data-i18n="nav_blog">Blog</a><a href="faq.html" data-i18n="nav_faq">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
@@ -83,9 +91,9 @@ footer a:hover{color:var(--gold)}
 </div></footer>
 <script>
 window.PAGE_I18N = {
-en: { c_h1: "Connect your site to SML", c_sub: "The oracle issues the secret automatically — personal, for your wallet. Never show it to anyone except your own worker. Guide in the", c_blog: "blog", c_s1: "Step 1: your BNB Chain wallet (BEP-20)", c_btn1: "Get personal secret", c_s2: "Step 2: your secret (keep it like a password)", c_btn2: "Generate worker script", c_s3: "Step 3: paste the code into your Cloudflare Worker as is", c_bad: "Invalid wallet address", c_init: "Oracle is still initializing, come back later", c_net: "Network unreachable", c_busy: "Requesting…", c_again: " (this secret was already issued to this wallet)" },
-ru: { c_h1: "Подключение сайта к SML", c_sub: "Секрет выдает автоматически оракул — персональный под твой кошелек. Никому не показывай его, кроме своего воркера. Гайд —", c_blog: "в блоге", c_s1: "Шаг 1: адрес кошелька BNB Chain (BEP-20)", c_btn1: "Получить персональный секрет", c_s2: "Шаг 2: твой секрет (храни как пароль)", c_btn2: "Сгенерировать скрипт воркера", c_s3: "Шаг 3: вставь код в свой Cloudflare Worker целиком", c_bad: "Неверный адрес кошелька", c_init: "Оракул еще инициализируется, зайди позже", c_net: "Сеть недоступна", c_busy: "Запрашиваю…", c_again: "  (этот секрет уже выдавался этому кошельку)" },
-zh: { c_h1: "将网站接入SML", c_sub: "预言机自动发放密钥——与你的钱包绑定。除你自己的Worker外勿示他人。指南见", c_blog: "博客", c_s1: "第1步：你的BNB Chain钱包（BEP-20）", c_btn1: "获取个人密钥", c_s2: "第2步：你的密钥（像密码一样保管）", c_btn2: "生成Worker脚本", c_s3: "第3步：将代码完整粘贴到你的Cloudflare Worker", c_bad: "钱包地址无效", c_init: "预言机正在初始化，稍后再来", c_net: "网络不可达", c_busy: "请求中…", c_again: "（该密钥已发放给此钱包）" }
+en: { c_h1: "Connect your site to SML", c_sub: "The oracle issues the secret automatically — personal, for your wallet. Never show it to anyone except your own worker. Guide in the", c_blog: "blog", c_s1: "Step 1: your BNB Chain wallet (BEP-20)", c_btn1: "Get personal secret", c_s2: "Step 2: your secret (keep it like a password)", c_btn2: "Generate worker script", c_s3: "Step 3: paste the code into your Cloudflare Worker as is", c_s4: "Step 4: route with Fail open", c_s4p: "Worker → Domains → Add → Route: zone your-domain, route your-domain/*, mode Fail open (the site stays up even if the worker dies). Redeploy.", c_s5: "Step 5: test and first mint", c_s5p: "Open https://your-domain/?bot_trigger=1, then wait: the first mint usually arrives within 30 minutes after a real bot attack. Rewards land on the wallet from step 1.", c_bad: "Invalid wallet address", c_init: "Oracle is still initializing, come back later", c_net: "Network unreachable", c_busy: "Requesting…", c_again: " (this secret was already issued to this wallet)" },
+ru: { c_h1: "Подключение сайта к SML", c_sub: "Секрет выдает автоматически оракул — персональный под твой кошелек. Никому не показывай его, кроме своего воркера. Гайд —", c_blog: "в блоге", c_s1: "Шаг 1: адрес кошелька BNB Chain (BEP-20)", c_btn1: "Получить персональный секрет", c_s2: "Шаг 2: твой секрет (храни как пароль)", c_btn2: "Сгенерировать скрипт воркера", c_s3: "Шаг 3: вставь код в свой Cloudflare Worker целиком", c_s4: "Шаг 4: роут с Fail open", c_s4p: "Воркер → Domains → Add → Route: зона твой-домен, роут твой-домен/*, режим Fail open (сайт жив, даже если воркер упадет). Redeploy.", c_s5: "Шаг 5: проверка и первый минт", c_s5p: "Открой https://твой-домен/?bot_trigger=1 и жди: первый минт обычно приходит в пределах 30 минут после реальной атаки бота. Награды падают на кошелек из шага 1.", c_bad: "Неверный адрес кошелька", c_init: "Оракул еще инициализируется, зайди позже", c_net: "Сеть недоступна", c_busy: "Запрашиваю…", c_again: "  (этот секрет уже выдавался этому кошельку)" },
+zh: { c_h1: "将网站接入SML", c_sub: "预言机自动发放密钥——与你的钱包绑定。除你自己的Worker外勿示他人。指南见", c_blog: "博客", c_s1: "第1步：你的BNB Chain钱包（BEP-20）", c_btn1: "获取个人密钥", c_s2: "第2步：你的密钥（像密码一样保管）", c_btn2: "生成Worker脚本", c_s3: "第3步：将代码完整粘贴到你的Cloudflare Worker", c_s4: "第4步：故障开放路由", c_s4p: "Worker → Domains → Add → Route：区域你的域名，路由你的域名/*，模式Fail open（Worker故障网站依然在线）。Redeploy。", c_s5: "第5步：测试与首次铸造", c_s5p: "打开 https://你的域名/?bot_trigger=1 然后等待：首次铸造通常在真实机器人攻击后30分钟内到账。奖励发往第1步的钱包。", c_bad: "钱包地址无效", c_init: "预言机正在初始化，稍后再来", c_net: "网络不可达", c_busy: "请求中…", c_again: "（该密钥已发放给此钱包）" }
 };
 </script>
 <script src="assets/site.js"></script>
