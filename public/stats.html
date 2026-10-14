@@ -85,7 +85,7 @@ function renderTele(){
   var set = function(id, v){ document.getElementById(id).textContent = v; };
   var d = window.__tele, soon = window.SML_T('st_soon');
   if(!d){ set("burned", soon); set("reserve", soon); set("year", soon); return; }
-  var f = function(v){ return v == null ? "—" : Number(v).toLocaleString("en-US", {maximumFractionDigits: 1}) + " SML"; };
+  var f = function(v){ return v == null ? "—" : Number(v).toLocaleString("en-US", {maximumFractionDigits: 1}) + " SML"; };
   set("burned", f(d.totalBurned));
   set("reserve", f(d.burnReserve));
   set("year", d.contractYear != null ? window.SML_T('st_year_v').replace('{y}', d.contractYear) : "—");
