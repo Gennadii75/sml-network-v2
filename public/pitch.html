@@ -3,133 +3,153 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sementsul Network — презентация для инвестора</title>
-<meta name="description" content="Sementsul Network: монетизация бот-трафика. Дефляционный токен SML, живая инфраструктура, экономика witch-hunt ботов.">
+<title>Sementsul Network — презентация: как работает монета SML</title>
+<meta name="description" content="Полное описание механики монеты SML: жизненный цикл атаки, эмиссия, сжигание, лимиты, участники, дорожная карта.">
 <meta name="robots" content="noindex, follow">
 <meta name="theme-color" content="#0A1C2E">
 <link rel="icon" href="sml-256.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0A1C2E;--gold:#D4AF37;--gold-light:#F4D03F;--text:#E0E0E0;--muted:#A0A0A0;--red:#f85149;--green:#3fb950}
+:root{--navy:#0A1C2E;--gold:#D4AF37;--gold-light:#F4D03F;--text:#E0E0E0;--muted:#A0A0A0}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%}
-body{background:var(--navy);color:var(--text);font-family:Montserrat,sans-serif;overflow:hidden}
-.slide{display:none;height:100vh;width:100vw;padding:6vh 8vw;position:relative;background-image:radial-gradient(circle at 50% 0%,rgba(212,175,55,.08),transparent 60%)}
-.slide.active{display:flex;flex-direction:column;justify-content:center}
-.kicker{color:var(--muted);text-transform:uppercase;letter-spacing:3px;font-size:.8rem;margin-bottom:12px}
-h1{font-family:Cinzel,serif;color:var(--gold);font-size:3rem;line-height:1.15;text-transform:uppercase;letter-spacing:2px}
-h2{font-family:Cinzel,serif;color:var(--gold);font-size:2rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:18px}
-.slide p,.slide li{font-size:1.25rem;line-height:1.7;max-width:1000px}
-.slide ul{padding-left:24px}
-.slide li{margin-bottom:10px}
-.big{font-family:Cinzel,serif;font-size:4.5rem;color:var(--gold);font-weight:900}
-.accent{color:var(--gold-light)}.red{color:var(--red)}.green{color:var(--green)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:1100px}
-.cell{border:1px solid rgba(212,175,55,.35);border-radius:10px;padding:20px;background:rgba(15,39,64,.6)}
-.cell b{color:var(--gold);font-size:1.4rem;display:block;margin-bottom:6px}
-.nav{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:14px 8vw;background:rgba(5,14,24,.9);border-top:1px solid rgba(212,175,55,.25);z-index:5}
-.nav button{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:8px 22px;border-radius:6px;cursor:pointer;font-family:Cinzel,serif;font-size:.9rem}
+body{background:var(--navy);background-image:radial-gradient(circle at 50% 50%,rgba(212,175,55,.05),transparent 70%);color:var(--text);font-family:Montserrat,sans-serif;overflow:hidden}
+h1,h2{font-family:Cinzel,serif;color:var(--gold);text-transform:uppercase;letter-spacing:2px}
+.slide{display:none;height:100vh;width:100vw;padding:5vh 7vw;overflow-y:auto}
+.slide.active{display:block}
+.kicker{color:var(--muted);text-transform:uppercase;letter-spacing:3px;font-size:.78rem;margin-bottom:10px}
+h1{font-size:2.6rem;line-height:1.2;margin-bottom:14px;text-shadow:0 4px 10px rgba(0,0,0,.8)}
+h2{font-size:1.8rem;margin-bottom:16px}
+.slide p{font-size:1.15rem;line-height:1.7;max-width:1000px;color:#C0C0C0}
+.slide ul{padding-left:22px;max-width:1000px}
+.slide li{margin-bottom:9px;font-size:1.12rem;line-height:1.65}
+.badge{display:inline-block;border:1px solid var(--gold);color:var(--gold);border-radius:20px;padding:4px 16px;font-size:.8rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+.hero-logo{max-width:230px;border-radius:50%;filter:drop-shadow(0 0 30px rgba(212,175,55,.4));margin-bottom:18px}
+.btn{display:inline-block;padding:14px 32px;font-family:Cinzel,serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;border:2px solid var(--gold);color:var(--gold);text-decoration:none;margin:14px 12px 0 0;font-size:.9rem}
+.btn-primary{background:var(--gold);color:var(--navy)}
+.btn-primary:hover{background:var(--gold-light);box-shadow:0 0 20px rgba(212,175,55,.6)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:18px;max-width:1100px}
+.stat-card{background:rgba(10,28,46,.8);border:1px solid var(--gold);border-radius:8px;padding:26px 18px;text-align:center;box-shadow:inset 0 0 20px rgba(0,0,0,.5)}
+.stat-card .n{font-family:Cinzel,serif;font-size:2rem;font-weight:700;color:var(--gold);text-shadow:0 0 15px rgba(212,175,55,.4)}
+.stat-card .t{font-size:.82rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:8px}
+.flow{display:flex;align-items:stretch;gap:0;margin-top:18px;flex-wrap:wrap;max-width:1100px}
+.step{flex:1;min-width:150px;background:rgba(10,28,46,.8);border:1px solid var(--gold);padding:16px 12px;text-align:center;font-size:.92rem}
+.step b{display:block;color:var(--gold);font-family:Cinzel,serif;margin-bottom:6px}
+.arrow{align-self:center;color:var(--gold);font-size:1.6rem;padding:0 6px}
+.accent{color:var(--gold-light)}.red{color:#f85149}.green{color:#3fb950}
+table{border-collapse:collapse;margin-top:14px;max-width:1000px;width:100%}
+td,th{border:1px solid rgba(212,175,55,.4);padding:9px 12px;text-align:left;font-size:1rem}
+th{color:var(--gold);font-family:Cinzel,serif;text-transform:uppercase;font-size:.85rem;letter-spacing:1px}
+.bars{display:flex;align-items:flex-end;gap:5px;height:130px;margin-top:18px;max-width:1100px}
+.bar{flex:1;background:linear-gradient(180deg,var(--gold),rgba(212,175,55,.25));border-radius:3px 3px 0 0;min-width:6px;position:relative}
+.bar span{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:.65rem;color:var(--muted)}
+.addr{font-family:monospace;color:var(--muted);word-break:break-all;margin-top:14px;font-size:.95rem}
+.nav{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:12px 7vw;background:rgba(5,14,24,.92);border-top:1px solid rgba(212,175,55,.25);z-index:5}
+.nav button{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:8px 22px;border-radius:0;cursor:pointer;font-family:Cinzel,serif;font-size:.85rem;text-transform:uppercase}
 .nav button:hover{background:rgba(212,175,55,.12)}
-#counter{color:var(--muted);font-size:.9rem;letter-spacing:2px}
-.logo{height:110px;border-radius:50%;box-shadow:0 0 40px rgba(212,175,55,.4);margin-bottom:20px}
-.addr{font-family:monospace;font-size:1rem;color:var(--muted);word-break:break-all}
-.hint{position:fixed;top:14px;right:8vw;color:var(--muted);font-size:.75rem;z-index:5}
-@media (max-width:768px){h1{font-size:1.8rem}h2{font-size:1.3rem}.slide p,.slide li{font-size:1rem}.grid{grid-template-columns:1fr}.big{font-size:2.6rem}.logo{height:80px}}
-@media print{.nav,.hint{display:none}.slide{display:flex;height:auto;page-break-after:always}}
+#counter{color:var(--muted);font-size:.85rem;letter-spacing:2px}
+.hint{position:fixed;top:12px;right:7vw;color:var(--muted);font-size:.72rem;z-index:5}
+.topbrand{position:fixed;top:12px;left:7vw;display:flex;align-items:center;gap:10px;z-index:5;text-decoration:none}
+.topbrand img{height:34px;border-radius:50%}
+.topbrand span{font-family:Cinzel,serif;color:var(--gold);font-weight:700;letter-spacing:2px;font-size:.85rem}
+@media (max-width:768px){h1{font-size:1.6rem}h2{font-size:1.25rem}.slide p,.slide li{font-size:.95rem}td,th{font-size:.8rem;padding:6px}.hero-logo{max-width:150px}}
+@media print{.nav,.hint,.topbrand{display:none}.slide{display:block;height:auto;page-break-after:always}}
 </style>
 </head>
 <body>
-<div class="hint">← → / пробел · клик по краям</div>
+<a class="topbrand" href="https://sementsul.net/"><img src="sml-256.png" alt="SML"><span>SEMENTSUL</span></a>
+<div class="hint">← → / пробел</div>
 
-<section class="slide"><div class="kicker">Sementsul Network · SML · BNB Chain</div>
-<img class="logo" src="sml-256.png" alt="Sementsul">
+<section class="slide"><div class="badge">Sementsul Network · SML · BNB Chain</div>
+<img class="hero-logo" src="sml-256.png" alt="Sementsul">
 <h1>Боты атакуют.<br>Мы на этом <span class="accent">зарабатываем.</span></h1>
-<p style="margin-top:16px">Децентрализованная сеть учета бот-трафика с дефляционным токеном. Вредоносный трафик превращается в деньги владельцев сайтов — и в дефицит монеты.</p>
+<p>Фамильная валюта. Имперская стабильность. Цифровое наследие — подкрепленное реальной работой сети, а не обещаниями.</p>
+<div><a class="btn btn-primary" href="https://pancakeswap.finance/swap?outputCurrency=0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7">Купить SML</a><a class="btn" href="https://bscscan.com/token/0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7">Контракт</a></div>
 </section>
 
-<section class="slide"><div class="kicker">01 · Проблема</div><h2>Интернет забит ботами</h2>
+<section class="slide"><div class="badge">01 · Проблема</div><h2>Интернет забит ботами</h2>
 <ul>
 <li><b class="accent">40%+ трафика</b> — сканеры, парсеры, брутфорс, DDoS.</li>
 <li>Владельцы сайтов <b>платят дважды</b>: за серверы, которые жгут боты, и за файрволы против них.</li>
-<li>Существующие решения — это <b>расход</b>. Защита не приносит денег.</li>
+<li>Защита сегодня — это <b>расход</b>. Мы делаем ее <b>доходом</b>.</li>
 </ul></section>
 
-<section class="slide"><div class="kicker">02 · Решение</div><h2>Перевернуть уравнение</h2>
-<ul>
-<li>Пограничный фильтр фиксирует бота <b>до</b> сервера.</li>
-<li>IP попадает в <b>общую открытую базу</b> (Threat Intelligence).</li>
-<li>Контракт <b>платит</b> поймавшему и <b>сжигает</b> из резерва.</li>
-<li>Атаки = эмиссия наград + сокращение предложения. <b>Чем больше атакуют — тем дефицитнее монета.</b></li>
-</ul></section>
+<section class="slide"><div class="badge">02 · Как работает монета</div><h2>Жизнь одной атаки</h2>
+<div class="flow">
+<div class="step"><b>1. Бот</b>Сканер долбит сайт вебмастера</div><div class="arrow">→</div>
+<div class="step"><b>2. Edge</b>Worker замечает скор &gt; 10, шлет репорт</div><div class="arrow">→</div>
+<div class="step"><b>3. D1</b>IP + кошелек вебмастера в базе</div><div class="arrow">→</div>
+<div class="step"><b>4. Оракул</b>Каждые ~15 мин вызывает контракт</div><div class="arrow">→</div>
+<div class="step"><b>5. SML</b><span class="green">+3</span> вебмастеру, <span class="red">−10</span> из резерва</div>
+</div>
+<p style="margin-top:16px">Повторная атака того же IP: <b>+7 treasury</b> проекта, <b>−10</b> из резерва. IP в цепочку не пишутся — только их хэши: дешевле и приватнее.</p></section>
 
-<section class="slide"><div class="kicker">03 · Как это работает</div><h2>4 шага, 15 минут</h2>
+<section class="slide"><div class="badge">03 · Эмиссия</div><h2>1 миллиард. Больше не будет</h2>
 <div class="grid">
-<div class="cell"><b>1. Edge</b>Cloudflare Worker замечает бота по скору и шлет репорт.</div>
-<div class="cell"><b>2. D1</b>IP, счетчик, кошелек вебмастера. UPSERT — рецидивы не теряются.</div>
-<div class="cell"><b>3. Оракул</b>GitHub Actions каждые ~15–45 мин вызывает контракт и пересобирает базу.</div>
-<div class="cell"><b>4. BNB Chain</b>Минт +3 вебмастеру / +7 treasury, сжигание 10 из резерва.</div>
-</div></section>
+<div class="stat-card"><div class="n">750M</div><div class="t">Рынок: владелец, пул, листинги</div></div>
+<div class="stat-card"><div class="n">250M</div><div class="t">Резерв сжигания — на балансе контракта</div></div>
+<div class="stat-card"><div class="n">0%</div><div class="t">Налог покупки / продажи</div></div>
+<div class="stat-card"><div class="n">100 лет</div><div class="t">Эра дефляции: капы 500/день и 2.5M/год</div></div>
+</div>
+<p style="margin-top:14px">Каждая атака уменьшает предложение. График сжигания — ровная столетняя полка:</p>
+<div class="bars"><div class="bar" style="height:100%"><span>1г</span></div><div class="bar" style="height:98%"><span>10</span></div><div class="bar" style="height:96%"><span>20</span></div><div class="bar" style="height:94%"><span>30</span></div><div class="bar" style="height:92%"><span>40</span></div><div class="bar" style="height:90%"><span>50</span></div><div class="bar" style="height:88%"><span>60</span></div><div class="bar" style="height:86%"><span>70</span></div><div class="bar" style="height:84%"><span>80</span></div><div class="bar" style="height:82%"><span>90</span></div><div class="bar" style="height:80%"><span>100</span></div></div>
+</section>
 
-<section class="slide"><div class="kicker">04 · Токеномика</div><h2>Дефляция по контракту</h2>
-<div class="grid">
-<div class="cell"><b>1 000 000 000</b>Эмиссия SML, больше не будет.</div>
-<div class="cell"><b>250 000 000</b>Резерв сжигания — реально на балансе контракта.</div>
-<div class="cell"><b>10 / 3 / 7</b>Сжигание / награда за уникальный IP / treasury за рецидив.</div>
-<div class="cell"><b>100 лет</b>Капы 500 минтов в сутки и 2.5M в год растягивают эру на век.</div>
-</div></section>
+<section class="slide"><div class="badge">04 · Участники</div><h2>Кто что получает</h2>
+<table>
+<tr><th>Участник</th><th>Делает</th><th>Получает</th></tr>
+<tr><td>Вебмастер</td><td>Ставит воркер, ловит ботов</td><td class="green">+3 SML за уникальный IP</td></tr>
+<tr><td>Проект (treasury)</td><td>Держит сеть и оракула</td><td class="green">+7 SML за каждую повторную атаку</td></tr>
+<tr><td>Трейдер</td><td>Покупает в пуле PancakeSwap</td><td>Рост за счет дефляции</td></tr>
+<tr><td>Оракул</td><td>Валидирует и минтит</td><td>Только газ (центы), без доли</td></tr>
+</table></section>
 
-<section class="slide"><div class="kicker">05 · Технологии</div><h2>Ноль серверов</h2>
+<section class="slide"><div class="badge">05 · Технологии</div><h2>Ноль серверов</h2>
 <ul>
-<li><b>Cloudflare Workers + D1</b> — исполнение и база на краю сети. Нечего DDoSить.</li>
+<li><b>Cloudflare Workers + D1</b> — исполнение и база на краю сети. Нечего DDoSить, нечего блокировать.</li>
 <li><b>GitHub Actions + Pages</b> — оракул и витрина. Хостинг — $0.</li>
-<li><b>BNB Chain</b> — дешевый газ для частых минтов оракула.</li>
+<li><b>BNB Chain</b> — дешевый газ для частых минтов.</li>
 <li>Воркер <b>никого не блокирует</b> — только учет. Ноль риска для живых посетителей.</li>
 </ul></section>
 
-<section class="slide"><div class="kicker">06 · Статус</div><h2>Уже работает, не слайды</h2>
+<section class="slide"><div class="badge">06 · Статус</div><h2>Уже работает, не слайды</h2>
 <ul>
 <li><span class="green">●</span> Контракт V2 задеплоен и <b>верифицирован</b> на BscScan (полное совпадение).</li>
 <li><span class="green">●</span> Edge-воркер ловит и пишет в D1 (проверено боевым тестом).</li>
-<li><span class="green">●</span> Оракул тикает, телеметрия и blocklist обновляются.</li>
-<li><span class="green">●</span> Сайт, блог (7 статей, 3 языка), FAQ, подключение вебмастеров — в проде.</li>
+<li><span class="green">●</span> Оракул тикает, телеметрия и blocklist обновляются каждые ~15–45 мин.</li>
+<li><span class="green">●</span> Сайт, блог (7 статей, 3 языка), FAQ, автовыдача секретов — в проде.</li>
 <li>Следующий шаг: <b>пул ликвидности V2</b> → цена → цикл спроса.</li>
 </ul>
 <p class="addr">0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</p></section>
 
-<section class="slide"><div class="kicker">07 · Бизнес-модель</div><h2>Откуда деньги</h2>
+<section class="slide"><div class="badge">07 · Экономика</div><h2>Откуда деньги</h2>
 <ul>
 <li><b>Treasury-поток:</b> каждый рецидив бота = +7 SML проекту. Ботнеты платят нам сами.</li>
-<li><b>SaaS-подключения:</b> вебмастера несут трафик и базу, сеть растет без затрат на привлечение.</li>
+<li><b>SaaS-подключения:</b> вебмастера несут трафик и базу, сеть растет без затрат.</li>
 <li><b>Пул:</b> старт $2 000 → рост за счет дефляции → DCA из доходов до $10 000+.</li>
-<li>Операционные расходы на старте: <b>≈ $0</b> (free-тарифы) + газ оракула (центы).</li>
+<li>Операционные расходы: <b>≈ $0</b> + газ оракула (центы).</li>
+<li>Честно: цикл запускается <b>пулом и первыми боями</b>, не презентацией.</li>
 </ul></section>
 
-<section class="slide"><div class="kicker">08 · Рынок и рост</div><h2>Колесо спроса</h2>
-<ul>
-<li>Аудитория 1: <b>сисадмины и вебмастера</b> — им платят за то, что они и так терпят.</li>
-<li>Аудитория 2: <b>DEX-трейдеры</b> — радары (DEX Screener и др.) подсвечивают растущие низкокаповые пары.</li>
-<li>Каждая атака жмет предложение → цена → внимание → новые подключения → новые атаки.</li>
-<li>Честная оговорка: цикл запускается <b>пулом и первыми боями</b>, не презентацией.</li>
-</ul></section>
-
-<section class="slide"><div class="kicker">09 · Дорожная карта</div><h2>Что дальше</h2>
+<section class="slide"><div class="badge">08 · Дорожная карта</div><h2>Что дальше</h2>
 <ul>
 <li><b>Q4 2026:</b> пул V2, Token Info на BscScan, первые 10 сайтов-партнеров.</li>
-<li><b>Q1 2027:</b> серверная P2P-нода (iptables/fail2ban-интеграция), API базы для SOC.</li>
-<li><b>2027:</b> независимый аудит контракта, трекеры (CoinGecko/CMC), расширение utility базы.</li>
-</ul></section>
+<li><b>Q1 2027:</b> серверная P2P-нода (iptables/fail2ban), API базы для SOC.</li>
+<li><b>2027:</b> независимый аудит, трекеры CoinGecko/CMC, расширение utility базы.</li>
+</ul>
+<div><a class="btn btn-primary" href="https://sementsul.net/">sementsul.net</a><a class="btn" href="https://gennadii75.github.io/sml-network-v2/stats.html">Телеметрия сети</a></div>
+</section>
 
-<section class="slide"><div class="kicker">10 · Ask</div><h2>Предложение</h2>
-<p class="big">$2 000 → $10 000</p>
+<section class="slide"><div class="badge">09 · Ask</div><h1>$2 000 → $10 000</h1>
 <ul>
 <li>Стартовая ликвидность пула V2 и запас на DCA — прозрачно, ончейн, проверяемо.</li>
 <li>Средства идут <b>в пул</b>, а не в карман: LP-токены видны всем.</li>
-<li>Контакт и материалы: sementsul.net · BscScan · GitHub · Telegram-канал.</li>
+<li>sementsul.net · BscScan · GitHub · Telegram-канал.</li>
 </ul></section>
 
-<div class="nav"><button id="prev">← Назад</button><span id="counter">1 / 11</span><button id="next">Далее →</button></div>
+<div class="nav"><button id="prev">← Назад</button><span id="counter">1 / 10</span><button id="next">Далее →</button></div>
 <script>
 (function(){
   var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
@@ -151,6 +171,7 @@ h2{font-family:Cinzel,serif;color:var(--gold);font-size:2rem;text-transform:uppe
     if (e.key === 'ArrowLeft') show(i - 1);
   });
   document.body.addEventListener('click', function(e){
+    if (e.target.tagName === 'A') return;
     if (e.clientX > window.innerWidth * 0.7) show(i + 1);
     else if (e.clientX < window.innerWidth * 0.3) show(i - 1);
   });
