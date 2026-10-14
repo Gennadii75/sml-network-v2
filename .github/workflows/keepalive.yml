@@ -1,0 +1,31 @@
+name: keepalive
+
+# GitHub отключает cron после 60 дней без активности в репо.
+# Этот workflow каждый час делает коммит-«пульс» — cron не уснет.
+on:
+  schedule:
+    - cron: "23 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Ping edge worker
+        run: |
+          curl -s -o /dev/null -w "edge: %{http_code}\n" https://sementsul-edge.sementsul-maksim.workers.dev/ || true
+          curl -s -o /dev/null -w "api: %{http_code}\n" -X OPTIONS https://sementsul.net/api/report-bot || true
+      - name: Keepalive commit
+        run: |
+          date -u +"%Y-%m-%dT%H:%M:%SZ" > .keepalive
+          if git diff --quiet; then echo "no changes"; exit 0; fi
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .keepalive
+          git commit -m "keepalive ping"
+          git pull --rebase origin main || true
+          git push
