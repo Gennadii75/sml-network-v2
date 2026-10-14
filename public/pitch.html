@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sementsul Network — презентация для инвестора</title>
+<meta name="description" content="Sementsul Network: монетизация бот-трафика. Дефляционный токен SML, живая инфраструктура, экономика witch-hunt ботов.">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#0A1C2E">
+<link rel="icon" href="sml-256.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A1C2E;--gold:#D4AF37;--gold-light:#F4D03F;--text:#E0E0E0;--muted:#A0A0A0;--red:#f85149;--green:#3fb950}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--navy);color:var(--text);font-family:Montserrat,sans-serif;overflow:hidden}
+.slide{display:none;height:100vh;width:100vw;padding:6vh 8vw;position:relative;background-image:radial-gradient(circle at 50% 0%,rgba(212,175,55,.08),transparent 60%)}
+.slide.active{display:flex;flex-direction:column;justify-content:center}
+.kicker{color:var(--muted);text-transform:uppercase;letter-spacing:3px;font-size:.8rem;margin-bottom:12px}
+h1{font-family:Cinzel,serif;color:var(--gold);font-size:3rem;line-height:1.15;text-transform:uppercase;letter-spacing:2px}
+h2{font-family:Cinzel,serif;color:var(--gold);font-size:2rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:18px}
+.slide p,.slide li{font-size:1.25rem;line-height:1.7;max-width:1000px}
+.slide ul{padding-left:24px}
+.slide li{margin-bottom:10px}
+.big{font-family:Cinzel,serif;font-size:4.5rem;color:var(--gold);font-weight:900}
+.accent{color:var(--gold-light)}.red{color:var(--red)}.green{color:var(--green)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:1100px}
+.cell{border:1px solid rgba(212,175,55,.35);border-radius:10px;padding:20px;background:rgba(15,39,64,.6)}
+.cell b{color:var(--gold);font-size:1.4rem;display:block;margin-bottom:6px}
+.nav{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:14px 8vw;background:rgba(5,14,24,.9);border-top:1px solid rgba(212,175,55,.25);z-index:5}
+.nav button{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:8px 22px;border-radius:6px;cursor:pointer;font-family:Cinzel,serif;font-size:.9rem}
+.nav button:hover{background:rgba(212,175,55,.12)}
+#counter{color:var(--muted);font-size:.9rem;letter-spacing:2px}
+.logo{height:110px;border-radius:50%;box-shadow:0 0 40px rgba(212,175,55,.4);margin-bottom:20px}
+.addr{font-family:monospace;font-size:1rem;color:var(--muted);word-break:break-all}
+.hint{position:fixed;top:14px;right:8vw;color:var(--muted);font-size:.75rem;z-index:5}
+@media (max-width:768px){h1{font-size:1.8rem}h2{font-size:1.3rem}.slide p,.slide li{font-size:1rem}.grid{grid-template-columns:1fr}.big{font-size:2.6rem}.logo{height:80px}}
+@media print{.nav,.hint{display:none}.slide{display:flex;height:auto;page-break-after:always}}
+</style>
+</head>
+<body>
+<div class="hint">← → / пробел · клик по краям</div>
+
+<section class="slide"><div class="kicker">Sementsul Network · SML · BNB Chain</div>
+<img class="logo" src="sml-256.png" alt="Sementsul">
+<h1>Боты атакуют.<br>Мы на этом <span class="accent">зарабатываем.</span></h1>
+<p style="margin-top:16px">Децентрализованная сеть учета бот-трафика с дефляционным токеном. Вредоносный трафик превращается в деньги владельцев сайтов — и в дефицит монеты.</p>
+</section>
+
+<section class="slide"><div class="kicker">01 · Проблема</div><h2>Интернет забит ботами</h2>
+<ul>
+<li><b class="accent">40%+ трафика</b> — сканеры, парсеры, брутфорс, DDoS.</li>
+<li>Владельцы сайтов <b>платят дважды</b>: за серверы, которые жгут боты, и за файрволы против них.</li>
+<li>Существующие решения — это <b>расход</b>. Защита не приносит денег.</li>
+</ul></section>
+
+<section class="slide"><div class="kicker">02 · Решение</div><h2>Перевернуть уравнение</h2>
+<ul>
+<li>Пограничный фильтр фиксирует бота <b>до</b> сервера.</li>
+<li>IP попадает в <b>общую открытую базу</b> (Threat Intelligence).</li>
+<li>Контракт <b>платит</b> поймавшему и <b>сжигает</b> из резерва.</li>
+<li>Атаки = эмиссия наград + сокращение предложения. <b>Чем больше атакуют — тем дефицитнее монета.</b></li>
+</ul></section>
+
+<section class="slide"><div class="kicker">03 · Как это работает</div><h2>4 шага, 15 минут</h2>
+<div class="grid">
+<div class="cell"><b>1. Edge</b>Cloudflare Worker замечает бота по скору и шлет репорт.</div>
+<div class="cell"><b>2. D1</b>IP, счетчик, кошелек вебмастера. UPSERT — рецидивы не теряются.</div>
+<div class="cell"><b>3. Оракул</b>GitHub Actions каждые ~15–45 мин вызывает контракт и пересобирает базу.</div>
+<div class="cell"><b>4. BNB Chain</b>Минт +3 вебмастеру / +7 treasury, сжигание 10 из резерва.</div>
+</div></section>
+
+<section class="slide"><div class="kicker">04 · Токеномика</div><h2>Дефляция по контракту</h2>
+<div class="grid">
+<div class="cell"><b>1 000 000 000</b>Эмиссия SML, больше не будет.</div>
+<div class="cell"><b>250 000 000</b>Резерв сжигания — реально на балансе контракта.</div>
+<div class="cell"><b>10 / 3 / 7</b>Сжигание / награда за уникальный IP / treasury за рецидив.</div>
+<div class="cell"><b>100 лет</b>Капы 500 минтов в сутки и 2.5M в год растягивают эру на век.</div>
+</div></section>
+
+<section class="slide"><div class="kicker">05 · Технологии</div><h2>Ноль серверов</h2>
+<ul>
+<li><b>Cloudflare Workers + D1</b> — исполнение и база на краю сети. Нечего DDoSить.</li>
+<li><b>GitHub Actions + Pages</b> — оракул и витрина. Хостинг — $0.</li>
+<li><b>BNB Chain</b> — дешевый газ для частых минтов оракула.</li>
+<li>Воркер <b>никого не блокирует</b> — только учет. Ноль риска для живых посетителей.</li>
+</ul></section>
+
+<section class="slide"><div class="kicker">06 · Статус</div><h2>Уже работает, не слайды</h2>
+<ul>
+<li><span class="green">●</span> Контракт V2 задеплоен и <b>верифицирован</b> на BscScan (полное совпадение).</li>
+<li><span class="green">●</span> Edge-воркер ловит и пишет в D1 (проверено боевым тестом).</li>
+<li><span class="green">●</span> Оракул тикает, телеметрия и blocklist обновляются.</li>
+<li><span class="green">●</span> Сайт, блог (7 статей, 3 языка), FAQ, подключение вебмастеров — в проде.</li>
+<li>Следующий шаг: <b>пул ликвидности V2</b> → цена → цикл спроса.</li>
+</ul>
+<p class="addr">0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</p></section>
+
+<section class="slide"><div class="kicker">07 · Бизнес-модель</div><h2>Откуда деньги</h2>
+<ul>
+<li><b>Treasury-поток:</b> каждый рецидив бота = +7 SML проекту. Ботнеты платят нам сами.</li>
+<li><b>SaaS-подключения:</b> вебмастера несут трафик и базу, сеть растет без затрат на привлечение.</li>
+<li><b>Пул:</b> старт $2 000 → рост за счет дефляции → DCA из доходов до $10 000+.</li>
+<li>Операционные расходы на старте: <b>≈ $0</b> (free-тарифы) + газ оракула (центы).</li>
+</ul></section>
+
+<section class="slide"><div class="kicker">08 · Рынок и рост</div><h2>Колесо спроса</h2>
+<ul>
+<li>Аудитория 1: <b>сисадмины и вебмастера</b> — им платят за то, что они и так терпят.</li>
+<li>Аудитория 2: <b>DEX-трейдеры</b> — радары (DEX Screener и др.) подсвечивают растущие низкокаповые пары.</li>
+<li>Каждая атака жмет предложение → цена → внимание → новые подключения → новые атаки.</li>
+<li>Честная оговорка: цикл запускается <b>пулом и первыми боями</b>, не презентацией.</li>
+</ul></section>
+
+<section class="slide"><div class="kicker">09 · Дорожная карта</div><h2>Что дальше</h2>
+<ul>
+<li><b>Q4 2026:</b> пул V2, Token Info на BscScan, первые 10 сайтов-партнеров.</li>
+<li><b>Q1 2027:</b> серверная P2P-нода (iptables/fail2ban-интеграция), API базы для SOC.</li>
+<li><b>2027:</b> независимый аудит контракта, трекеры (CoinGecko/CMC), расширение utility базы.</li>
+</ul></section>
+
+<section class="slide"><div class="kicker">10 · Ask</div><h2>Предложение</h2>
+<p class="big">$2 000 → $10 000</p>
+<ul>
+<li>Стартовая ликвидность пула V2 и запас на DCA — прозрачно, ончейн, проверяемо.</li>
+<li>Средства идут <b>в пул</b>, а не в карман: LP-токены видны всем.</li>
+<li>Контакт и материалы: sementsul.net · BscScan · GitHub · Telegram-канал.</li>
+</ul></section>
+
+<div class="nav"><button id="prev">← Назад</button><span id="counter">1 / 11</span><button id="next">Далее →</button></div>
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var i = 0;
+  try {
+    var h = parseInt((location.hash || '').replace('#',''), 10);
+    if (h >= 1 && h <= slides.length) i = h - 1;
+  } catch(e){}
+  function show(n){
+    i = (n + slides.length) % slides.length;
+    slides.forEach(function(s, k){ s.classList.toggle('active', k === i); });
+    document.getElementById('counter').textContent = (i + 1) + ' / ' + slides.length;
+    try { history.replaceState(null, '', '#' + (i + 1)); } catch(e){}
+  }
+  document.getElementById('prev').addEventListener('click', function(e){ e.stopPropagation(); show(i - 1); });
+  document.getElementById('next').addEventListener('click', function(e){ e.stopPropagation(); show(i + 1); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight' || e.key === ' ') show(i + 1);
+    if (e.key === 'ArrowLeft') show(i - 1);
+  });
+  document.body.addEventListener('click', function(e){
+    if (e.clientX > window.innerWidth * 0.7) show(i + 1);
+    else if (e.clientX < window.innerWidth * 0.3) show(i - 1);
+  });
+  show(i);
+})();
+</script>
+</body>
+</html>
