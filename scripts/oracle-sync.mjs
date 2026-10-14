@@ -63,10 +63,13 @@ async function main() {
   const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, wallet);
 
   let ok = 0;
+  const minted = [];
   for (const row of rows) {
     try {
       if (!isWallet(row.webmaster_address)) {
         console.warn(`skip bad wallet for ${row.ip}`);
+        // битый кошелек не починится — помечаем, чтобы не крутить вечно
+        minted.push(row.ip);
         continue;
       }
       const hash = ipHash(row.ip);
@@ -74,15 +77,19 @@ async function main() {
       console.log(`${row.ip} -> ${tx.hash}`);
       await tx.wait(1);
       ok++;
+      minted.push(row.ip);
     } catch (e) {
       console.error(`mint failed for ${row.ip}:`, e.shortMessage || e.message);
-      // не помечаем processed — попробуем в следующем цикле (кроме bad wallet)
+      // не помечаем processed — попробуем в следующем цикле
     }
   }
 
-  // Помечаем только те IP, для которых chain-вызовы прошли — сверяем по ipStatus != 0
-  // Упрощение: помечаем все валидные (статус проверяется контрактом).
-  await d1Query("UPDATE bot_logs SET processed = 1 WHERE processed = 0");
+  // Помечаем ТОЛЬКО успешные (revert из-за капов/резерва повторим в следующем цикле)
+  for (let i = 0; i < minted.length; i += 50) {
+    const chunk = minted.slice(i, i + 50);
+    const q = `UPDATE bot_logs SET processed = 1 WHERE ip IN (${chunk.map(() => "?").join(",")})`;
+    await d1Query(q, chunk);
+  }
   console.log(`done, minted: ${ok}`);
 }
 

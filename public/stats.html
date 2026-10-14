@@ -26,7 +26,7 @@ body{font-family:monospace;background:#0e1117;color:#c9d1d9;padding:40px}
 // Адрес V2 подставить после деплоя
 const CONTRACT = "0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7";
 const RPC = "https://bsc-dataseed.binance.org/";
-const SEL = { totalBurned: "0x16125cc9", burnReservePool: "0x2da9f9f6", currentYear: "0x2eb50c7d" };
+const SEL = { totalBurned: "0xd89135cd", burnReservePool: "0xf053b2b9", currentYear: "0x0b5a006b" };
 async function rpcCall(data){
   const r = await fetch(RPC,{method:"POST",headers:{"Content-Type":"application/json"},
     body:JSON.stringify({jsonrpc:"2.0",id:1,method:"eth_call",params:[{to:CONTRACT,data},"latest"]})});

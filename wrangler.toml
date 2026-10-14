@@ -8,7 +8,7 @@ database_name = "sementsul-db"
 database_id = "59c48891-122b-4cfa-bd57-c8cea5acb973"
 
 [vars]
-MY_TREASURY_WALLET = "0xREPLACE_TREASURY"
+MY_TREASURY_WALLET = "0xfC3e715DaB3FE1fbf95f7Df8BB14E1cF6f12e5d4"
 
 # Секрет SaaS-приема (одинаковый в wrangler secret + GitHub Secrets + client-worker):
 # wrangler secret put REPORT_SECRET

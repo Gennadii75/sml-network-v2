@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SML — Заработок на бот-трафике</title>
+<style>
+body{font-family:monospace;background:#0e1117;color:#c9d1d9;padding:40px;max-width:900px;margin:0 auto;line-height:1.7}
+h1,h2{color:#58a6ff}
+.card{background:#161b22;padding:20px;border:1px solid #30363d;border-radius:6px;margin:20px 0}
+code{background:#0d1117;padding:2px 6px;color:#ff7b72;border-radius:4px}
+a{color:#58a6ff}
+.warn{color:#f85149}
+.ok{color:#3fb950}
+</style>
+</head>
+<body>
+<h1>Заработок на бот-трафике (SML)</h1>
+<p>Вместо покупки дорогих файрволов превратите атаки в монеты: пограничный фильтр блокирует бота, его IP уходит оракулу <code>sementsul.net</code>, а BNB-контракт <a href="https://bscscan.com/address/0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7">SementsulV2</a> минтит награду.</p>
+<div class="card">
+<h2>Правила выплат</h2>
+<p>За <b>уникальный IP</b>, впервые попавший в базу: <span class="ok"><b>+3 SML</b> вам</span>, <span class="warn"><b>−10 SML</b> сжигается из резерва</span> (предложение падает, цена поддерживается).</p>
+<p>За <b>повторную атаку</b> того же IP: <b>+7 SML</b> уходит treasury проекта, <b>−10 SML</b> сжигается.</p>
+<p>Лимиты безопасности: не более 500 минтов в сутки и 2.5M сжигания в год. Эра — 100 лет.</p>
+</div>
+<div class="card">
+<h2>Подключение за 5 минут</h2>
+<ol>
+<li>Сгенерируйте скрипт на <a href="cloudflare-connect.html">cloudflare-connect.html</a> (нужен только адрес BNB-кошелька).</li>
+<li>Вставьте его в Cloudflare Worker на своем домене, добавьте секрет <code>SHARED_SECRET</code> (выдает оракул).</li>
+<li>Проверьте: откройте <code>https://ваш-домен/?bot_trigger=1</code> — в D1 должен упасть лог, через ~15 минут придет минт.</li>
+<li>SML можно держать или менять на USDT в пуле PancakeSwap.</li>
+</ol>
+</div>
+<p><a href="stats.html">Телеметрия сети</a> · <a href="harm.html">Чем вредны боты</a></p>
+</body>
+</html>

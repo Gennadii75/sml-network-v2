@@ -13,9 +13,12 @@
 
 ## TODO
 
-1. Verify source on BscScan (Standard JSON, solc 0.8.34, 200 runs).
-2. GitHub Secrets `sementsul-site`: `SML_CONTRACT=0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7`.
-3. Create PancakeSwap V2 pool for the new address (old V1 pool does NOT migrate).
-4. GitHub Secrets `sml-network-v2` repo: `CONTRACT_ADDRESS` = адрес выше,
-   `ORACLE_PRIVATE_KEY` = ключ оракула `0x0324...a39` (нигде не коммитить).
-5. `wrangler secret put REPORT_SECRET` + deploy edge worker, затем D1 init.
+1. [x] Verify source on BscScan (Standard JSON, solc 0.8.34, 200 runs) — полное совпадение.
+2. [x] GitHub Secrets `sementsul-site`: `SML_CONTRACT` — стоит.
+3. [ ] Create PancakeSwap V2 pool для нового адреса (старый пул V1 НЕ мигрирует).
+4. [ ] GitHub Secrets `sml-network-v2`: осталось вручную `CF_API_TOKEN` (D1 Edit),
+   `ORACLE_PRIVATE_KEY` (Account 28), `REPORT_SECRET` (тот же, что в воркере).
+   Уже стоят: `CONTRACT_ADDRESS`, `BNB_RPC_URL`, `CF_ACCOUNT_ID`, `CF_D1_DATABASE_ID`.
+5. [ ] Cloudflare Worker `sementsul-edge`: код залит в репо, создать воркер в дашборде,
+   привязать D1 (`DB`), vars `MY_TREASURY_WALLET`, secret `REPORT_SECRET`,
+   роут `sementsul.net/api/report-bot*`, тест POST → проверка D1.
