@@ -16,3 +16,11 @@ CREATE TABLE IF NOT EXISTS bot_logs (
 
 CREATE INDEX IF NOT EXISTS idx_botlogs_processed ON bot_logs(processed, last_seen);
 CREATE INDEX IF NOT EXISTS idx_botlogs_webmaster ON bot_logs(webmaster_address, processed);
+
+-- Персональные секреты вебмастеров (автовыдача через POST /api/request-secret)
+CREATE TABLE IF NOT EXISTS webmasters (
+    wallet TEXT PRIMARY KEY,
+    secret TEXT NOT NULL,
+    created INTEGER NOT NULL,
+    active INTEGER NOT NULL DEFAULT 1
+);

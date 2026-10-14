@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Заработок на бот-трафике — Sementsul Network</title>
-<meta name="description" content="Как вебмастеру заработать SML на бот-трафике: +3 SML за уникальный IP, сжигание 10 SML, подключение Cloudflare Worker за 10 минут.">
+<title>Earn on bot traffic — Sementsul Network</title>
+<meta name="description" content="How webmasters earn SML on bot traffic: +3 SML per unique IP, 10 SML burned, Cloudflare Worker setup in 10 minutes.">
 <link rel="canonical" href="https://gennadii75.github.io/sml-network-v2/earn.html">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0A1C2E">
 <link rel="icon" href="sml-256.png" type="image/png">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Заработок на бот-трафике — Sementsul Network">
-<meta property="og:description" content="+3 SML за уникальный IP бота. Подключение за 10 минут.">
+<meta property="og:title" content="Earn on bot traffic — Sementsul Network">
+<meta property="og:description" content="+3 SML per unique bot IP. Setup in 10 minutes.">
 <meta property="og:url" content="https://gennadii75.github.io/sml-network-v2/earn.html">
 <meta property="og:image" content="https://gennadii75.github.io/sml-network-v2/sml-256.png">
 <meta name="twitter:card" content="summary">
@@ -23,19 +23,21 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--navy);background-image:radial-gradient(circle at 50% 0%,rgba(212,175,55,.07),transparent 60%);color:var(--text);font-family:Montserrat,sans-serif;line-height:1.7}
 .wrap{max-width:960px;margin:0 auto;padding:0 20px}
-h1,h2{font-family:Cinzel,serif;color:var(--gold);text-transform:uppercase;letter-spacing:2px}
-h1{margin:8px 0 12px}
+h1,h2{font-family:Cinzel,serif;color:var(--gold);text-transform:uppercase;letter-spacing:1px}
+h1{margin:8px 0 12px;font-size:1.6rem}h2{font-size:1.15rem;margin-bottom:10px}
 header.top{border-bottom:1px solid var(--border);padding:14px 0;background:rgba(10,28,46,.92);position:sticky;top:0;z-index:10}
 .top-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:12px;color:var(--gold);font-family:Cinzel,serif;font-weight:700;font-size:1.1rem;text-decoration:none}
 .brand img{height:44px;border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.4)}
+.lang-switch{display:flex;border:1px solid var(--gold);border-radius:6px;overflow:hidden}
+.lang-switch button{background:transparent;border:0;color:var(--gold);font-family:Montserrat,sans-serif;font-size:.72rem;font-weight:600;padding:7px 9px;cursor:pointer}
 nav.main{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto}
 nav.main a{color:var(--text);text-decoration:none;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
 nav.main a:hover{color:var(--gold)}
 nav.main a.home{color:var(--gold)}
 main{padding:32px 0}
 .card{background:rgba(15,39,64,.7);border:1px solid var(--border);border-radius:8px;padding:24px;margin:20px 0}
-.card h2{margin-bottom:10px;font-size:1.2rem}
+.card ol{padding-left:20px}.card li{margin-bottom:8px}
 a{color:var(--gold-light)}
 code{background:#050e18;padding:2px 6px;color:#ff7b72;border-radius:4px}
 .ok{color:#3fb950}.warn{color:#f85149}
@@ -47,35 +49,44 @@ footer a:hover{color:var(--gold)}
 </head>
 <body>
 <header class="top"><div class="wrap top-in">
-<a class="brand" href="stats.html"><img src="sml-256.png" alt="Sementsul (SML)">SEMENTSUL NETWORK</a>
+<a class="brand" href="https://sementsul.net/"><img src="sml-256.png" alt="Sementsul (SML)"><span data-i18n="brand">SEMENTSUL NETWORK</span></a>
+<span class="lang-switch"><button data-lang="en">EN</button><button data-lang="zh">CN</button><button data-lang="ru">RU</button></span>
 <nav class="main">
-<a href="stats.html">Статистика</a><a href="earn.html">Заработок</a><a href="harm.html">Вред ботов</a><a href="cloudflare-connect.html">Подключение</a><a href="blog/">Блог</a><a href="faq.html">FAQ</a><a class="home" href="https://sementsul.net/">Главная →</a>
+<a href="stats.html" data-i18n="nav_stats">Stats</a><a href="earn.html" data-i18n="nav_earn">Earn</a><a href="harm.html" data-i18n="nav_harm">Bot harm</a><a href="cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="blog/" data-i18n="nav_blog">Blog</a><a href="faq.html" data-i18n="nav_faq">FAQ</a><a class="home" href="https://sementsul.net/" data-i18n="nav_home">Home →</a>
 </nav></div></header>
 <main class="wrap">
 <article>
-<h1>Заработок на бот-трафике</h1>
-<p>Вместо покупки дорогих файрволов превратите атаки в монеты: пограничный фильтр фиксирует бота, его IP уходит оракулу <code>sementsul.net</code>, а контракт <a href="https://bscscan.com/address/0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7">SementsulV2</a> в сети BNB Chain минтит награду.</p>
+<h1 data-i18n="e_h1">Earn on bot traffic</h1>
+<p><span data-i18n="e_intro">Instead of buying expensive firewalls, turn attacks into coins: the edge filter logs the bot, its IP goes to the oracle, and the BNB Chain contract mints the reward.</span> <a href="https://bscscan.com/address/0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7">SementsulV2</a>.</p>
 <div class="card">
-<h2>Правила выплат</h2>
-<p>За <b>уникальный IP</b>, впервые попавший в базу: <span class="ok"><b>+3 SML</b> вам</span>, <span class="warn"><b>−10 SML</b> сжигается из резерва</span> (предложение падает, цена поддерживается).</p>
-<p>За <b>повторную атаку</b> того же IP: <b>+7 SML</b> уходит treasury проекта, <b>−10 SML</b> сжигается.</p>
-<p>Лимиты безопасности: не более 500 минтов в сутки и 2.5M сжигания в год. Эра — 100 лет. Подробно с примерами — в статье <a href="blog/math.html">«Математика 3/7/10»</a>.</p>
+<h2 data-i18n="e_rules">Payout rules</h2>
+<p><span data-i18n="e_p1">For a unique IP entering the base for the first time:</span> <span class="ok"><b>+3 SML</b> <span data-i18n="e_you">to you</span></span>, <span class="warn"><b>−10 SML</b> <span data-i18n="e_burn">burned from the reserve</span></span>.</p>
+<p><span data-i18n="e_p2">For a repeat attack of the same IP: +7 SML goes to the project treasury, −10 SML is burned.</span></p>
+<p><span data-i18n="e_p3">Safety limits: max 500 mints per day and 2.5M burn per year. Era: 100 years. Details with examples in</span> <a href="blog/math.html" data-i18n="e_math">the 3/7/10 math article</a>.</p>
 </div>
 <div class="card">
-<h2>Подключение за 10 минут</h2>
+<h2 data-i18n="e_steps">Connect in 10 minutes</h2>
 <ol>
-<li>Сгенерируйте скрипт на <a href="cloudflare-connect.html">странице подключения</a> (нужен только адрес BNB-кошелька).</li>
-<li>Вставьте его в Cloudflare Worker на своем домене, добавьте секрет <code>SHARED_SECRET</code> (выдает оракул).</li>
-<li>Проверьте: откройте <code>https://ваш-домен/?bot_trigger=1</code> — воркер отправит тестовый репорт.</li>
-<li>SML можно держать или менять на USDT в пуле PancakeSwap.</li>
+<li><span data-i18n="e_s1">Generate the script on the</span> <a href="cloudflare-connect.html" data-i18n="e_conn">connect page</a> <span data-i18n="e_s1b">(BNB wallet address is enough).</span></li>
+<li data-i18n="e_s2">Paste it into a Cloudflare Worker on your domain — the secret is already embedded in the code from the connect page.</li>
+<li data-i18n="e_s3">Test: open https://your-domain/?bot_trigger=1 — the worker will send a test report.</li>
+<li data-i18n="e_s4">Hold SML or swap it for USDT in the PancakeSwap pool.</li>
 </ol>
-<p>Пошагово с картинками — <a href="blog/connect-10-min.html">гайд по подключению</a>. Нет Cloudflare? <a href="blog/fail2ban-blocklist.html">Вариант с fail2ban</a>.</p>
+<p><span data-i18n="e_guide">Step-by-step with screenshots in the</span> <a href="blog/connect-10-min.html" data-i18n="e_guide2">setup guide</a>. <span data-i18n="e_nocf">No Cloudflare?</span> <a href="blog/fail2ban-blocklist.html" data-i18n="e_fb">The fail2ban option</a>.</p>
 </div>
 </article>
 </main>
 <footer><div class="wrap">
-<nav><a href="stats.html">Статистика</a><a href="earn.html">Заработок</a><a href="harm.html">Вред ботов</a><a href="cloudflare-connect.html">Подключение</a><a href="blog/">Блог</a><a href="faq.html">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
-<div>Sementsul Network · контракт SML: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
+<nav><a href="stats.html" data-i18n="nav_stats">Stats</a><a href="earn.html" data-i18n="nav_earn">Earn</a><a href="harm.html" data-i18n="nav_harm">Bot harm</a><a href="cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="blog/" data-i18n="nav_blog">Blog</a><a href="faq.html" data-i18n="nav_faq">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
+<div><span data-i18n="foot_contract">Sementsul Network · SML contract:</span> 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
 </div></footer>
+<script>
+window.PAGE_I18N = {
+en: { e_h1: "Earn on bot traffic", e_intro: "Instead of buying expensive firewalls, turn attacks into coins: the edge filter logs the bot, its IP goes to the oracle, and the BNB Chain contract mints the reward.", e_rules: "Payout rules", e_p1: "For a unique IP entering the base for the first time:", e_you: "to you", e_burn: "burned from the reserve", e_p2: "For a repeat attack of the same IP: +7 SML goes to the project treasury, −10 SML is burned.", e_p3: "Safety limits: max 500 mints per day and 2.5M burn per year. Era: 100 years. Details with examples in", e_math: "the 3/7/10 math article", e_steps: "Connect in 10 minutes", e_s1: "Generate the script on the", e_conn: "connect page", e_s1b: "(BNB wallet address is enough).", e_s2: "Paste it into a Cloudflare Worker on your domain — the secret is already embedded in the code from the connect page.", e_s3: "Test: open https://your-domain/?bot_trigger=1 — the worker will send a test report.", e_s4: "Hold SML or swap it for USDT in the PancakeSwap pool.", e_guide: "Step-by-step with screenshots in the", e_guide2: "setup guide", e_nocf: "No Cloudflare?", e_fb: "The fail2ban option" },
+ru: { e_h1: "Заработок на бот-трафике", e_intro: "Вместо покупки дорогих файрволов превратите атаки в монеты: пограничный фильтр фиксирует бота, его IP уходит оракулу, а контракт BNB Chain минтит награду.", e_rules: "Правила выплат", e_p1: "За уникальный IP, впервые попавший в базу:", e_you: "вам", e_burn: "сжигается из резерва", e_p2: "За повторную атаку того же IP: +7 SML уходит treasury проекта, −10 SML сжигается.", e_p3: "Лимиты безопасности: не более 500 минтов в сутки и 2.5M сжигания в год. Эра — 100 лет. Подробно с примерами —", e_math: "в статье «Математика 3/7/10»", e_steps: "Подключение за 10 минут", e_s1: "Сгенерируйте скрипт на", e_conn: "странице подключения", e_s1b: "(нужен только адрес BNB-кошелька).", e_s2: "Вставьте его в Cloudflare Worker на своем домене, секрет уже встроен в код со страницы подключения.", e_s3: "Проверьте: откройте https://ваш-домен/?bot_trigger=1 — воркер отправит тестовый репорт.", e_s4: "SML можно держать или менять на USDT в пуле PancakeSwap.", e_guide: "Пошагово с картинками —", e_guide2: "гайд по подключению", e_nocf: "Нет Cloudflare?", e_fb: "Вариант с fail2ban" },
+zh: { e_h1: "用机器人流量赚钱", e_intro: "别买昂贵的防火墙，把攻击变成硬币：边缘过滤器记录机器人，其IP发往预言机，BNB Chain合约铸造奖励。", e_rules: "奖励规则", e_p1: "首次入库的独立IP：", e_you: "给你+3 SML", e_burn: "从储备销毁10 SML", e_p2: "同一IP再次攻击：+7 SML归项目金库，销毁10 SML。", e_p3: "安全限制：全网每天最多500次铸造，每年最多销毁250万。时代：100年。示例详见", e_math: "3/7/10数学文章", e_steps: "10分钟接入", e_s1: "在以下页面生成脚本", e_conn: "接入页面", e_s1b: "（只需BNB钱包地址）。", e_s2: "粘贴到你域名的Cloudflare Worker，密钥已嵌入接入页面的代码。", e_s3: "测试：打开 https://你的域名/?bot_trigger=1 ——Worker将发送测试报告。", e_s4: "持有SML或在PancakeSwap换成USDT。", e_guide: "图文步骤见", e_guide2: "接入指南", e_nocf: "没有Cloudflare？", e_fb: "fail2ban方案" }
+};
+</script>
+<script src="assets/site.js"></script>
 </body>
 </html>

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Подключение сайта к SML за 10 минут — SML блог</title>
-<meta name="description" content="Пошаговое подключение сайта к Sementsul Network: Cloudflare Worker, секрет, роут, проверка тестовым запросом и первый минт SML.">
+<title>Connecting your site to SML in 10 minutes — SML blog</title>
+<meta name="description" content="Step-by-step site connection to Sementsul Network: Cloudflare Worker, secret, route, test request and the first SML mint.">
 <link rel="canonical" href="https://gennadii75.github.io/sml-network-v2/blog/connect-10-min.html">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0A1C2E">
 <link rel="icon" href="../sml-256.png" type="image/png">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Подключение сайта к SML за 10 минут">
+<meta property="og:title" content="Connecting your site to SML in 10 minutes">
 <meta property="og:url" content="https://gennadii75.github.io/sml-network-v2/blog/connect-10-min.html">
 <meta property="og:image" content="https://gennadii75.github.io/sml-network-v2/sml-256.png">
 <meta name="twitter:card" content="summary">
@@ -28,6 +28,8 @@ header.top{border-bottom:1px solid var(--border);padding:14px 0;background:rgba(
 .top-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:12px;color:var(--gold);font-family:Cinzel,serif;font-weight:700;font-size:1.1rem;text-decoration:none}
 .brand img{height:44px;border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.4)}
+.lang-switch{display:flex;border:1px solid var(--gold);border-radius:6px;overflow:hidden}
+.lang-switch button{background:transparent;border:0;color:var(--gold);font-family:Montserrat,sans-serif;font-size:.72rem;font-weight:600;padding:7px 9px;cursor:pointer}
 nav.main{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto}
 nav.main a{color:var(--text);text-decoration:none;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
 nav.main a:hover{color:var(--gold)}
@@ -46,30 +48,48 @@ footer a:hover{color:var(--gold)}
 </head>
 <body>
 <header class="top"><div class="wrap top-in">
-<a class="brand" href="../stats.html"><img src="../sml-256.png" alt="Sementsul (SML)">SEMENTSUL NETWORK</a>
+<a class="brand" href="https://sementsul.net/"><img src="../sml-256.png" alt="Sementsul (SML)"><span data-i18n="brand">SEMENTSUL NETWORK</span></a>
+<span class="lang-switch"><button data-lang="en">EN</button><button data-lang="zh">CN</button><button data-lang="ru">RU</button></span>
 <nav class="main">
-<a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a class="home" href="https://sementsul.net/">Главная →</a>
+<a href="../stats.html" data-i18n="nav_stats">Stats</a><a href="../earn.html" data-i18n="nav_earn">Earn</a><a href="../harm.html" data-i18n="nav_harm">Bot harm</a><a href="../cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="./" data-i18n="nav_blog">Blog</a><a href="../faq.html" data-i18n="nav_faq">FAQ</a><a class="home" href="https://sementsul.net/" data-i18n="nav_home">Home →</a>
 </nav></div></header>
 <main class="wrap">
 <article>
-<p><a href="index.html">← Все статьи</a></p>
-<h1>Подключение сайта к SML за 10 минут</h1>
-<p>Нужно: домен на Cloudflare (хватит free-тарифа) и адрес BNB-кошелька.</p>
-<div class="card"><h2>Шаг 1. Сгенерируй скрипт</h2>
-<p>Открой <a href="../cloudflare-connect.html">генератор</a>, вставь адрес кошелька <code>0x...</code>, скопируй код.</p></div>
-<div class="card"><h2>Шаг 2. Создай Worker</h2>
-<p>Compute → Workers → Create → имя вида <code>мой-домен-guard</code> → Deploy → Edit code → вставь скрипт → Deploy.</p></div>
-<div class="card"><h2>Шаг 3. Секрет и роут</h2>
-<p>Settings → Variables and Secrets → Secret <code>SHARED_SECRET</code> (выдает оракул сети). Domains → Add → Route <code>твой-домен/*</code>. Redeploy.</p></div>
-<div class="card"><h2>Шаг 4. Проверка</h2>
-<pre>https://твой-домен/?bot_trigger=1</pre>
-<p>Открой этот URL — воркер отправит тестовый репорт. Сайт работает как раньше (трафик идет транзитом). Первый боевой минт — после первой реальной атаки, обычно 15–30 минут: <span class="ok">D1 → оракул → контракт → твой кошелек</span>.</p></div>
-<p>Дальше: <a href="math.html">сколько это приносит</a> · <a href="bots-vs-humans.html">кого ловит воркер</a></p>
+<p><a href="index.html" data-i18n="back">← All articles</a></p>
+<h1 data-i18n="a_h1">Connecting your site to SML in 10 minutes</h1>
+<p data-i18n="a_intro">You need: a domain on Cloudflare (the free plan is enough) and a BNB wallet address.</p>
+<div class="card"><h2 data-i18n="a_s1h">Step 1. Generate the script</h2>
+<p><span data-i18n="a_s1p">Open the</span> <a href="../cloudflare-connect.html" data-i18n="rm_conn">10-minute setup</a><span data-i18n="a_s1p2">, paste a 0x… wallet address, copy the code.</span></p></div>
+<div class="card"><h2 data-i18n="a_s2h">Step 2. Create the Worker</h2>
+<p data-i18n="a_s2p">Compute → Workers → Create → a name like my-domain-guard → Deploy → Edit code → paste the script → Deploy.</p></div>
+<div class="card"><h2 data-i18n="a_s3h">Step 3. Secret and route</h2>
+<p data-i18n="a_s3p">The personal secret comes from the connect page (step 2) — paste it as is. Domains → Add → route your-domain/*. Redeploy.</p></div>
+<div class="card"><h2 data-i18n="a_s4h">Step 4. Verify</h2>
+<pre>https://your-domain/?bot_trigger=1</pre>
+<p><span id="s4p">Open this URL — the worker will send a test report. The site keeps working as before (traffic passes through). The first live mint comes after the first real bot attack, usually within 15–30 minutes:</span> <span class="ok">D1 → oracle → contract → your wallet</span>.</p></div>
+<p><span data-i18n="next">Read next:</span> <a href="math.html" data-i18n="rm_math">3/7/10 math</a> · <a href="bots-vs-humans.html" data-i18n="rm_bots">Bots vs humans</a></p>
 </article>
 </main>
 <footer><div class="wrap">
-<nav><a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
-<div>Sementsul Network · контракт SML: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
+<nav><a href="../stats.html" data-i18n="nav_stats">Stats</a><a href="../earn.html" data-i18n="nav_earn">Earn</a><a href="../harm.html" data-i18n="nav_harm">Bot harm</a><a href="../cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="./" data-i18n="nav_blog">Blog</a><a href="../faq.html" data-i18n="nav_faq">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
+<div><span data-i18n="foot_contract">Sementsul Network · SML contract:</span> 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
 </div></footer>
+<script>
+window.PAGE_I18N = {
+en: { a_h1: "Connecting your site to SML in 10 minutes", a_intro: "You need: a domain on Cloudflare (the free plan is enough) and a BNB wallet address.", a_s1h: "Step 1. Generate the script", a_s1p: "Open the", a_s1p2: ", paste a 0x… wallet address, copy the code.", a_s2h: "Step 2. Create the Worker", a_s2p: "Compute → Workers → Create → a name like my-domain-guard → Deploy → Edit code → paste the script → Deploy.", a_s3h: "Step 3. Secret and route", a_s3p: "The personal secret comes from the connect page (step 2) — paste it as is. Domains → Add → route your-domain/*. Redeploy.", a_s4h: "Step 4. Verify" },
+ru: { a_h1: "Подключение сайта к SML за 10 минут", a_intro: "Нужно: домен на Cloudflare (хватит free-тарифа) и адрес BNB-кошелька.", a_s1h: "Шаг 1. Сгенерируй скрипт", a_s1p: "Открой", a_s1p2: ", вставь адрес кошелька 0x…, скопируй код.", a_s2h: "Шаг 2. Создай Worker", a_s2p: "Compute → Workers → Create → имя вида мой-домен-guard → Deploy → Edit code → вставь скрипт → Deploy.", a_s3h: "Шаг 3. Секрет и роут", a_s3p: "Персональный секрет выдает страница подключения (шаг 2) — вставь как есть. Domains → Add → роут твой-домен/*. Redeploy.", a_s4h: "Шаг 4. Проверка" },
+zh: { a_h1: "10分钟将网站接入SML", a_intro: "需要：Cloudflare上的域名（免费版即可）和BNB钱包地址。", a_s1h: "第1步：生成脚本", a_s1p: "打开", a_s1p2: "，粘贴0x…钱包地址，复制代码。", a_s2h: "第2步：创建Worker", a_s2p: "Compute → Workers → Create → 取名如my-domain-guard → Deploy → Edit code → 粘贴脚本 → Deploy。", a_s3h: "第3步：密钥与路由", a_s3p: "个人密钥来自接入页面（第2步）——原样粘贴。Domains → Add → 路由你的域名/*。Redeploy。", a_s4h: "第4步：验证" }
+};
+</script>
+<script src="../assets/site.js"></script>
+<script>
+window.AFTER_LANG = function(){
+  var D = { en: "Open this URL — the worker will send a test report. The site keeps working as before (traffic passes through). The first live mint comes after the first real bot attack, usually within 15–30 minutes:",
+    ru: "Открой этот URL — воркер отправит тестовый репорт. Сайт работает как раньше (трафик идет транзитом). Первый боевой минт — после первой реальной атаки, обычно 15–30 минут:",
+    zh: "打开此URL——Worker将发送测试报告。网站照常运行（流量透传）。首次真实铸造在第一次真实攻击后，通常15-30分钟内：" };
+  var lang = document.documentElement.lang === 'zh-CN' ? 'zh' : (document.documentElement.lang || 'en');
+  document.getElementById('s4p').textContent = D[lang] || D.en;
+};
+</script>
 </body>
 </html>

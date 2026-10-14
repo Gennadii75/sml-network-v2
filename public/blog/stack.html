@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Как устроены Cloudflare и GitHub в сети SML — SML блог</title>
-<meta name="description" content="Архитектура Sementsul Network без серверов: Cloudflare Workers и D1 на краю сети, GitHub Actions как оракул, Pages как витрина, BNB Chain как касса.">
+<title>How we use Cloudflare and GitHub — SML blog</title>
+<meta name="description" content="Sementsul Network architecture without servers: Cloudflare Workers and D1 at the edge, GitHub Actions as the oracle, Pages as the showcase, BNB Chain as the cashier.">
 <link rel="canonical" href="https://gennadii75.github.io/sml-network-v2/blog/stack.html">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0A1C2E">
 <link rel="icon" href="../sml-256.png" type="image/png">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Как устроены Cloudflare и GitHub в сети SML">
+<meta property="og:title" content="How we use Cloudflare and GitHub">
 <meta property="og:url" content="https://gennadii75.github.io/sml-network-v2/blog/stack.html">
 <meta property="og:image" content="https://gennadii75.github.io/sml-network-v2/sml-256.png">
 <meta name="twitter:card" content="summary">
@@ -28,13 +28,15 @@ header.top{border-bottom:1px solid var(--border);padding:14px 0;background:rgba(
 .top-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:12px;color:var(--gold);font-family:Cinzel,serif;font-weight:700;font-size:1.1rem;text-decoration:none}
 .brand img{height:44px;border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.4)}
+.lang-switch{display:flex;border:1px solid var(--gold);border-radius:6px;overflow:hidden}
+.lang-switch button{background:transparent;border:0;color:var(--gold);font-family:Montserrat,sans-serif;font-size:.72rem;font-weight:600;padding:7px 9px;cursor:pointer}
 nav.main{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto}
 nav.main a{color:var(--text);text-decoration:none;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
 nav.main a:hover{color:var(--gold)}
 nav.main a.home{color:var(--gold)}
 main{padding:32px 0}
 .card{background:rgba(15,39,64,.7);border:1px solid var(--border);border-radius:8px;padding:24px;margin:20px 0}
-.card ol,.card ul{padding-left:20px}.card li{margin-bottom:8px}
+.card ol{padding-left:20px}.card li{margin-bottom:8px}
 a{color:var(--gold-light)}
 code{background:#050e18;padding:2px 6px;color:#ff7b72;border-radius:4px}
 footer{border-top:1px solid var(--border);padding:28px 0;text-align:center;color:var(--muted);font-size:.85rem}
@@ -45,35 +47,44 @@ footer a:hover{color:var(--gold)}
 </head>
 <body>
 <header class="top"><div class="wrap top-in">
-<a class="brand" href="../stats.html"><img src="../sml-256.png" alt="Sementsul (SML)">SEMENTSUL NETWORK</a>
+<a class="brand" href="https://sementsul.net/"><img src="../sml-256.png" alt="Sementsul (SML)"><span data-i18n="brand">SEMENTSUL NETWORK</span></a>
+<span class="lang-switch"><button data-lang="en">EN</button><button data-lang="zh">CN</button><button data-lang="ru">RU</button></span>
 <nav class="main">
-<a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a class="home" href="https://sementsul.net/">Главная →</a>
+<a href="../stats.html" data-i18n="nav_stats">Stats</a><a href="../earn.html" data-i18n="nav_earn">Earn</a><a href="../harm.html" data-i18n="nav_harm">Bot harm</a><a href="../cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="./" data-i18n="nav_blog">Blog</a><a href="../faq.html" data-i18n="nav_faq">FAQ</a><a class="home" href="https://sementsul.net/" data-i18n="nav_home">Home →</a>
 </nav></div></header>
 <main class="wrap">
 <article>
-<p><a href="index.html">← Все статьи</a></p>
-<h1>Как мы используем Cloudflare и GitHub</h1>
-<p>У сети нет своих серверов — только арендованные края чужих платформ. Поэтому ее не за что DDoSить и почти не за что платить на старте.</p>
-<div class="card"><h2>Cloudflare: глаза и руки</h2>
+<p><a href="index.html" data-i18n="back">← All articles</a></p>
+<h1 data-i18n="a_h1">How we use Cloudflare and GitHub</h1>
+<p data-i18n="a_intro">The network owns no servers — only rented edges of other platforms. So there is nothing to DDoS and almost nothing to pay for at the start.</p>
+<div class="card"><h2 data-i18n="a_cfh">Cloudflare: eyes and hands</h2>
 <ol>
-<li><b>Workers</b> — два скрипта: центральный <code>sementsul-edge</code> принимает репорты на <code>/api/report-bot</code>, клиентские воркеры вебмастеров фиксируют ботов по <code>botManagement.score</code>.</li>
-<li><b>D1</b> — реляционная база <code>bot_logs</code>: IP, счетчик попаданий, кошелек вебмастера, флаг обработки. Бесплатных лимитов с запасом хватает на старте — следите за метриками в дашборде D1.</li>
-<li>Воркер никогда не блокирует трафик сам — только учет. Это осознанное решение: меньше ложных банов (см. <a href="false-positives.html">статью</a>).</li>
+<li data-i18n="a_cf1">Workers — two scripts: the central sementsul-edge accepts reports at /api/report-bot, webmaster client workers log bots by botManagement.score.</li>
+<li data-i18n="a_cf2">D1 — the bot_logs relational base: IP, hit counter, webmaster wallet, processed flag. Free limits cover the start with margin — watch the D1 dashboard metrics.</li>
+<li><span data-i18n="a_cf3">The worker never blocks traffic itself — only logging. A conscious choice: fewer false bans (see</span> <a href="false-positives.html" data-i18n="rm_fp">False positives</a>).</li>
 </ol></div>
-<div class="card"><h2>GitHub: память и касса связи</h2>
+<div class="card"><h2 data-i18n="a_ghh">GitHub: memory and cashier link</h2>
 <ol>
-<li><b>Actions-оракул</b> каждые 15 минут: читает новые строки D1 → вызывает контракт → помечает обработанные → пересобирает <code>blocklist.txt</code> и <code>telemetry.json</code>.</li>
-<li><b>Pages</b> раздает статику: телеметрию, базу, блог, <code>llms.txt</code>. Никакого бэкенда.</li>
-<li><b>Keepalive</b> держит крон в живых: GitHub гасит расписания после 60 дней тишины, часовой пульс не дает уснуть.</li>
+<li data-i18n="a_gh1">Actions oracle every 15 minutes: reads new D1 rows → calls the contract → marks processed → rebuilds blocklist.txt and telemetry.json.</li>
+<li data-i18n="a_gh2">Pages serves the static site: telemetry, base, blog, llms.txt. No backend.</li>
+<li data-i18n="a_gh3">Keepalive keeps cron alive: GitHub puts schedules to sleep after 60 days of silence, the hourly pulse prevents it.</li>
 </ol></div>
-<div class="card"><h2>BNB Chain: деньги</h2>
-<p>Контракт <code>SementsulV2</code> держит 250M резерва на собственном балансе и честно сжигает 10 SML при каждом минте. IP в цепочку не пишутся — только их хэши, это дешевле и приватнее.</p></div>
-<p>Дальше: <a href="sysreq.html">системные требования для монетизации</a> · <a href="connect-10-min.html">подключение за 10 минут</a></p>
+<div class="card"><h2 data-i18n="a_bh">BNB Chain: money</h2>
+<p data-i18n="a_bp">The SementsulV2 contract holds 250M of reserve on its own balance and honestly burns 10 SML per mint. IPs never go on-chain — only their hashes, cheaper and more private.</p></div>
+<p><span data-i18n="next">Read next:</span> <a href="sysreq.html" data-i18n="rm_sys">System requirements</a> · <a href="connect-10-min.html" data-i18n="rm_conn">10-minute setup</a></p>
 </article>
 </main>
 <footer><div class="wrap">
-<nav><a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
-<div>Sementsul Network · контракт SML: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
+<nav><a href="../stats.html" data-i18n="nav_stats">Stats</a><a href="../earn.html" data-i18n="nav_earn">Earn</a><a href="../harm.html" data-i18n="nav_harm">Bot harm</a><a href="../cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="./" data-i18n="nav_blog">Blog</a><a href="../faq.html" data-i18n="nav_faq">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
+<div><span data-i18n="foot_contract">Sementsul Network · SML contract:</span> 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
 </div></footer>
+<script>
+window.PAGE_I18N = {
+en: { a_h1: "How we use Cloudflare and GitHub", a_intro: "The network owns no servers — only rented edges of other platforms. So there is nothing to DDoS and almost nothing to pay for at the start.", a_cfh: "Cloudflare: eyes and hands", a_cf1: "Workers — two scripts: the central sementsul-edge accepts reports at /api/report-bot, webmaster client workers log bots by botManagement.score.", a_cf2: "D1 — the bot_logs relational base: IP, hit counter, webmaster wallet, processed flag. Free limits cover the start with margin — watch the D1 dashboard metrics.", a_cf3: "The worker never blocks traffic itself — only logging. A conscious choice: fewer false bans (see", a_ghh: "GitHub: memory and cashier link", a_gh1: "Actions oracle every 15 minutes: reads new D1 rows → calls the contract → marks processed → rebuilds blocklist.txt and telemetry.json.", a_gh2: "Pages serves the static site: telemetry, base, blog, llms.txt. No backend.", a_gh3: "Keepalive keeps cron alive: GitHub puts schedules to sleep after 60 days of silence, the hourly pulse prevents it.", a_bh: "BNB Chain: money", a_bp: "The SementsulV2 contract holds 250M of reserve on its own balance and honestly burns 10 SML per mint. IPs never go on-chain — only their hashes, cheaper and more private." },
+ru: { a_h1: "Как мы используем Cloudflare и GitHub", a_intro: "У сети нет своих серверов — только арендованные края чужих платформ. Поэтому ее не за что DDoSить и почти не за что платить на старте.", a_cfh: "Cloudflare: глаза и руки", a_cf1: "Workers — два скрипта: центральный sementsul-edge принимает репорты на /api/report-bot, клиентские воркеры вебмастеров фиксируют ботов по botManagement.score.", a_cf2: "D1 — реляционная база bot_logs: IP, счетчик попаданий, кошелек вебмастера, флаг обработки. Бесплатных лимитов с запасом хватает на старте — следите за метриками в дашборде D1.", a_cf3: "Воркер никогда не блокирует трафик сам — только учет. Это осознанное решение: меньше ложных банов (см.", a_ghh: "GitHub: память и касса связи", a_gh1: "Actions-оракул каждые 15 минут: читает новые строки D1 → вызывает контракт → помечает обработанные → пересобирает blocklist.txt и telemetry.json.", a_gh2: "Pages раздает статику: телеметрию, базу, блог, llms.txt. Никакого бэкенда.", a_gh3: "Keepalive держит крон в живых: GitHub гасит расписания после 60 дней тишины, часовой пульс не дает уснуть.", a_bh: "BNB Chain: деньги", a_bp: "Контракт SementsulV2 держит 250M резерва на собственном балансе и честно сжигает 10 SML при каждом минте. IP в цепочку не пишутся — только их хэши, это дешевле и приватнее." },
+zh: { a_h1: "我们如何使用Cloudflare与GitHub", a_intro: "网络没有自己的服务器——只有租用的他人平台边缘。因此无从DDoS，起步几乎零成本。", a_cfh: "Cloudflare：眼睛与手", a_cf1: "Workers——两个脚本：中央sementsul-edge在/api/report-bot接收上报，站长客户端Worker按botManagement.score记录机器人。", a_cf2: "D1——bot_logs关系库：IP、命中计数、站长钱包、处理标志。免费额度起步绰绰有余——请关注D1面板指标。", a_cf3: "Worker从不自行拦截流量——只做记录。这是自觉选择：减少误封（见", a_ghh: "GitHub：记忆与出纳纽带", a_gh1: "Actions预言机每15分钟：读D1新行→调用合约→标记已处理→重建blocklist.txt与telemetry.json。", a_gh2: "Pages分发静态站：数据、库、博客、llms.txt。无后端。", a_gh3: "Keepalive让cron活着：GitHub在60天沉寂后休眠定时任务，每小时脉冲可防止。", a_bh: "BNB Chain：资金", a_bp: "SementsulV2合约在自身余额持有2.5亿储备，每次真实销毁10 SML。IP不上链——只有其哈希，更便宜更私密。" }
+};
+</script>
+<script src="../assets/site.js"></script>
 </body>
 </html>

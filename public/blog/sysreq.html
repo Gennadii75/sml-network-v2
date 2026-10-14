@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Системные требования для монетизации сайта — SML блог</title>
-<meta name="description" content="Что нужно, чтобы сайт зарабатывал SML: Cloudflare, домен, кошелек BNB, трафик с ботами. Чеклист и разбор неподходящих случаев.">
+<title>System requirements for monetizing your site — SML blog</title>
+<meta name="description" content="What a site needs to earn SML: Cloudflare, a domain, a BNB wallet, traffic with bots. Checklist and disqualifying cases.">
 <link rel="canonical" href="https://gennadii75.github.io/sml-network-v2/blog/sysreq.html">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0A1C2E">
 <link rel="icon" href="../sml-256.png" type="image/png">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Системные требования для монетизации сайта">
+<meta property="og:title" content="System requirements for monetizing your site">
 <meta property="og:url" content="https://gennadii75.github.io/sml-network-v2/blog/sysreq.html">
 <meta property="og:image" content="https://gennadii75.github.io/sml-network-v2/sml-256.png">
 <meta name="twitter:card" content="summary">
@@ -28,13 +28,15 @@ header.top{border-bottom:1px solid var(--border);padding:14px 0;background:rgba(
 .top-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:12px;color:var(--gold);font-family:Cinzel,serif;font-weight:700;font-size:1.1rem;text-decoration:none}
 .brand img{height:44px;border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.4)}
+.lang-switch{display:flex;border:1px solid var(--gold);border-radius:6px;overflow:hidden}
+.lang-switch button{background:transparent;border:0;color:var(--gold);font-family:Montserrat,sans-serif;font-size:.72rem;font-weight:600;padding:7px 9px;cursor:pointer}
 nav.main{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto}
 nav.main a{color:var(--text);text-decoration:none;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
 nav.main a:hover{color:var(--gold)}
 nav.main a.home{color:var(--gold)}
 main{padding:32px 0}
 .card{background:rgba(15,39,64,.7);border:1px solid var(--border);border-radius:8px;padding:24px;margin:20px 0}
-.card ul,.card ol{padding-left:20px}.card li{margin-bottom:8px}
+.card ul{padding-left:20px}.card li{margin-bottom:8px}
 a{color:var(--gold-light)}
 code{background:#050e18;padding:2px 6px;color:#ff7b72;border-radius:4px}
 .ok{color:#3fb950}.warn{color:#f85149}
@@ -46,39 +48,48 @@ footer a:hover{color:var(--gold)}
 </head>
 <body>
 <header class="top"><div class="wrap top-in">
-<a class="brand" href="../stats.html"><img src="../sml-256.png" alt="Sementsul (SML)">SEMENTSUL NETWORK</a>
+<a class="brand" href="https://sementsul.net/"><img src="../sml-256.png" alt="Sementsul (SML)"><span data-i18n="brand">SEMENTSUL NETWORK</span></a>
+<span class="lang-switch"><button data-lang="en">EN</button><button data-lang="zh">CN</button><button data-lang="ru">RU</button></span>
 <nav class="main">
-<a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a class="home" href="https://sementsul.net/">Главная →</a>
+<a href="../stats.html" data-i18n="nav_stats">Stats</a><a href="../earn.html" data-i18n="nav_earn">Earn</a><a href="../harm.html" data-i18n="nav_harm">Bot harm</a><a href="../cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="./" data-i18n="nav_blog">Blog</a><a href="../faq.html" data-i18n="nav_faq">FAQ</a><a class="home" href="https://sementsul.net/" data-i18n="nav_home">Home →</a>
 </nav></div></header>
 <main class="wrap">
 <article>
-<p><a href="index.html">← Все статьи</a></p>
-<h1>Системные требования для монетизации сайта</h1>
-<div class="card"><h2 class="ok">Обязательно</h2>
+<p><a href="index.html" data-i18n="back">← All articles</a></p>
+<h1 data-i18n="a_h1">System requirements for monetizing your site</h1>
+<div class="card"><h2 class="ok" data-i18n="a_must">Required</h2>
 <ul>
-<li><b>Домен на Cloudflare</b> — подойдет бесплатный тариф. Без CF клиентский воркер некуда ставить (альтернатива — только <a href="fail2ban-blocklist.html">потребление базы</a>, без наград).</li>
-<li><b>Адрес BNB-кошелька</b> (BEP-20) — на него минтится SML. Подойдет любой: MetaMask, Trust Wallet.</li>
-<li><b>Секрет <code>SHARED_SECRET</code></b> — выдает оракул сети после заявки. Без него репорты отклоняются (защита от мусора).</li>
-<li><b>Живой трафик с ботами</b> — награда платится за реальных ботов, которых видит edge. Пустой тестовый стенд без посетителей ничего не принесет.</li>
+<li data-i18n="a_r1">A domain on Cloudflare — the free plan is enough. Without CF there is nowhere to install the client worker (the alternative is only consuming the base, without rewards).</li>
+<li data-i18n="a_r2">A BNB wallet address (BEP-20) — SML is minted to it. Any wallet fits: MetaMask, Trust Wallet.</li>
+<li data-i18n="a_r3">A personal secret — issued automatically on the connect page for your wallet. Reports without it are rejected (spam protection).</li>
+<li data-i18n="a_r4">Live traffic with bots — rewards are paid for real bots the edge sees. An empty test stand with no visitors earns nothing.</li>
 </ul></div>
-<div class="card"><h2 class="warn">Не подойдет</h2>
+<div class="card"><h2 class="warn" data-i18n="a_no">Won't fit</h2>
 <ul>
-<li>Локалхост и закрытые стенды без внешнего трафика.</li>
-<li>Сайты полностью за basic-auth или VPN — боты туда не ходят, фиксировать нечего.</li>
-<li>Домены не на Cloudflare (для минта; читать базу можно всем).</li>
+<li data-i18n="a_n1">Localhost and closed stands without external traffic.</li>
+<li data-i18n="a_n2">Sites fully behind basic-auth or VPN — bots don't go there, nothing to log.</li>
+<li data-i18n="a_n3">Domains not on Cloudflare (for minting; anyone can read the base).</li>
 </ul></div>
-<div class="card"><h2>Не нужно</h2>
+<div class="card"><h2 data-i18n="a_free">Not needed</h2>
 <ul>
-<li>Свой сервер и root-доступ — воркер живет на краю Cloudflare.</li>
-<li>Платный тариф CF — free хватает.</li>
-<li>Газ в BNB для получения наград — комиссию платит оракул, не вы.</li>
+<li data-i18n="a_f1">Your own server and root access — the worker lives on the Cloudflare edge.</li>
+<li data-i18n="a_f2">A paid CF plan — free is enough.</li>
+<li data-i18n="a_f3">BNB gas for receiving rewards — the oracle pays the fee, not you.</li>
 </ul></div>
-<p>Готов? <a href="connect-10-min.html">Подключение за 10 минут</a> · <a href="math.html">сколько это приносит</a></p>
+<p><span data-i18n="next">Read next:</span> <a href="connect-10-min.html" data-i18n="rm_conn">10-minute setup</a> · <a href="math.html" data-i18n="rm_math">3/7/10 math</a></p>
 </article>
 </main>
 <footer><div class="wrap">
-<nav><a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
-<div>Sementsul Network · контракт SML: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
+<nav><a href="../stats.html" data-i18n="nav_stats">Stats</a><a href="../earn.html" data-i18n="nav_earn">Earn</a><a href="../harm.html" data-i18n="nav_harm">Bot harm</a><a href="../cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="./" data-i18n="nav_blog">Blog</a><a href="../faq.html" data-i18n="nav_faq">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
+<div><span data-i18n="foot_contract">Sementsul Network · SML contract:</span> 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
 </div></footer>
+<script>
+window.PAGE_I18N = {
+en: { a_h1: "System requirements for monetizing your site", a_must: "Required", a_r1: "A domain on Cloudflare — the free plan is enough. Without CF there is nowhere to install the client worker (the alternative is only consuming the base, without rewards).", a_r2: "A BNB wallet address (BEP-20) — SML is minted to it. Any wallet fits: MetaMask, Trust Wallet.", a_r3: "A personal secret — issued automatically on the connect page for your wallet. Reports without it are rejected (spam protection).", a_r4: "Live traffic with bots — rewards are paid for real bots the edge sees. An empty test stand with no visitors earns nothing.", a_no: "Won't fit", a_n1: "Localhost and closed stands without external traffic.", a_n2: "Sites fully behind basic-auth or VPN — bots don't go there, nothing to log.", a_n3: "Domains not on Cloudflare (for minting; anyone can read the base).", a_free: "Not needed", a_f1: "Your own server and root access — the worker lives on the Cloudflare edge.", a_f2: "A paid CF plan — free is enough.", a_f3: "BNB gas for receiving rewards — the oracle pays the fee, not you." },
+ru: { a_h1: "Системные требования для монетизации сайта", a_must: "Обязательно", a_r1: "Домен на Cloudflare — подойдет бесплатный тариф. Без CF клиентский воркер некуда ставить (альтернатива — только потребление базы, без наград).", a_r2: "Адрес BNB-кошелька (BEP-20) — на него минтится SML. Подойдет любой: MetaMask, Trust Wallet.", a_r3: "Персональный секрет — выдается автоматически на странице подключения под твой кошелек. Репорты без него отклоняются (защита от мусора).", a_r4: "Живой трафик с ботами — награда платится за реальных ботов, которых видит edge. Пустой тестовый стенд без посетителей ничего не принесет.", a_no: "Не подойдет", a_n1: "Локалхост и закрытые стенды без внешнего трафика.", a_n2: "Сайты полностью за basic-auth или VPN — боты туда не ходят, фиксировать нечего.", a_n3: "Домены не на Cloudflare (для минта; читать базу можно всем).", a_free: "Не нужно", a_f1: "Свой сервер и root-доступ — воркер живет на краю Cloudflare.", a_f2: "Платный тариф CF — free хватает.", a_f3: "Газ в BNB для получения наград — комиссию платит оракул, не вы." },
+zh: { a_h1: "网站变现的系统要求", a_must: "必需", a_r1: "Cloudflare上的域名——免费版即可。没有CF则无处安装客户端Worker（替代方案只是消费库，无奖励）。", a_r2: "BNB钱包地址（BEP-20）——SML铸造到它。任何钱包都行：MetaMask、Trust Wallet。", a_r3: "个人密钥——在接入页面按你的钱包自动发放。无密钥的上报会被拒绝（防垃圾）。", a_r4: "带机器人的真实流量——奖励只付给边缘真实见过的机器人。无访客的空测试站赚不到。", a_no: "不适用", a_n1: "本地主机及无外部流量的封闭测试站。", a_n2: "完全处于basic-auth或VPN后的网站——机器人不去，无可记录。", a_n3: "不在Cloudflare的域名（指铸造；读库人人可读）。", a_free: "不需要", a_f1: "自己的服务器与root权限——Worker住在Cloudflare边缘。", a_f2: "付费CF套餐——免费版足够。", a_f3: "领取奖励的BNB gas——手续费由预言机付，不用你付。" }
+};
+</script>
+<script src="../assets/site.js"></script>
 </body>
 </html>

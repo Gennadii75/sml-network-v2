@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Подключение сайта к SML — Sementsul Network</title>
-<meta name="description" content="Подключите сайт к Sementsul Network: сгенерируйте Cloudflare Worker под свой BNB-кошелек и получайте SML за каждого пойманного бота.">
+<title>Connect your site to SML — Sementsul Network</title>
+<meta name="description" content="Connect your site to Sementsul Network: get a personal secret for your BNB wallet and generate a Cloudflare Worker. SML rewards for every bot caught.">
 <link rel="canonical" href="https://gennadii75.github.io/sml-network-v2/cloudflare-connect.html">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0A1C2E">
 <link rel="icon" href="sml-256.png" type="image/png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Подключение сайта к SML">
-<meta property="og:description" content="Сгенерируй защитный Worker под свой кошелек за минуту.">
+<meta property="og:title" content="Connect your site to SML">
+<meta property="og:description" content="Personal secret + ready Worker for your wallet in 2 minutes.">
 <meta property="og:url" content="https://gennadii75.github.io/sml-network-v2/cloudflare-connect.html">
 <meta property="og:image" content="https://gennadii75.github.io/sml-network-v2/sml-256.png">
 <meta name="twitter:card" content="summary">
@@ -29,6 +29,8 @@ header.top{border-bottom:1px solid var(--border);padding:14px 0;background:rgba(
 .top-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:12px;color:var(--gold);font-family:Cinzel,serif;font-weight:700;font-size:1.1rem;text-decoration:none}
 .brand img{height:44px;border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.4)}
+.lang-switch{display:flex;border:1px solid var(--gold);border-radius:6px;overflow:hidden}
+.lang-switch button{background:transparent;border:0;color:var(--gold);font-family:Montserrat,sans-serif;font-size:.72rem;font-weight:600;padding:7px 9px;cursor:pointer}
 nav.main{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto}
 nav.main a{color:var(--text);text-decoration:none;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
 nav.main a:hover{color:var(--gold)}
@@ -36,10 +38,13 @@ nav.main a.home{color:var(--gold)}
 main{padding:32px 0}
 .step{background:rgba(15,39,64,.7);padding:24px;border:1px solid var(--border);border-radius:8px;margin-bottom:20px}
 input{width:100%;max-width:460px;padding:10px;background:#050e18;color:#fff;border:1px solid var(--border);border-radius:4px;font-family:monospace}
-code{background:#050e18;padding:12px;display:block;color:#ff7b72;border-radius:4px;margin:10px 0;white-space:pre-wrap;font-size:.8rem}
+code{background:#050e18;padding:12px;display:block;color:#ff7b72;border-radius:4px;margin:10px 0;white-space:pre-wrap;font-size:.8rem;word-break:break-all}
+.secret{color:#3fb950 !important;font-size:1rem !important}
 .btn{background:var(--gold);color:var(--navy);border:none;padding:11px 22px;border-radius:4px;cursor:pointer;font-weight:700;margin-top:10px}
 .btn:hover{background:var(--gold-light)}
+.btn:disabled{opacity:.5;cursor:wait}
 a{color:var(--gold-light)}
+.err{color:#f85149;margin-top:8px}
 footer{border-top:1px solid var(--border);padding:28px 0;text-align:center;color:var(--muted);font-size:.85rem}
 footer nav{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
 footer a{color:var(--muted);text-decoration:none}
@@ -48,33 +53,71 @@ footer a:hover{color:var(--gold)}
 </head>
 <body>
 <header class="top"><div class="wrap top-in">
-<a class="brand" href="stats.html"><img src="sml-256.png" alt="Sementsul (SML)">SEMENTSUL NETWORK</a>
+<a class="brand" href="https://sementsul.net/"><img src="sml-256.png" alt="Sementsul (SML)"><span data-i18n="brand">SEMENTSUL NETWORK</span></a>
+<span class="lang-switch"><button data-lang="en">EN</button><button data-lang="zh">CN</button><button data-lang="ru">RU</button></span>
 <nav class="main">
-<a href="stats.html">Статистика</a><a href="earn.html">Заработок</a><a href="harm.html">Вред ботов</a><a href="cloudflare-connect.html">Подключение</a><a href="blog/">Блог</a><a href="faq.html">FAQ</a><a class="home" href="https://sementsul.net/">Главная →</a>
+<a href="stats.html" data-i18n="nav_stats">Stats</a><a href="earn.html" data-i18n="nav_earn">Earn</a><a href="harm.html" data-i18n="nav_harm">Bot harm</a><a href="cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="blog/" data-i18n="nav_blog">Blog</a><a href="faq.html" data-i18n="nav_faq">FAQ</a><a class="home" href="https://sementsul.net/" data-i18n="nav_home">Home →</a>
 </nav></div></header>
 <main class="wrap">
-<h1>Подключение сайта к SML</h1>
-<p>Сгенерируй защитный скрипт под свой кошелек. Подробный гайд — <a href="blog/connect-10-min.html">в блоге</a>.</p>
+<h1 data-i18n="c_h1">Connect your site to SML</h1>
+<p><span data-i18n="c_sub">The oracle issues the secret automatically — personal, for your wallet. Never show it to anyone except your own worker. Guide in the</span> <a href="blog/connect-10-min.html" data-i18n="c_blog">blog</a>.</p>
 <div class="step">
-<h3>Шаг 1: адрес кошелька BNB Chain (BEP-20)</h3>
+<h3 data-i18n="c_s1">Step 1: your BNB Chain wallet (BEP-20)</h3>
 <input type="text" id="wallet" placeholder="0x...">
-<button class="btn" onclick="generate()">Получить защитный скрипт</button>
+<button class="btn" id="btn-secret" onclick="getSecret()" data-i18n="c_btn1">Get personal secret</button>
+<div class="err" id="err"></div>
+</div>
+<div class="step" id="step2" style="display:none;">
+<h3 data-i18n="c_s2">Step 2: your secret (keep it like a password)</h3>
+<code class="secret" id="secret"></code>
+<button class="btn" onclick="generate()" data-i18n="c_btn2">Generate worker script</button>
 </div>
 <div class="step" id="result" style="display:none;">
-<h3>Шаг 2: вставь в свой Cloudflare Worker, секрет запроси у оракула</h3>
+<h3 data-i18n="c_s3">Step 3: paste the code into your Cloudflare Worker as is</h3>
 <code id="output"></code>
 </div>
 </main>
 <footer><div class="wrap">
-<nav><a href="stats.html">Статистика</a><a href="earn.html">Заработок</a><a href="harm.html">Вред ботов</a><a href="cloudflare-connect.html">Подключение</a><a href="blog/">Блог</a><a href="faq.html">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
-<div>Sementsul Network · контракт SML: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
+<nav><a href="stats.html" data-i18n="nav_stats">Stats</a><a href="earn.html" data-i18n="nav_earn">Earn</a><a href="harm.html" data-i18n="nav_harm">Bot harm</a><a href="cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="blog/" data-i18n="nav_blog">Blog</a><a href="faq.html" data-i18n="nav_faq">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
+<div><span data-i18n="foot_contract">Sementsul Network · SML contract:</span> 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
 </div></footer>
 <script>
+window.PAGE_I18N = {
+en: { c_h1: "Connect your site to SML", c_sub: "The oracle issues the secret automatically — personal, for your wallet. Never show it to anyone except your own worker. Guide in the", c_blog: "blog", c_s1: "Step 1: your BNB Chain wallet (BEP-20)", c_btn1: "Get personal secret", c_s2: "Step 2: your secret (keep it like a password)", c_btn2: "Generate worker script", c_s3: "Step 3: paste the code into your Cloudflare Worker as is", c_bad: "Invalid wallet address", c_init: "Oracle is still initializing, come back later", c_net: "Network unreachable", c_busy: "Requesting…", c_again: " (this secret was already issued to this wallet)" },
+ru: { c_h1: "Подключение сайта к SML", c_sub: "Секрет выдает автоматически оракул — персональный под твой кошелек. Никому не показывай его, кроме своего воркера. Гайд —", c_blog: "в блоге", c_s1: "Шаг 1: адрес кошелька BNB Chain (BEP-20)", c_btn1: "Получить персональный секрет", c_s2: "Шаг 2: твой секрет (храни как пароль)", c_btn2: "Сгенерировать скрипт воркера", c_s3: "Шаг 3: вставь код в свой Cloudflare Worker целиком", c_bad: "Неверный адрес кошелька", c_init: "Оракул еще инициализируется, зайди позже", c_net: "Сеть недоступна", c_busy: "Запрашиваю…", c_again: "  (этот секрет уже выдавался этому кошельку)" },
+zh: { c_h1: "将网站接入SML", c_sub: "预言机自动发放密钥——与你的钱包绑定。除你自己的Worker外勿示他人。指南见", c_blog: "博客", c_s1: "第1步：你的BNB Chain钱包（BEP-20）", c_btn1: "获取个人密钥", c_s2: "第2步：你的密钥（像密码一样保管）", c_btn2: "生成Worker脚本", c_s3: "第3步：将代码完整粘贴到你的Cloudflare Worker", c_bad: "钱包地址无效", c_init: "预言机正在初始化，稍后再来", c_net: "网络不可达", c_busy: "请求中…", c_again: "（该密钥已发放给此钱包）" }
+};
+</script>
+<script src="assets/site.js"></script>
+<script>
+const GATEWAY = "https://sementsul.net";
+let WALLET = "", SECRET = "";
+async function getSecret(){
+  const w = document.getElementById('wallet').value.trim();
+  const err = document.getElementById('err');
+  err.textContent = "";
+  if(!/^0x[0-9a-fA-F]{40}$/.test(w)){ err.textContent = window.SML_T('c_bad'); return; }
+  const btn = document.getElementById('btn-secret');
+  const orig = window.SML_T('c_btn1');
+  btn.disabled = true; btn.textContent = window.SML_T('c_busy');
+  try{
+    const r = await fetch(GATEWAY + "/api/request-secret", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ wallet: w })
+    });
+    if(!r.ok) throw new Error(r.status === 503 ? window.SML_T('c_init') : "Error " + r.status);
+    const d = await r.json();
+    WALLET = w; SECRET = d.secret;
+    document.getElementById('secret').textContent = SECRET + (d.existed ? window.SML_T('c_again') : "");
+    document.getElementById('step2').style.display = "block";
+  }catch(e){ err.textContent = e.message || window.SML_T('c_net'); }
+  btn.disabled = false; btn.textContent = orig;
+}
 function generate(){
-  const w=document.getElementById('wallet').value.trim();
-  if(!/^0x[0-9a-fA-F]{40}$/.test(w)){alert('Неверный адрес кошелька');return;}
+  if(!WALLET || !SECRET) return;
   document.getElementById('output').innerText =
-`const WEBMASTER_WALLET = "${w}";
+`const WEBMASTER_WALLET = "${WALLET}";
+const SHARED_SECRET = "${SECRET}";
 const CENTRAL_GATEWAY = "https://sementsul.net/api/report-bot";
 export default {
   async fetch(request, env, ctx) {
@@ -88,14 +131,19 @@ export default {
         body: JSON.stringify({ ip, webmaster: WEBMASTER_WALLET, asn: request.cf?.asn || 0,
           country: request.cf?.country || 'unknown',
           userAgent: request.headers.get('user-agent') || 'unknown',
-          secret: env.SHARED_SECRET })
+          secret: SHARED_SECRET })
       }).catch(()=>{}));
     }
     return fetch(request);
   }
 };`;
-  document.getElementById('result').style.display='block';
+  document.getElementById('result').style.display = "block";
+  document.getElementById('result').scrollIntoView();
 }
+window.AFTER_LANG = function(){
+  var b = document.getElementById('btn-secret');
+  if(b && !b.disabled) b.textContent = window.SML_T('c_btn1');
+};
 </script>
 </body>
 </html>

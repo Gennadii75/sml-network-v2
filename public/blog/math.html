@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Математика заработка 3/7/10 — SML блог</title>
-<meta name="description" content="Сколько приносит бот-трафик в SML: +3 за уникальный IP, +7 в treasury за рецидив, сжигание 10, лимиты 500 в сутки и 2.5M в год.">
+<title>Earning math 3/7/10 — SML blog</title>
+<meta name="description" content="What bot traffic really pays in SML: +3 per unique IP, +7 to treasury per repeat, 10 burned, 500/day and 2.5M/year limits.">
 <link rel="canonical" href="https://gennadii75.github.io/sml-network-v2/blog/math.html">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0A1C2E">
 <link rel="icon" href="../sml-256.png" type="image/png">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Математика заработка 3/7/10">
+<meta property="og:title" content="Earning math 3/7/10">
 <meta property="og:url" content="https://gennadii75.github.io/sml-network-v2/blog/math.html">
 <meta property="og:image" content="https://gennadii75.github.io/sml-network-v2/sml-256.png">
 <meta name="twitter:card" content="summary">
@@ -28,6 +28,8 @@ header.top{border-bottom:1px solid var(--border);padding:14px 0;background:rgba(
 .top-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:12px;color:var(--gold);font-family:Cinzel,serif;font-weight:700;font-size:1.1rem;text-decoration:none}
 .brand img{height:44px;border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.4)}
+.lang-switch{display:flex;border:1px solid var(--gold);border-radius:6px;overflow:hidden}
+.lang-switch button{background:transparent;border:0;color:var(--gold);font-family:Montserrat,sans-serif;font-size:.72rem;font-weight:600;padding:7px 9px;cursor:pointer}
 nav.main{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto}
 nav.main a{color:var(--text);text-decoration:none;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
 nav.main a:hover{color:var(--gold)}
@@ -46,34 +48,43 @@ footer a:hover{color:var(--gold)}
 </head>
 <body>
 <header class="top"><div class="wrap top-in">
-<a class="brand" href="../stats.html"><img src="../sml-256.png" alt="Sementsul (SML)">SEMENTSUL NETWORK</a>
+<a class="brand" href="https://sementsul.net/"><img src="../sml-256.png" alt="Sementsul (SML)"><span data-i18n="brand">SEMENTSUL NETWORK</span></a>
+<span class="lang-switch"><button data-lang="en">EN</button><button data-lang="zh">CN</button><button data-lang="ru">RU</button></span>
 <nav class="main">
-<a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a class="home" href="https://sementsul.net/">Главная →</a>
+<a href="../stats.html" data-i18n="nav_stats">Stats</a><a href="../earn.html" data-i18n="nav_earn">Earn</a><a href="../harm.html" data-i18n="nav_harm">Bot harm</a><a href="../cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="./" data-i18n="nav_blog">Blog</a><a href="../faq.html" data-i18n="nav_faq">FAQ</a><a class="home" href="https://sementsul.net/" data-i18n="nav_home">Home →</a>
 </nav></div></header>
 <main class="wrap">
 <article>
-<p><a href="index.html">← Все статьи</a></p>
-<h1>Математика заработка: 3 / 7 / 10 и лимиты</h1>
+<p><a href="index.html" data-i18n="back">← All articles</a></p>
+<h1 data-i18n="a_h1">Earning math: 3 / 7 / 10 and limits</h1>
 <table>
-<tr><th>Событие</th><th>Вам</th><th>Сжигается</th></tr>
-<tr><td>Уникальный IP впервые</td><td>+3 SML</td><td>−10 SML</td></tr>
-<tr><td>Повторная атака того же IP</td><td>0 (идет в treasury)</td><td>−10 SML</td></tr>
+<tr><th data-i18n="a_the">Event</th><th data-i18n="a_thy">You</th><th data-i18n="a_thb">Burned</th></tr>
+<tr><td data-i18n="a_r1">Unique IP, first time</td><td>+3 SML</td><td>−10 SML</td></tr>
+<tr><td data-i18n="a_r2">Repeat attack of the same IP</td><td data-i18n="a_r2y">0 (goes to treasury)</td><td>−10 SML</td></tr>
 </table>
-<div class="card"><h2>Пример</h2>
-<p>Сайт ловит 100 уникальных ботов в сутки → <b>300 SML/день</b> вам, 1000 SML/день сжигается из резерва. Рецидивисты дополнительно жгут резерв — дефицит растет. Живые цифры — на <a href="../stats.html">телеметрии</a>.</p></div>
-<div class="card"><h2>Лимиты (защита от накруток)</h2>
+<div class="card"><h2 data-i18n="a_exh">Example</h2>
+<p><span data-i18n="a_exp">A site catching 100 unique bots a day earns you 300 SML/day while 1000 SML/day burns from the reserve. Repeat offenders additionally burn the reserve — scarcity grows. Live numbers are on</span> <a href="../stats.html" data-i18n="nav_stats">Stats</a>.</p></div>
+<div class="card"><h2 data-i18n="a_lh">Limits (anti-farming)</h2>
 <ul>
-<li>Не более <b>500 минтов в сутки</b> на всю сеть — слать фейковые IP бессмысленно.</li>
-<li>Не более <b>2.5M сжигания в год</b> — эра растянута на 100 лет.</li>
-<li>Оплата только за IP, который реально видел edge (проверка оракула по D1).</li>
+<li data-i18n="a_l1">Max 500 mints per day network-wide — sending fake IPs is pointless.</li>
+<li data-i18n="a_l2">Max 2.5M burn per year — the era spans 100 years.</li>
+<li data-i18n="a_l3">Paid only for IPs the edge actually saw (oracle check against D1).</li>
 </ul>
-<p class="warn">Честно: доход в долларах зависит от цены SML и ликвидности пула. Считайте консервативно.</p></div>
-<p>Дальше: <a href="connect-10-min.html">подключение</a> · <a href="../faq.html">FAQ</a></p>
+<p class="warn" data-i18n="a_warn">Honestly: dollar income depends on the SML price and pool liquidity. Estimate conservatively.</p></div>
+<p><span data-i18n="next">Read next:</span> <a href="connect-10-min.html" data-i18n="rm_conn">10-minute setup</a> · <a href="../faq.html" data-i18n="nav_faq">FAQ</a></p>
 </article>
 </main>
 <footer><div class="wrap">
-<nav><a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
-<div>Sementsul Network · контракт SML: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
+<nav><a href="../stats.html" data-i18n="nav_stats">Stats</a><a href="../earn.html" data-i18n="nav_earn">Earn</a><a href="../harm.html" data-i18n="nav_harm">Bot harm</a><a href="../cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="./" data-i18n="nav_blog">Blog</a><a href="../faq.html" data-i18n="nav_faq">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
+<div><span data-i18n="foot_contract">Sementsul Network · SML contract:</span> 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
 </div></footer>
+<script>
+window.PAGE_I18N = {
+en: { a_h1: "Earning math: 3 / 7 / 10 and limits", a_the: "Event", a_thy: "You", a_thb: "Burned", a_r1: "Unique IP, first time", a_r2: "Repeat attack of the same IP", a_r2y: "0 (goes to treasury)", a_exh: "Example", a_exp: "A site catching 100 unique bots a day earns you 300 SML/day while 1000 SML/day burns from the reserve. Repeat offenders additionally burn the reserve — scarcity grows. Live numbers are on", a_lh: "Limits (anti-farming)", a_l1: "Max 500 mints per day network-wide — sending fake IPs is pointless.", a_l2: "Max 2.5M burn per year — the era spans 100 years.", a_l3: "Paid only for IPs the edge actually saw (oracle check against D1).", a_warn: "Honestly: dollar income depends on the SML price and pool liquidity. Estimate conservatively." },
+ru: { a_h1: "Математика заработка: 3 / 7 / 10 и лимиты", a_the: "Событие", a_thy: "Вам", a_thb: "Сжигается", a_r1: "Уникальный IP впервые", a_r2: "Повторная атака того же IP", a_r2y: "0 (идет в treasury)", a_exh: "Пример", a_exp: "Сайт ловит 100 уникальных ботов в сутки → 300 SML/день вам, 1000 SML/день сжигается из резерва. Рецидивисты дополнительно жгут резерв — дефицит растет. Живые цифры — на", a_lh: "Лимиты (защита от накруток)", a_l1: "Не более 500 минтов в сутки на всю сеть — слать фейковые IP бессмысленно.", a_l2: "Не более 2.5M сжигания в год — эра растянута на 100 лет.", a_l3: "Оплата только за IP, который реально видел edge (проверка оракула по D1).", a_warn: "Честно: доход в долларах зависит от цены SML и ликвидности пула. Считайте консервативно." },
+zh: { a_h1: "收益数学：3/7/10与限制", a_the: "事件", a_thy: "给你", a_thb: "销毁", a_r1: "独立IP首次", a_r2: "同一IP重复攻击", a_r2y: "0（归金库）", a_exh: "示例", a_exp: "每天抓100个独立机器人的网站→你得300 SML/天，储备销毁1000 SML/天。惯犯额外燃烧储备——稀缺性增长。实时数据见", a_lh: "限制（反刷）", a_l1: "全网每天最多500次铸造——发送虚假IP毫无意义。", a_l2: "每年最多销毁250万——时代长达100年。", a_l3: "只为边缘真实见过的IP付费（预言机对D1核验）。", a_warn: "实话：美元收入取决于SML价格和池流动性。请保守估算。" }
+};
+</script>
+<script src="../assets/site.js"></script>
 </body>
 </html>

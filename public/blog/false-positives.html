@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ложные срабатывания — SML блог</title>
-<meta name="description" content="Почему воркер Sementsul Network не блокирует живых посетителей: только учет IP, без капч и 403. Как безопасно резать по blocklist.">
+<title>False positives — SML blog</title>
+<meta name="description" content="Why the Sementsul worker never blocks real visitors: IP logging only, no captchas or 403. How to safely cut by blocklist.">
 <link rel="canonical" href="https://gennadii75.github.io/sml-network-v2/blog/false-positives.html">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0A1C2E">
 <link rel="icon" href="../sml-256.png" type="image/png">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ложные срабатывания — SML блог">
+<meta property="og:title" content="False positives — SML blog">
 <meta property="og:url" content="https://gennadii75.github.io/sml-network-v2/blog/false-positives.html">
 <meta property="og:image" content="https://gennadii75.github.io/sml-network-v2/sml-256.png">
 <meta name="twitter:card" content="summary">
@@ -28,6 +28,8 @@ header.top{border-bottom:1px solid var(--border);padding:14px 0;background:rgba(
 .top-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:12px;color:#D4AF37;font-family:Cinzel,serif;font-weight:700;font-size:1.1rem;text-decoration:none}
 .brand img{height:44px;border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.4)}
+.lang-switch{display:flex;border:1px solid #D4AF37;border-radius:6px;overflow:hidden}
+.lang-switch button{background:transparent;border:0;color:#D4AF37;font-family:Montserrat,sans-serif;font-size:.72rem;font-weight:600;padding:7px 9px;cursor:pointer}
 nav.main{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto}
 nav.main a{color:var(--text);text-decoration:none;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
 nav.main a:hover{color:var(--gold)}
@@ -45,29 +47,38 @@ footer a:hover{color:var(--gold)}
 </head>
 <body>
 <header class="top"><div class="wrap top-in">
-<a class="brand" href="../stats.html"><img src="../sml-256.png" alt="Sementsul (SML)">SEMENTSUL NETWORK</a>
+<a class="brand" href="https://sementsul.net/"><img src="../sml-256.png" alt="Sementsul (SML)"><span data-i18n="brand">SEMENTSUL NETWORK</span></a>
+<span class="lang-switch"><button data-lang="en">EN</button><button data-lang="zh">CN</button><button data-lang="ru">RU</button></span>
 <nav class="main">
-<a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a class="home" href="https://sementsul.net/">Главная →</a>
+<a href="../stats.html" data-i18n="nav_stats">Stats</a><a href="../earn.html" data-i18n="nav_earn">Earn</a><a href="../harm.html" data-i18n="nav_harm">Bot harm</a><a href="../cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="./" data-i18n="nav_blog">Blog</a><a href="../faq.html" data-i18n="nav_faq">FAQ</a><a class="home" href="https://sementsul.net/" data-i18n="nav_home">Home →</a>
 </nav></div></header>
 <main class="wrap">
 <article>
-<p><a href="index.html">← Все статьи</a></p>
-<h1>Ложные срабатывания: не заблокируй живых</h1>
-<div class="card"><h2>Главное: наш воркер никого не блокирует</h2>
-<p>Клиентский скрипт при высоком скоре шлет репорт на <code>sementsul.net/api/report-bot</code> и <b>пропускает запрос дальше</b> (<code>return fetch(request)</code>). Живой посетитель ничего не заметит даже при ложном скоре: ни капч, ни 403.</p></div>
-<div class="card"><h2>А если режете по blocklist на своем сервере?</h2>
+<p><a href="index.html" data-i18n="back">← All articles</a></p>
+<h1 data-i18n="a_h1">False positives: don't block the living</h1>
+<div class="card"><h2 data-i18n="a_mh">The key point: our worker blocks nobody</h2>
+<p><span data-i18n="a_mp1">The client script, on a high score, sends a report to</span> <code>sementsul.net/api/report-bot</code> <span data-i18n="a_mp2">and passes the request through (return fetch(request)). A real visitor notices nothing even on a false score: no captchas, no 403.</span></p></div>
+<div class="card"><h2 data-i18n="a_sh">And if you cut by blocklist on your server?</h2>
 <ul>
-<li>Не применяйте базу к белым ботам: Googlebot и Bingbot проверяйте обратным DNS, а не IP.</li>
-<li>Начните с режима «только лог»: неделю пишите совпадения (<a href="bots-vs-humans.html">сигналы ботов</a>), потом включайте DROP.</li>
-<li>Следите за метриками: Observability → Workers Logs покажет все репорты.</li>
-<li>Параметр <code>?bot_trigger=1</code> — только для проверки связи, не для бана себя.</li>
+<li data-i18n="a_s1">Don't apply the base to white bots: verify Googlebot and Bingbot by reverse DNS, not IP.</li>
+<li data-i18n="a_s2">Start in log-only mode: log matches for a week (bot signals), then enable DROP.</li>
+<li data-i18n="a_s3">Watch the metrics: Observability → Workers Logs shows every report.</li>
+<li data-i18n="a_s4">The ?bot_trigger=1 parameter is only for connectivity checks, not for banning yourself.</li>
 </ul></div>
-<p>Дальше: <a href="fail2ban-blocklist.html">блоклист на сервере</a> · <a href="../faq.html">FAQ</a></p>
+<p><span data-i18n="next">Read next:</span> <a href="fail2ban-blocklist.html" data-i18n="rm_fb">fail2ban + blocklist</a> · <a href="../faq.html" data-i18n="nav_faq">FAQ</a></p>
 </article>
 </main>
 <footer><div class="wrap">
-<nav><a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
-<div>Sementsul Network · контракт SML: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
+<nav><a href="../stats.html" data-i18n="nav_stats">Stats</a><a href="../earn.html" data-i18n="nav_earn">Earn</a><a href="../harm.html" data-i18n="nav_harm">Bot harm</a><a href="../cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="./" data-i18n="nav_blog">Blog</a><a href="../faq.html" data-i18n="nav_faq">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
+<div><span data-i18n="foot_contract">Sementsul Network · SML contract:</span> 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
 </div></footer>
+<script>
+window.PAGE_I18N = {
+en: { a_h1: "False positives: don't block the living", a_mh: "The key point: our worker blocks nobody", a_mp1: "The client script, on a high score, sends a report to", a_mp2: "and passes the request through (return fetch(request)). A real visitor notices nothing even on a false score: no captchas, no 403.", a_sh: "And if you cut by blocklist on your server?", a_s1: "Don't apply the base to white bots: verify Googlebot and Bingbot by reverse DNS, not IP.", a_s2: "Start in log-only mode: log matches for a week (bot signals), then enable DROP.", a_s3: "Watch the metrics: Observability → Workers Logs shows every report.", a_s4: "The ?bot_trigger=1 parameter is only for connectivity checks, not for banning yourself." },
+ru: { a_h1: "Ложные срабатывания: не заблокируй живых", a_mh: "Главное: наш воркер никого не блокирует", a_mp1: "Клиентский скрипт при высоком скоре шлет репорт на", a_mp2: "и пропускает запрос дальше (return fetch(request)). Живой посетитель ничего не заметит даже при ложном скоре: ни капч, ни 403.", a_sh: "А если режете по blocklist на своем сервере?", a_s1: "Не применяйте базу к белым ботам: Googlebot и Bingbot проверяйте обратным DNS, а не IP.", a_s2: "Начните с режима «только лог»: неделю пишите совпадения (сигналы ботов), потом включайте DROP.", a_s3: "Следите за метриками: Observability → Workers Logs покажет все репорты.", a_s4: "Параметр ?bot_trigger=1 — только для проверки связи, не для бана себя." },
+zh: { a_h1: "误报：别拦截真人", a_mh: "核心：我们的Worker不拦截任何人", a_mp1: "客户端脚本在高评分时上报至", a_mp2: "并放行请求（return fetch(request)）。即使误判，真人也毫无感知：无验证码，无403。", a_sh: "如果在自己服务器按名单拦截？", a_s1: "别把库用于白名单机器人：用反向DNS（而非IP）验证Googlebot和Bingbot。", a_s2: "先用纯日志模式：记录一周匹配（机器人信号），再启用DROP。", a_s3: "关注指标：Observability → Workers Logs显示所有上报。", a_s4: "?bot_trigger=1参数仅用于连通性检查，别拿它封自己。" }
+};
+</script>
+<script src="../assets/site.js"></script>
 </body>
 </html>

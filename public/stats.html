@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sementsul Network — живая телеметрия SML</title>
-<meta name="description" content="Живая телеметрия Sementsul Network: база бот-IP, сожжено SML, резерв сжигания, год контракта. Обновление каждые 15 минут.">
+<title>Sementsul Network — live SML telemetry</title>
+<meta name="description" content="Live Sementsul Network telemetry: bot IP base, SML burned, burn reserve, contract year. Updated every 15 minutes.">
 <link rel="canonical" href="https://gennadii75.github.io/sml-network-v2/stats.html">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0A1C2E">
 <link rel="icon" href="sml-256.png" type="image/png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Sementsul Network — телеметрия SML">
-<meta property="og:description" content="База бот-IP, сжигание SML и резерв контракта в реальном времени.">
+<meta property="og:title" content="Sementsul Network — SML telemetry">
+<meta property="og:description" content="Bot IP base, SML burning and contract reserve in real time.">
 <meta property="og:url" content="https://gennadii75.github.io/sml-network-v2/stats.html">
 <meta property="og:image" content="https://gennadii75.github.io/sml-network-v2/sml-256.png">
 <meta name="twitter:card" content="summary">
@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","name":"Sementsul Network — телеметрия SML","url":"https://gennadii75.github.io/sml-network-v2/stats.html","about":{"@type":"Thing","name":"Sementsul (SML) BEP-20 token","identifier":"0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7"}}
+{"@context":"https://schema.org","@type":"WebPage","name":"Sementsul Network — SML telemetry","url":"https://gennadii75.github.io/sml-network-v2/stats.html","about":{"@type":"Thing","name":"Sementsul (SML) BEP-20 token","identifier":"0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7"}}
 </script>
 <style>
 :root{--navy:#0A1C2E;--gold:#D4AF37;--gold-light:#F4D03F;--text:#E0E0E0;--muted:#A0A0A0;--border:rgba(212,175,55,.35)}
@@ -31,6 +31,8 @@ header.top{border-bottom:1px solid var(--border);padding:14px 0;background:rgba(
 .top-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:12px;color:var(--gold);font-family:Cinzel,serif;font-weight:700;font-size:1.1rem;text-decoration:none}
 .brand img{height:44px;border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.4)}
+.lang-switch{display:flex;border:1px solid var(--gold);border-radius:6px;overflow:hidden}
+.lang-switch button{background:transparent;border:0;color:var(--gold);font-family:Montserrat,sans-serif;font-size:.72rem;font-weight:600;padding:7px 9px;cursor:pointer}
 nav.main{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto}
 nav.main a{color:var(--text);text-decoration:none;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
 nav.main a:hover{color:var(--gold)}
@@ -51,42 +53,56 @@ footer a:hover{color:var(--gold)}
 </head>
 <body>
 <header class="top"><div class="wrap top-in">
-<a class="brand" href="stats.html"><img src="sml-256.png" alt="Sementsul (SML)">SEMENTSUL NETWORK</a>
+<a class="brand" href="https://sementsul.net/"><img src="sml-256.png" alt="Sementsul (SML)"><span data-i18n="brand">SEMENTSUL NETWORK</span></a>
+<span class="lang-switch"><button data-lang="en">EN</button><button data-lang="zh">CN</button><button data-lang="ru">RU</button></span>
 <nav class="main">
-<a href="stats.html">Статистика</a><a href="earn.html">Заработок</a><a href="harm.html">Вред ботов</a><a href="cloudflare-connect.html">Подключение</a><a href="blog/">Блог</a><a href="faq.html">FAQ</a><a class="home" href="https://sementsul.net/">Главная →</a>
+<a href="stats.html" data-i18n="nav_stats">Stats</a><a href="earn.html" data-i18n="nav_earn">Earn</a><a href="harm.html" data-i18n="nav_harm">Bot harm</a><a href="cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="blog/" data-i18n="nav_blog">Blog</a><a href="faq.html" data-i18n="nav_faq">FAQ</a><a class="home" href="https://sementsul.net/" data-i18n="nav_home">Home →</a>
 </nav></div></header>
 <main class="wrap">
-<h1>Телеметрия сети SML</h1>
-<p class="sub">IP-база: <a href="blocklist.txt">blocklist.txt</a> · телеметрия от оракула · обновление каждые 15 мин · контракт <a href="https://bscscan.com/address/0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7">SementsulV2</a></p>
+<h1 data-i18n="st_h1">SML Network Telemetry</h1>
+<p class="sub"><span data-i18n="st_base">IP base:</span> <a href="blocklist.txt">blocklist.txt</a> · <span data-i18n="st_tele">oracle telemetry</span> · <span data-i18n="st_upd">updated every 15 min</span> · <span data-i18n="st_ctr">contract</span> <a href="https://bscscan.com/address/0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7">SementsulV2</a></p>
 <div class="stat-grid">
-<div class="stat"><div class="l">IP в базе</div><div class="v" id="botCount">…</div></div>
-<div class="stat"><div class="l">Всего сожжено (totalBurned)</div><div class="v burn" id="burned">…</div></div>
-<div class="stat"><div class="l">Резерв на контракте</div><div class="v" id="reserve">…</div></div>
-<div class="stat"><div class="l">Год / лимит года</div><div class="v" id="year">…</div></div>
+<div class="stat"><div class="l" data-i18n="st_ips">IPs in base</div><div class="v" id="botCount">…</div></div>
+<div class="stat"><div class="l" data-i18n="st_burn">Total burned</div><div class="v burn" id="burned">…</div></div>
+<div class="stat"><div class="l" data-i18n="st_res">Contract reserve</div><div class="v" id="reserve">…</div></div>
+<div class="stat"><div class="l" data-i18n="st_year">Year / yearly cap</div><div class="v" id="year">…</div></div>
 </div>
 </main>
 <footer><div class="wrap">
-<nav><a href="stats.html">Статистика</a><a href="earn.html">Заработок</a><a href="harm.html">Вред ботов</a><a href="cloudflare-connect.html">Подключение</a><a href="blog/">Блог</a><a href="faq.html">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
-<div>Sementsul Network · контракт SML: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
+<nav><a href="stats.html" data-i18n="nav_stats">Stats</a><a href="earn.html" data-i18n="nav_earn">Earn</a><a href="harm.html" data-i18n="nav_harm">Bot harm</a><a href="cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="blog/" data-i18n="nav_blog">Blog</a><a href="faq.html" data-i18n="nav_faq">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
+<div><span data-i18n="foot_contract">Sementsul Network · SML contract:</span> 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
 </div></footer>
 <script>
-// Телеметрию пишет оракул в telemetry.json (тот же домен — без CORS-проблем прямого RPC).
+window.PAGE_I18N = {
+en: { st_h1: "SML Network Telemetry", st_base: "IP base:", st_tele: "oracle telemetry", st_upd: "updated every 15 min", st_ctr: "contract", st_ips: "IPs in base", st_burn: "Total burned", st_res: "Contract reserve", st_year: "Year / yearly cap", st_soon: "soon", st_year_v: "year {y} / 2.5M" },
+ru: { st_h1: "Телеметрия сети SML", st_base: "IP-база:", st_tele: "телеметрия от оракула", st_upd: "обновление каждые 15 мин", st_ctr: "контракт", st_ips: "IP в базе", st_burn: "Всего сожжено", st_res: "Резерв на контракте", st_year: "Год / лимит года", st_soon: "скоро", st_year_v: "год {y} / 2.5M" },
+zh: { st_h1: "SML网络数据", st_base: "IP库：", st_tele: "预言机数据", st_upd: "每15分钟更新", st_ctr: "合约", st_ips: "库中IP", st_burn: "已销毁总量", st_res: "合约储备", st_year: "年份/年度上限", st_soon: "即将", st_year_v: "第{y}年 / 250万" }
+};
+</script>
+<script src="assets/site.js"></script>
+<script>
+function renderTele(){
+  var set = function(id, v){ document.getElementById(id).textContent = v; };
+  var d = window.__tele, soon = window.SML_T('st_soon');
+  if(!d){ set("burned", soon); set("reserve", soon); set("year", soon); return; }
+  var f = function(v){ return v == null ? "—" : Number(v).toLocaleString("en-US", {maximumFractionDigits: 1}) + " SML"; };
+  set("burned", f(d.totalBurned));
+  set("reserve", f(d.burnReserve));
+  set("year", d.contractYear != null ? window.SML_T('st_year_v').replace('{y}', d.contractYear) : "—");
+}
+window.AFTER_LANG = function(){ renderTele(); };
 async function main(){
-  const set = (id, v) => { document.getElementById(id).textContent = v; };
   try{
-    const b = await (await fetch("blocklist.txt")).text();
-    const n = b.split("\n").map(s=>s.trim()).filter(Boolean).length;
-    set("botCount", n.toLocaleString("en-US"));
-  }catch{ set("botCount", "—"); }
+    var b = await (await fetch("blocklist.txt")).text();
+    var n = b.split("\n").map(function(s){ return s.trim(); }).filter(Boolean).length;
+    document.getElementById("botCount").textContent = n.toLocaleString("en-US");
+  }catch(e){ document.getElementById("botCount").textContent = "—"; }
   try{
-    const r = await fetch("telemetry.json");
-    if (!r.ok) throw new Error("no telemetry yet");
-    const d = await r.json();
-    const f = v => (v == null ? "—" : Number(v).toLocaleString("en-US", {maximumFractionDigits: 1}) + " SML");
-    set("burned", f(d.totalBurned));
-    set("reserve", f(d.burnReserve));
-    set("year", d.contractYear != null ? "год " + d.contractYear + " / 2.5M" : "—");
-  }catch{ set("burned", "скоро"); set("reserve", "скоро"); set("year", "скоро"); }
+    var r = await fetch("telemetry.json");
+    if(!r.ok) throw new Error("no telemetry");
+    window.__tele = await r.json();
+  }catch(e){ window.__tele = null; }
+  renderTele();
 }
 main();
 </script>

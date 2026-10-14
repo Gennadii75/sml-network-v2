@@ -20,5 +20,6 @@
    `ORACLE_PRIVATE_KEY` (Account 28), `REPORT_SECRET` (тот же, что в воркере).
    Уже стоят: `CONTRACT_ADDRESS`, `BNB_RPC_URL`, `CF_ACCOUNT_ID`, `CF_D1_DATABASE_ID`.
 5. [ ] Cloudflare Worker `sementsul-edge`: код залит в репо, создать воркер в дашборде,
-   привязать D1 (`DB`), vars `MY_TREASURY_WALLET`, secret `REPORT_SECRET`,
-   роут `sementsul.net/api/report-bot*`, тест POST → проверка D1.
+   привязать D1 (`DB`), vars `MY_TREASURY_WALLET`, secret `REPORT_SECRET` (мастер-ключ),
+   роут `sementsul.net/api/*` (report-bot + request-secret), тест POST → проверка D1.
+   В D1 Console один раз выполнить блок `webmasters` из db/schema.sql.

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Чем вреден бот-трафик — Sementsul Network</title>
-<meta name="description" content="Как боты разрушают сайты: перегрузка серверов, сломанная аналитика, скрапинг, брутфорс. Sementsul Network собирает их IP в открытую базу.">
+<title>How bot traffic harms — Sementsul Network</title>
+<meta name="description" content="How bots destroy websites: overloaded servers, broken analytics, scraping, brute force. Sementsul Network collects their IPs in an open base.">
 <link rel="canonical" href="https://gennadii75.github.io/sml-network-v2/harm.html">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0A1C2E">
 <link rel="icon" href="sml-256.png" type="image/png">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Чем вреден бот-трафик — Sementsul Network">
-<meta property="og:description" content="Боты жгут ресурсы, ломают аналитику и воруют контент. База вредоносных IP — открыта.">
+<meta property="og:title" content="How bot traffic harms — Sementsul Network">
+<meta property="og:description" content="Bots burn resources, break analytics and steal content. The malicious IP base is open.">
 <meta property="og:url" content="https://gennadii75.github.io/sml-network-v2/harm.html">
 <meta property="og:image" content="https://gennadii75.github.io/sml-network-v2/sml-256.png">
 <meta name="twitter:card" content="summary">
@@ -23,12 +23,14 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--navy);background-image:radial-gradient(circle at 50% 0%,rgba(212,175,55,.07),transparent 60%);color:var(--text);font-family:Montserrat,sans-serif;line-height:1.7}
 .wrap{max-width:960px;margin:0 auto;padding:0 20px}
-h1{font-family:Cinzel,serif;color:var(--gold);text-transform:uppercase;letter-spacing:2px;margin:8px 0 12px}
-h2{font-family:Cinzel,serif;color:var(--red);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-size:1.2rem}
+h1{font-family:Cinzel,serif;color:var(--gold);text-transform:uppercase;letter-spacing:2px;margin:8px 0 12px;font-size:1.6rem}
+h2{font-family:Cinzel,serif;color:var(--red);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-size:1.15rem}
 header.top{border-bottom:1px solid var(--border);padding:14px 0;background:rgba(10,28,46,.92);position:sticky;top:0;z-index:10}
 .top-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:12px;color:var(--gold);font-family:Cinzel,serif;font-weight:700;font-size:1.1rem;text-decoration:none}
 .brand img{height:44px;border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.4)}
+.lang-switch{display:flex;border:1px solid var(--gold);border-radius:6px;overflow:hidden}
+.lang-switch button{background:transparent;border:0;color:var(--gold);font-family:Montserrat,sans-serif;font-size:.72rem;font-weight:600;padding:7px 9px;cursor:pointer}
 nav.main{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto}
 nav.main a{color:var(--text);text-decoration:none;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
 nav.main a:hover{color:var(--gold)}
@@ -46,36 +48,45 @@ footer a:hover{color:var(--gold)}
 </head>
 <body>
 <header class="top"><div class="wrap top-in">
-<a class="brand" href="stats.html"><img src="sml-256.png" alt="Sementsul (SML)">SEMENTSUL NETWORK</a>
+<a class="brand" href="https://sementsul.net/"><img src="sml-256.png" alt="Sementsul (SML)"><span data-i18n="brand">SEMENTSUL NETWORK</span></a>
+<span class="lang-switch"><button data-lang="en">EN</button><button data-lang="zh">CN</button><button data-lang="ru">RU</button></span>
 <nav class="main">
-<a href="stats.html">Статистика</a><a href="earn.html">Заработок</a><a href="harm.html">Вред ботов</a><a href="cloudflare-connect.html">Подключение</a><a href="blog/">Блог</a><a href="faq.html">FAQ</a><a class="home" href="https://sementsul.net/">Главная →</a>
+<a href="stats.html" data-i18n="nav_stats">Stats</a><a href="earn.html" data-i18n="nav_earn">Earn</a><a href="harm.html" data-i18n="nav_harm">Bot harm</a><a href="cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="blog/" data-i18n="nav_blog">Blog</a><a href="faq.html" data-i18n="nav_faq">FAQ</a><a class="home" href="https://sementsul.net/" data-i18n="nav_home">Home →</a>
 </nav></div></header>
 <main class="wrap">
 <article>
-<h1>Чем бот-трафик разрушает веб</h1>
-<p>Автоматизированные скрипты и ботнеты — более 40% трафика интернета. Sementsul Network собирает их IP в открытую базу <a href="blocklist.txt">blocklist.txt</a>. Как отличать ботов от людей — в статье <a href="blog/bots-vs-humans.html">«Боты против живых»</a>.</p>
+<h1 data-i18n="h_h1">How bot traffic destroys the web</h1>
+<p><span data-i18n="h_intro">Automated scripts and botnets are over 40% of internet traffic. Sementsul Network collects their IPs in the open base</span> <a href="blocklist.txt">blocklist.txt</a>. <span data-i18n="h_intro2">How to tell bots from humans — in</span> <a href="blog/bots-vs-humans.html" data-i18n="h_vs">“Bots vs humans”</a>.</p>
 <div class="card">
-<h2>Вред владельцам сайтов</h2>
+<h2 data-i18n="h_own">Harm to site owners</h2>
 <ul>
-<li><b>Ресурсы:</b> боты жгут CPU/RAM, вешают SQL-базы, раздувают счета за хостинг.</li>
-<li><b>Аналитика:</b> роботы ломают поведенческие факторы (Метрика/Analytics), бюджеты на SEO и контекст уходят в мусор.</li>
-<li><b>Скрапинг:</b> парсеры тащат контент и базы для перепродажи или обучения моделей.</li>
+<li data-i18n="h_o1">Resources: bots burn CPU/RAM, hang SQL databases, inflate hosting bills.</li>
+<li data-i18n="h_o2">Analytics: robots break behavioral metrics, SEO and ad budgets go to trash.</li>
+<li data-i18n="h_o3">Scraping: parsers steal content and databases for resale or model training.</li>
 </ul>
 </div>
 <div class="card">
-<h2>Вред посетителям</h2>
+<h2 data-i18n="h_vis">Harm to visitors</h2>
 <ul>
-<li><b>Скорость:</b> сервер, занятый отбитием атак, дольше отвечает живым людям (TTFB).</li>
-<li><b>Взломы:</b> брутфорс-боты круглосуточно долбят формы логина.</li>
-<li><b>Капчи:</b> борьба с ботами превращает сайты в полосу препятствий для людей.</li>
+<li data-i18n="h_v1">Speed: a server busy repelling attacks answers real people slower (TTFB).</li>
+<li data-i18n="h_v2">Hacks: brute-force bots hammer login forms around the clock.</li>
+<li data-i18n="h_v3">Captchas: fighting bots turns sites into obstacle courses for humans.</li>
 </ul>
 </div>
-<p>Решение: подключите домен и превратите атаки в доход — <a href="earn.html">как заработать</a>. Боитесь задеть живых? Прочитайте про <a href="blog/false-positives.html">ложные срабатывания</a>.</p>
+<p><span data-i18n="h_out">The fix: connect your domain and turn attacks into income —</span> <a href="earn.html" data-i18n="h_how">how to earn</a>. <span data-i18n="h_out2">Afraid of hurting real users? Read about</span> <a href="blog/false-positives.html" data-i18n="h_fp">false positives</a>.</p>
 </article>
 </main>
 <footer><div class="wrap">
-<nav><a href="stats.html">Статистика</a><a href="earn.html">Заработок</a><a href="harm.html">Вред ботов</a><a href="cloudflare-connect.html">Подключение</a><a href="blog/">Блог</a><a href="faq.html">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
-<div>Sementsul Network · контракт SML: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
+<nav><a href="stats.html" data-i18n="nav_stats">Stats</a><a href="earn.html" data-i18n="nav_earn">Earn</a><a href="harm.html" data-i18n="nav_harm">Bot harm</a><a href="cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="blog/" data-i18n="nav_blog">Blog</a><a href="faq.html" data-i18n="nav_faq">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
+<div><span data-i18n="foot_contract">Sementsul Network · SML contract:</span> 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
 </div></footer>
+<script>
+window.PAGE_I18N = {
+en: { h_h1: "How bot traffic destroys the web", h_intro: "Automated scripts and botnets are over 40% of internet traffic. Sementsul Network collects their IPs in the open base", h_intro2: "How to tell bots from humans — in", h_vs: "“Bots vs humans”", h_own: "Harm to site owners", h_o1: "Resources: bots burn CPU/RAM, hang SQL databases, inflate hosting bills.", h_o2: "Analytics: robots break behavioral metrics, SEO and ad budgets go to trash.", h_o3: "Scraping: parsers steal content and databases for resale or model training.", h_vis: "Harm to visitors", h_v1: "Speed: a server busy repelling attacks answers real people slower (TTFB).", h_v2: "Hacks: brute-force bots hammer login forms around the clock.", h_v3: "Captchas: fighting bots turns sites into obstacle courses for humans.", h_out: "The fix: connect your domain and turn attacks into income —", h_how: "how to earn", h_out2: "Afraid of hurting real users? Read about", h_fp: "false positives" },
+ru: { h_h1: "Чем бот-трафик разрушает веб", h_intro: "Автоматизированные скрипты и ботнеты — более 40% трафика интернета. Sementsul Network собирает их IP в открытую базу", h_intro2: "Как отличать ботов от людей —", h_vs: "«Боты против живых»", h_own: "Вред владельцам сайтов", h_o1: "Ресурсы: боты жгут CPU/RAM, вешают SQL-базы, раздувают счета за хостинг.", h_o2: "Аналитика: роботы ломают поведенческие факторы, бюджеты на SEO и контекст уходят в мусор.", h_o3: "Скрапинг: парсеры тащат контент и базы для перепродажи или обучения моделей.", h_vis: "Вред посетителям", h_v1: "Скорость: сервер, занятый отбитием атак, дольше отвечает живым людям (TTFB).", h_v2: "Взломы: брутфорс-боты круглосуточно долбят формы логина.", h_v3: "Капчи: борьба с ботами превращает сайты в полосу препятствий для людей.", h_out: "Решение: подключите домен и превратите атаки в доход —", h_how: "как заработать", h_out2: "Боитесь задеть живых? Прочитайте про", h_fp: "ложные срабатывания" },
+zh: { h_h1: "机器人流量如何破坏网络", h_intro: "自动化脚本和僵尸网络占互联网流量的40%以上。Sementsul Network将其IP收集到公开库", h_intro2: "如何区分机器人与真人——见", h_vs: "《机器人与真人》", h_own: "对网站所有者的危害", h_o1: "资源：机器人消耗CPU/内存，拖死SQL数据库，推高托管账单。", h_o2: "分析：机器人破坏行为指标，SEO和广告预算打水漂。", h_o3: "抓取：解析器窃取内容和数据库用于转售或训练模型。", h_vis: "对访客的危害", h_v1: "速度：忙于抵御攻击的服务器对真人响应更慢（TTFB）。", h_v2: "入侵：暴力破解机器人全天攻击登录表单。", h_v3: "验证码：与机器人作战让网站变成真人的障碍赛。", h_out: "解法：接入你的域名，把攻击变成收入——", h_how: "如何赚钱", h_out2: "怕误伤真人？请读", h_fp: "误报说明" }
+};
+</script>
+<script src="assets/site.js"></script>
 </body>
 </html>

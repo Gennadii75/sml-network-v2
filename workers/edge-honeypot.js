@@ -1,6 +1,6 @@
 // edge-honeypot.js — центральный воркер sementsul.net
-// Wrangler: [[d1_databases]] binding = "DB", vars: REPORT_SECRET, MY_TREASURY_WALLET
-// Route: sementsul.net/api/report-bot (SaaS) + локальный перехват sementsul.net/*
+// Wrangler: [[d1_databases]] binding = "DB", vars: REPORT_SECRET (мастер-ключ), MY_TREASURY_WALLET
+// Routes: sementsul.net/api/* (report-bot + request-secret) + локальный перехват sementsul.net/*
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
@@ -22,6 +22,28 @@ function isValidWallet(a) {
   return typeof a === "string" && /^0x[0-9a-fA-F]{40}$/.test(a);
 }
 
+function newSecret() {
+  const b = new Uint8Array(24);
+  crypto.getRandomValues(b);
+  return [...b].map((x) => x.toString(16).padStart(2, "0")).join("");
+}
+
+// Проверка секрета: персональный из таблицы webmasters либо мастер-ключ оракула
+async function checkSecret(env, wallet, secret) {
+  if (!secret || !isValidWallet(wallet)) return false;
+  if (env.REPORT_SECRET && secret === env.REPORT_SECRET) return true;
+  try {
+    const row = await env.DB.prepare(
+      "SELECT 1 AS ok FROM webmasters WHERE wallet = ? AND secret = ? AND active = 1"
+    )
+      .bind(String(wallet).toLowerCase(), secret)
+      .first();
+    return !!row;
+  } catch {
+    return false;
+  }
+}
+
 function botScore(request) {
   // Cloudflare: botManagement.score (0=бот, 100=человек). threatScore deprecated.
   const bm = request.cf?.botManagement;
@@ -37,6 +59,44 @@ export default {
       return new Response(null, { status: 204, headers: CORS });
     }
 
+    // --- 0. Автовыдача персонального секрета вебмастеру ---
+    if (url.pathname === "/api/request-secret" && request.method === "POST") {
+      let data;
+      try {
+        data = await request.json();
+      } catch {
+        return new Response("Invalid JSON", { status: 400, headers: CORS });
+      }
+      const wallet = String(data.wallet || "").toLowerCase();
+      if (!isValidWallet(wallet)) {
+        return new Response("Bad wallet", { status: 400, headers: CORS });
+      }
+      const json = { "Content-Type": "application/json" };
+      try {
+        const existing = await env.DB.prepare(
+          "SELECT secret FROM webmasters WHERE wallet = ?"
+        )
+          .bind(wallet)
+          .first();
+        if (existing?.secret) {
+          return new Response(JSON.stringify({ secret: existing.secret, existed: true }), {
+            status: 200, headers: { ...CORS, ...json },
+          });
+        }
+        const secret = newSecret();
+        await env.DB.prepare(
+          "INSERT INTO webmasters (wallet, secret, created, active) VALUES (?, ?, ?, 1)"
+        )
+          .bind(wallet, secret, Date.now())
+          .run();
+        return new Response(JSON.stringify({ secret, existed: false }), {
+          status: 200, headers: { ...CORS, ...json },
+        });
+      } catch {
+        return new Response("Oracle not initialized", { status: 503, headers: CORS });
+      }
+    }
+
     // --- 1. SaaS API ---
     if (url.pathname === "/api/report-bot" && request.method === "POST") {
       let data;
@@ -45,7 +105,7 @@ export default {
       } catch {
         return new Response("Invalid JSON", { status: 400, headers: CORS });
       }
-      if (!env.REPORT_SECRET || data.secret !== env.REPORT_SECRET) {
+      if (!(await checkSecret(env, data.webmaster, data.secret))) {
         return new Response("Forbidden", { status: 403, headers: CORS });
       }
       if (!isValidIp(data.ip) || !isValidWallet(data.webmaster)) {

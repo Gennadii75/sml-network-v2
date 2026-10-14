@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Блог для вебмастеров — Sementsul Network</title>
-<meta name="description" content="Практика для вебмастеров: боты, защита, заработок SML, fail2ban, математика наград.">
+<title>Webmaster blog — Sementsul Network</title>
+<meta name="description" content="Hands-on for webmasters: bots, protection, SML earnings, fail2ban, reward math.">
 <link rel="canonical" href="https://gennadii75.github.io/sml-network-v2/blog/">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0A1C2E">
 <link rel="icon" href="../sml-256.png" type="image/png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Блог для вебмастеров — Sementsul Network">
+<meta property="og:title" content="Webmaster blog — Sementsul Network">
 <meta property="og:url" content="https://gennadii75.github.io/sml-network-v2/blog/">
 <meta property="og:image" content="https://gennadii75.github.io/sml-network-v2/sml-256.png">
 <meta name="twitter:card" content="summary">
@@ -27,6 +27,8 @@ header.top{border-bottom:1px solid var(--border);padding:14px 0;background:rgba(
 .top-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:12px;color:var(--gold);font-family:Cinzel,serif;font-weight:700;font-size:1.1rem;text-decoration:none}
 .brand img{height:44px;border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.4)}
+.lang-switch{display:flex;border:1px solid var(--gold);border-radius:6px;overflow:hidden}
+.lang-switch button{background:transparent;border:0;color:var(--gold);font-family:Montserrat,sans-serif;font-size:.72rem;font-weight:600;padding:7px 9px;cursor:pointer}
 nav.main{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto}
 nav.main a{color:var(--text);text-decoration:none;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
 nav.main a:hover{color:var(--gold)}
@@ -46,24 +48,33 @@ footer a:hover{color:var(--gold)}
 </head>
 <body>
 <header class="top"><div class="wrap top-in">
-<a class="brand" href="../stats.html"><img src="../sml-256.png" alt="Sementsul (SML)">SEMENTSUL NETWORK</a>
+<a class="brand" href="https://sementsul.net/"><img src="../sml-256.png" alt="Sementsul (SML)"><span data-i18n="brand">SEMENTSUL NETWORK</span></a>
+<span class="lang-switch"><button data-lang="en">EN</button><button data-lang="zh">CN</button><button data-lang="ru">RU</button></span>
 <nav class="main">
-<a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a class="home" href="https://sementsul.net/">Главная →</a>
+<a href="../stats.html" data-i18n="nav_stats">Stats</a><a href="../earn.html" data-i18n="nav_earn">Earn</a><a href="../harm.html" data-i18n="nav_harm">Bot harm</a><a href="../cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="./" data-i18n="nav_blog">Blog</a><a href="../faq.html" data-i18n="nav_faq">FAQ</a><a class="home" href="https://sementsul.net/" data-i18n="nav_home">Home →</a>
 </nav></div></header>
 <main class="wrap">
-<h1>Блог для вебмастеров</h1>
-<p><a href="../earn.html">Как заработать</a> · <a href="../stats.html">Телеметрия</a> · <a href="../faq.html">FAQ</a></p>
-<div class="post"><h2><a href="bots-vs-humans.html">Как отличить ботов от живых посетителей</a></h2><div class="meta">botManagement.score, ASN, поведенческие сигналы</div></div>
-<div class="post"><h2><a href="connect-10-min.html">Подключение сайта к SML за 10 минут</a></h2><div class="meta">Cloudflare Worker, проверка, первый минт</div></div>
-<div class="post"><h2><a href="fail2ban-blocklist.html">Сервер без Cloudflare: blocklist + fail2ban + iptables</a></h2><div class="meta">используем общую базу напрямую</div></div>
-<div class="post"><h2><a href="math.html">Математика заработка: 3 / 7 / 10 и лимиты</a></h2><div class="meta">сколько реально приносят боты</div></div>
-<div class="post"><h2><a href="false-positives.html">Ложные срабатывания: не заблокируй живых</a></h2><div class="meta">почему наш воркер никого не блокирует</div></div>
-<div class="post"><h2><a href="stack.html">Как мы используем Cloudflare и GitHub</a></h2><div class="meta">архитектура сети без серверов</div></div>
-<div class="post"><h2><a href="sysreq.html">Системные требования для монетизации сайта</a></h2><div class="meta">чеклист: что нужно, а что нет</div></div>
+<h1 data-i18n="b_h1">Webmaster blog</h1>
+<p><a href="../earn.html" data-i18n="nav_earn">Earn</a> · <a href="../stats.html" data-i18n="nav_stats">Stats</a> · <a href="../faq.html" data-i18n="nav_faq">FAQ</a></p>
+<div class="post"><h2><a href="bots-vs-humans.html" data-i18n="p1t">How to tell bots from real visitors</a></h2><div class="meta" data-i18n="p1m">botManagement.score, ASN, behavioral signals</div></div>
+<div class="post"><h2><a href="connect-10-min.html" data-i18n="p2t">Connecting your site to SML in 10 minutes</a></h2><div class="meta" data-i18n="p2m">Cloudflare Worker, testing, first mint</div></div>
+<div class="post"><h2><a href="fail2ban-blocklist.html" data-i18n="p3t">No Cloudflare: blocklist + fail2ban + iptables</a></h2><div class="meta" data-i18n="p3m">using the shared base directly</div></div>
+<div class="post"><h2><a href="math.html" data-i18n="p4t">Earning math: 3 / 7 / 10 and limits</a></h2><div class="meta" data-i18n="p4m">what bots really pay</div></div>
+<div class="post"><h2><a href="false-positives.html" data-i18n="p5t">False positives: don't block the living</a></h2><div class="meta" data-i18n="p5m">why our worker blocks nobody</div></div>
+<div class="post"><h2><a href="stack.html" data-i18n="p6t">How we use Cloudflare and GitHub</a></h2><div class="meta" data-i18n="p6m">serverless network architecture</div></div>
+<div class="post"><h2><a href="sysreq.html" data-i18n="p7t">System requirements for monetizing your site</a></h2><div class="meta" data-i18n="p7m">checklist: what you need and don't</div></div>
 </main>
 <footer><div class="wrap">
-<nav><a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
-<div>Sementsul Network · контракт SML: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
+<nav><a href="../stats.html" data-i18n="nav_stats">Stats</a><a href="../earn.html" data-i18n="nav_earn">Earn</a><a href="../harm.html" data-i18n="nav_harm">Bot harm</a><a href="../cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="./" data-i18n="nav_blog">Blog</a><a href="../faq.html" data-i18n="nav_faq">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
+<div><span data-i18n="foot_contract">Sementsul Network · SML contract:</span> 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
 </div></footer>
+<script>
+window.PAGE_I18N = {
+en: { b_h1: "Webmaster blog", p1t: "How to tell bots from real visitors", p1m: "botManagement.score, ASN, behavioral signals", p2t: "Connecting your site to SML in 10 minutes", p2m: "Cloudflare Worker, testing, first mint", p3t: "No Cloudflare: blocklist + fail2ban + iptables", p3m: "using the shared base directly", p4t: "Earning math: 3 / 7 / 10 and limits", p4m: "what bots really pay", p5t: "False positives: don't block the living", p5m: "why our worker blocks nobody", p6t: "How we use Cloudflare and GitHub", p6m: "serverless network architecture", p7t: "System requirements for monetizing your site", p7m: "checklist: what you need and don't" },
+ru: { b_h1: "Блог для вебмастеров", p1t: "Как отличить ботов от живых посетителей", p1m: "botManagement.score, ASN, поведенческие сигналы", p2t: "Подключение сайта к SML за 10 минут", p2m: "Cloudflare Worker, проверка, первый минт", p3t: "Сервер без Cloudflare: blocklist + fail2ban + iptables", p3m: "используем общую базу напрямую", p4t: "Математика заработка: 3 / 7 / 10 и лимиты", p4m: "сколько реально приносят боты", p5t: "Ложные срабатывания: не заблокируй живых", p5m: "почему наш воркер никого не блокирует", p6t: "Как мы используем Cloudflare и GitHub", p6m: "архитектура сети без серверов", p7t: "Системные требования для монетизации сайта", p7m: "чеклист: что нужно, а что нет" },
+zh: { b_h1: "站长博客", p1t: "如何区分机器人与真人访客", p1m: "botManagement评分、ASN、行为信号", p2t: "10分钟将网站接入SML", p2m: "Cloudflare Worker、测试、首次铸造", p3t: "无Cloudflare：封锁名单+fail2ban+iptables", p3m: "直接使用公共库", p4t: "收益数学：3/7/10与限制", p4m: "机器人到底带来多少", p5t: "误报：别拦截真人", p5m: "我们的Worker为何不拦截任何人", p6t: "我们如何使用Cloudflare与GitHub", p6m: "无服务器网络架构", p7t: "网站变现的系统要求", p7m: "清单：需要什么、不需要什么" }
+};
+</script>
+<script src="../assets/site.js"></script>
 </body>
 </html>

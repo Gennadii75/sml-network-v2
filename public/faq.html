@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FAQ — Sementsul Network</title>
-<meta name="description" content="Частые вопросы о Sementsul Network: что такое SML, как заработать на ботах, лимиты, подключение, V1 vs V2.">
+<meta name="description" content="FAQ about Sementsul Network: what SML is, how to earn on bots, limits, setup, V1 vs V2.">
 <link rel="canonical" href="https://gennadii75.github.io/sml-network-v2/faq.html">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0A1C2E">
 <link rel="icon" href="sml-256.png" type="image/png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="FAQ — Sementsul Network">
-<meta property="og:description" content="10 ответов о SML: заработок, сжигание, лимиты, подключение.">
+<meta property="og:description" content="10 answers about SML: earnings, burning, limits, setup.">
 <meta property="og:url" content="https://gennadii75.github.io/sml-network-v2/faq.html">
 <meta property="og:image" content="https://gennadii75.github.io/sml-network-v2/sml-256.png">
 <meta name="twitter:card" content="summary">
@@ -20,16 +20,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"Что такое SML?","acceptedAnswer":{"@type":"Answer","text":"SML (Sementsul) — дефляционный BEP-20 токен в сети BNB Chain. Эмиссия 1 млрд, из них 250 млн лежат в резерве сжигания на балансе контракта. Контракт V2: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7."}},
-{"@type":"Question","name":"Как заработать SML на бот-трафике?","acceptedAnswer":{"@type":"Answer","text":"Поставь Cloudflare Worker со скриптом сети на свой сайт. Воркер фиксирует ботов и шлет репорты оракулу sementsul.net. За каждый уникальный IP, попавший в базу впервые, контракт минтит +3 SML на твой кошелек."}},
-{"@type":"Question","name":"Сколько сжигается при минте?","acceptedAnswer":{"@type":"Answer","text":"10 SML из резерва при каждом минте: 10 burn + 3 награда за уникальный IP, 10 burn + 7 в treasury за повторную атаку. Чистый итог всегда дефляционный: −7 и −3 SML."}},
-{"@type":"Question","name":"Воркер блокирует живых посетителей?","acceptedAnswer":{"@type":"Answer","text":"Нет. Воркер только фиксирует IP с высоким бот-скором и пропускает запрос дальше. Блокировок, капч и 403 для людей нет."}},
-{"@type":"Question","name":"Что нужно для подключения?","acceptedAnswer":{"@type":"Answer","text":"Домен на Cloudflare (подойдет free-тариф), адрес BNB-кошелька и секрет SHARED_SECRET от оракула. Настройка занимает около 10 минут."}},
-{"@type":"Question","name":"Когда приходит награда?","acceptedAnswer":{"@type":"Answer","text":"Оракул работает циклами каждые ~15 минут: читает новые строки из D1, вызывает контракт, помечает обработанные. Первый минт обычно приходит в пределах 15–30 минут после атаки."}},
-{"@type":"Question","name":"Что за лимиты 500 в сутки и 2.5M в год?","acceptedAnswer":{"@type":"Answer","text":"Антиспам-защита: не более 500 минтов в сутки на всю сеть и не более 2.5 млн сжигания в год. Эра растянута на 100 лет. Накрутка фейковыми IP бессмысленна."}},
-{"@type":"Question","name":"Чем V2 отличается от V1?","acceptedAnswer":{"@type":"Answer","text":"V2 — новый контракт с честным сжиганием (резерв реально лежит на балансе и сжигается через burn). Старый пул V1 не мигрирует: ликвидность создается заново под адресом V2."}},
-{"@type":"Question","name":"Где смотреть статистику сети?","acceptedAnswer":{"@type":"Answer","text":"На странице телеметрии: число IP в базе, всего сожжено, остаток резерва, текущий год контракта. Данные обновляет оракул каждые 15 минут."}},
-{"@type":"Question","name":"Как использовать базу ботов без Cloudflare?","acceptedAnswer":{"@type":"Answer","text":"Скачай blocklist.txt (один IP на строку) и скармливай ipset/iptables или fail2ban по крону каждые 15 минут. Формат стабилен, валидация на стороне генератора."}}
+{"@type":"Question","name":"What is SML?","acceptedAnswer":{"@type":"Answer","text":"SML (Sementsul) is a deflationary BEP-20 token on BNB Chain. Supply 1B, 250M held in the burn reserve on the contract balance. V2 contract: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7."}},
+{"@type":"Question","name":"How to earn SML on bot traffic?","acceptedAnswer":{"@type":"Answer","text":"Install a Cloudflare Worker with the network script on your site. The worker logs bots and reports them to the sementsul.net oracle. Every unique IP entering the base for the first time mints +3 SML to your wallet."}},
+{"@type":"Question","name":"How much is burned per mint?","acceptedAnswer":{"@type":"Answer","text":"10 SML from the reserve per mint: 10 burn + 3 reward for a unique IP, 10 burn + 7 to treasury for a repeat attack. Net result is always deflationary: −7 and −3."}},
+{"@type":"Question","name":"Does the worker block real visitors?","acceptedAnswer":{"@type":"Answer","text":"No. It only logs IPs and passes traffic through. No captchas, no 403."}},
+{"@type":"Question","name":"What is needed to connect?","acceptedAnswer":{"@type":"Answer","text":"A domain on Cloudflare (free plan is enough), a BNB wallet address. The personal secret is issued automatically by the connect page."}},
+{"@type":"Question","name":"When does the reward arrive?","acceptedAnswer":{"@type":"Answer","text":"The oracle runs in ~15 minute cycles: reads D1, calls the contract, marks processed rows. The first mint usually arrives within 15–30 minutes after an attack."}},
+{"@type":"Question","name":"What are the 500/day and 2.5M/year limits?","acceptedAnswer":{"@type":"Answer","text":"Anti-spam: max 500 mints per day network-wide and max 2.5M burn per year. Era: 100 years. Spamming fake IPs is pointless."}},
+{"@type":"Question","name":"How is V2 different from V1?","acceptedAnswer":{"@type":"Answer","text":"V2 is a new contract with honest burning (reserve actually sits on its balance). The old pool does not migrate: liquidity is created from scratch under the V2 address."}},
+{"@type":"Question","name":"Where to see network stats?","acceptedAnswer":{"@type":"Answer","text":"On the telemetry page: IPs in base, total burned, reserve remainder, contract year. Updated by the oracle."}},
+{"@type":"Question","name":"How to use the bot base without Cloudflare?","acceptedAnswer":{"@type":"Answer","text":"Take blocklist.txt (one IP per line) into ipset/iptables or fail2ban via cron. Format is stable."}}
 ]}
 </script>
 <style>
@@ -42,6 +42,8 @@ header.top{border-bottom:1px solid var(--border);padding:14px 0;background:rgba(
 .top-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:12px;color:var(--gold);font-family:Cinzel,serif;font-weight:700;font-size:1.1rem;text-decoration:none}
 .brand img{height:44px;border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.4)}
+.lang-switch{display:flex;border:1px solid var(--gold);border-radius:6px;overflow:hidden}
+.lang-switch button{background:transparent;border:0;color:var(--gold);font-family:Montserrat,sans-serif;font-size:.72rem;font-weight:600;padding:7px 9px;cursor:pointer}
 nav.main{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto}
 nav.main a{color:var(--text);text-decoration:none;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
 nav.main a:hover{color:var(--gold)}
@@ -51,6 +53,7 @@ details{background:rgba(15,39,64,.7);border:1px solid var(--border);border-radiu
 summary{cursor:pointer;color:var(--gold);font-weight:600}
 summary:hover{color:var(--gold-light)}
 details p{margin-top:10px}
+.more{font-size:.85rem}
 a{color:var(--gold-light)}
 code{background:#050e18;padding:2px 6px;color:#ff7b72;border-radius:4px}
 footer{border-top:1px solid var(--border);padding:28px 0;text-align:center;color:var(--muted);font-size:.85rem}
@@ -61,26 +64,35 @@ footer a:hover{color:var(--gold)}
 </head>
 <body>
 <header class="top"><div class="wrap top-in">
-<a class="brand" href="stats.html"><img src="sml-256.png" alt="Sementsul (SML)">SEMENTSUL NETWORK</a>
+<a class="brand" href="https://sementsul.net/"><img src="sml-256.png" alt="Sementsul (SML)"><span data-i18n="brand">SEMENTSUL NETWORK</span></a>
+<span class="lang-switch"><button data-lang="en">EN</button><button data-lang="zh">CN</button><button data-lang="ru">RU</button></span>
 <nav class="main">
-<a href="stats.html">Статистика</a><a href="earn.html">Заработок</a><a href="harm.html">Вред ботов</a><a href="cloudflare-connect.html">Подключение</a><a href="blog/">Блог</a><a href="faq.html">FAQ</a><a class="home" href="https://sementsul.net/">Главная →</a>
+<a href="stats.html" data-i18n="nav_stats">Stats</a><a href="earn.html" data-i18n="nav_earn">Earn</a><a href="harm.html" data-i18n="nav_harm">Bot harm</a><a href="cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="blog/" data-i18n="nav_blog">Blog</a><a href="faq.html" data-i18n="nav_faq">FAQ</a><a class="home" href="https://sementsul.net/" data-i18n="nav_home">Home →</a>
 </nav></div></header>
 <main class="wrap">
-<h1>Частые вопросы</h1>
-<details open><summary>Что такое SML?</summary><p>SML (Sementsul) — дефляционный BEP-20 токен в сети BNB Chain. Эмиссия 1 млрд, из них 250 млн лежат в резерве сжигания на балансе контракта. Контракт V2: <code>0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</code>.</p></details>
-<details><summary>Как заработать SML на бот-трафике?</summary><p>Поставь Cloudflare Worker со скриптом сети на свой сайт (<a href="cloudflare-connect.html">генератор скрипта</a>). Воркер фиксирует ботов и шлет репорты оракулу. За каждый уникальный IP впервые — <b>+3 SML</b> на твой кошелек. Детали — <a href="earn.html">здесь</a>.</p></details>
-<details><summary>Сколько сжигается при минте?</summary><p>10 SML из резерва при каждом минте: 10 burn + 3 награда (уникальный IP), 10 burn + 7 в treasury (повторная атака). Итог всегда дефляционный: −7 и −3. Математика — <a href="blog/math.html">в блоге</a>.</p></details>
-<details><summary>Воркер блокирует живых посетителей?</summary><p>Нет. Только учет IP и пропуск трафика дальше. Ни капч, ни 403. Подробнее — <a href="blog/false-positives.html">про ложные срабатывания</a>.</p></details>
-<details><summary>Что нужно для подключения?</summary><p>Домен на Cloudflare (хватит free), адрес BNB-кошелька и секрет <code>SHARED_SECRET</code> от оракула. Гайд на 10 минут — <a href="blog/connect-10-min.html">тут</a>.</p></details>
-<details><summary>Когда приходит награда?</summary><p>Оракул ходит циклами каждые ~15 минут: читает D1 → вызывает контракт → помечает обработанные. Первый минт обычно в пределах 15–30 минут после атаки.</p></details>
-<details><summary>Что за лимиты 500 в сутки и 2.5M в год?</summary><p>Антиспам: максимум 500 минтов в сутки на сеть и 2.5 млн сжигания в год. Эра — 100 лет. Фейковые IP слать бессмысленно.</p></details>
-<details><summary>Чем V2 отличается от V1?</summary><p>V2 — новый контракт с честным сжиганием (резерв реально на балансе). Старый пул не мигрирует: ликвидность создается заново под адресом V2.</p></details>
-<details><summary>Где смотреть статистику?</summary><p><a href="stats.html">Телеметрия</a>: IP в базе, сожжено, резерв, год контракта. Обновляется оракулом.</p></details>
-<details><summary>Как использовать базу без Cloudflare?</summary><p>Бери <a href="blocklist.txt">blocklist.txt</a> (IP на строку) в ipset/iptables или fail2ban по крону. Инструкция — <a href="blog/fail2ban-blocklist.html">тут</a>.</p></details>
+<h1 data-i18n="f_h1">Frequently asked questions</h1>
+<details open><summary data-i18n="f_q1">What is SML?</summary><p data-i18n="f_a1">SML (Sementsul) is a deflationary BEP-20 token on BNB Chain. Supply 1B; 250M sits in the burn reserve on the contract balance. V2 contract: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7.</p></details>
+<details><summary data-i18n="f_q2">How to earn SML on bot traffic?</summary><p data-i18n="f_a2">Install a Cloudflare Worker with the network script on your site. The worker logs bots and reports them to the oracle. Every unique IP entering the base for the first time mints +3 SML to your wallet.</p><p class="more"><a href="cloudflare-connect.html" data-i18n="m_conn">Script generator</a> · <a href="earn.html" data-i18n="m_earn">Details</a></p></details>
+<details><summary data-i18n="f_q3">How much is burned per mint?</summary><p data-i18n="f_a3">10 SML from the reserve per mint: 10 burn + 3 reward (unique IP), 10 burn + 7 to treasury (repeat attack). The net is always deflationary: −7 and −3.</p><p class="more"><a href="blog/math.html" data-i18n="m_math">The math</a></p></details>
+<details><summary data-i18n="f_q4">Does the worker block real visitors?</summary><p data-i18n="f_a4">No. Only IP logging and traffic passthrough. No captchas, no 403.</p><p class="more"><a href="blog/false-positives.html" data-i18n="m_fp">False positives</a></p></details>
+<details><summary data-i18n="f_q5">What is needed to connect?</summary><p data-i18n="f_a5">A domain on Cloudflare (free is enough), a BNB wallet address. The personal secret is issued automatically by the connect page — paste it into the worker as is.</p><p class="more"><a href="cloudflare-connect.html" data-i18n="m_conn2">Connect page</a> · <a href="blog/connect-10-min.html" data-i18n="m_guide">10-minute guide</a></p></details>
+<details><summary data-i18n="f_q6">When does the reward arrive?</summary><p data-i18n="f_a6">The oracle runs in ~15 minute cycles: reads D1 → calls the contract → marks processed rows. The first mint usually arrives within 15–30 minutes after an attack.</p></details>
+<details><summary data-i18n="f_q7">What are the 500/day and 2.5M/year limits?</summary><p data-i18n="f_a7">Anti-spam: max 500 mints per day network-wide and max 2.5M burn per year. Era: 100 years. Sending fake IPs is pointless.</p></details>
+<details><summary data-i18n="f_q8">How is V2 different from V1?</summary><p data-i18n="f_a8">V2 is a new contract with honest burning (the reserve actually sits on its balance). The old pool does not migrate: liquidity is created from scratch under the V2 address.</p></details>
+<details><summary data-i18n="f_q9">Where to see network stats?</summary><p data-i18n="f_a9">On the telemetry page: IPs in base, total burned, reserve remainder, contract year. Updated by the oracle.</p><p class="more"><a href="stats.html" data-i18n="m_stats">Telemetry</a></p></details>
+<details><summary data-i18n="f_q10">How to use the base without Cloudflare?</summary><p data-i18n="f_a10">Take blocklist.txt (one IP per line) into ipset/iptables or fail2ban via cron.</p><p class="more"><a href="blog/fail2ban-blocklist.html" data-i18n="m_how">Instructions</a></p></details>
 </main>
 <footer><div class="wrap">
-<nav><a href="stats.html">Статистика</a><a href="earn.html">Заработок</a><a href="harm.html">Вред ботов</a><a href="cloudflare-connect.html">Подключение</a><a href="blog/">Блог</a><a href="faq.html">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
-<div>Sementsul Network · контракт SML: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
+<nav><a href="stats.html" data-i18n="nav_stats">Stats</a><a href="earn.html" data-i18n="nav_earn">Earn</a><a href="harm.html" data-i18n="nav_harm">Bot harm</a><a href="cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="blog/" data-i18n="nav_blog">Blog</a><a href="faq.html" data-i18n="nav_faq">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
+<div><span data-i18n="foot_contract">Sementsul Network · SML contract:</span> 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
 </div></footer>
+<script>
+window.PAGE_I18N = {
+en: { f_h1: "Frequently asked questions", f_q1: "What is SML?", f_a1: "SML (Sementsul) is a deflationary BEP-20 token on BNB Chain. Supply 1B; 250M sits in the burn reserve on the contract balance. V2 contract: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7.", f_q2: "How to earn SML on bot traffic?", f_a2: "Install a Cloudflare Worker with the network script on your site. The worker logs bots and reports them to the oracle. Every unique IP entering the base for the first time mints +3 SML to your wallet.", f_q3: "How much is burned per mint?", f_a3: "10 SML from the reserve per mint: 10 burn + 3 reward (unique IP), 10 burn + 7 to treasury (repeat attack). The net is always deflationary: −7 and −3.", f_q4: "Does the worker block real visitors?", f_a4: "No. Only IP logging and traffic passthrough. No captchas, no 403.", f_q5: "What is needed to connect?", f_a5: "A domain on Cloudflare (free is enough), a BNB wallet address. The personal secret is issued automatically by the connect page — paste it into the worker as is.", f_q6: "When does the reward arrive?", f_a6: "The oracle runs in ~15 minute cycles: reads D1 → calls the contract → marks processed rows. The first mint usually arrives within 15–30 minutes after an attack.", f_q7: "What are the 500/day and 2.5M/year limits?", f_a7: "Anti-spam: max 500 mints per day network-wide and max 2.5M burn per year. Era: 100 years. Sending fake IPs is pointless.", f_q8: "How is V2 different from V1?", f_a8: "V2 is a new contract with honest burning (the reserve actually sits on its balance). The old pool does not migrate: liquidity is created from scratch under the V2 address.", f_q9: "Where to see network stats?", f_a9: "On the telemetry page: IPs in base, total burned, reserve remainder, contract year. Updated by the oracle.", f_q10: "How to use the base without Cloudflare?", f_a10: "Take blocklist.txt (one IP per line) into ipset/iptables or fail2ban via cron.", m_conn: "Script generator", m_earn: "Details", m_math: "The math", m_fp: "False positives", m_conn2: "Connect page", m_guide: "10-minute guide", m_stats: "Telemetry", m_how: "Instructions" },
+ru: { f_h1: "Частые вопросы", f_q1: "Что такое SML?", f_a1: "SML (Sementsul) — дефляционный BEP-20 токен в сети BNB Chain. Эмиссия 1 млрд, из них 250 млн лежат в резерве сжигания на балансе контракта. Контракт V2: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7.", f_q2: "Как заработать SML на бот-трафике?", f_a2: "Поставь Cloudflare Worker со скриптом сети на свой сайт. Воркер фиксирует ботов и шлет репорты оракулу. За каждый уникальный IP впервые — +3 SML на твой кошелек.", f_q3: "Сколько сжигается при минте?", f_a3: "10 SML из резерва при каждом минте: 10 burn + 3 награда (уникальный IP), 10 burn + 7 в treasury (повторная атака). Итог всегда дефляционный: −7 и −3.", f_q4: "Воркер блокирует живых посетителей?", f_a4: "Нет. Только учет IP и пропуск трафика дальше. Ни капч, ни 403.", f_q5: "Что нужно для подключения?", f_a5: "Домен на Cloudflare (хватит free), адрес BNB-кошелька. Персональный секрет выдает автоматически страница подключения — вставь его в воркер как есть.", f_q6: "Когда приходит награда?", f_a6: "Оракул ходит циклами каждые ~15 минут: читает D1 → вызывает контракт → помечает обработанные. Первый минт обычно в пределах 15–30 минут после атаки.", f_q7: "Что за лимиты 500 в сутки и 2.5M в год?", f_a7: "Антиспам: максимум 500 минтов в сутки на сеть и 2.5 млн сжигания в год. Эра — 100 лет. Фейковые IP слать бессмысленно.", f_q8: "Чем V2 отличается от V1?", f_a8: "V2 — новый контракт с честным сжиганием (резерв реально на балансе). Старый пул не мигрирует: ликвидность создается заново под адресом V2.", f_q9: "Где смотреть статистику?", f_a9: "На странице телеметрии: IP в базе, сожжено, резерв, год контракта. Обновляется оракулом.", f_q10: "Как использовать базу без Cloudflare?", f_a10: "Бери blocklist.txt (IP на строку) в ipset/iptables или fail2ban по крону.", m_conn: "Генератор скрипта", m_earn: "Подробно", m_math: "Математика", m_fp: "Ложные срабатывания", m_conn2: "Страница подключения", m_guide: "Гайд на 10 минут", m_stats: "Телеметрия", m_how: "Инструкция" },
+zh: { f_h1: "常见问题", f_q1: "什么是SML？", f_a1: "SML（Sementsul）是BNB Chain上的通缩BEP-20代币。发行10亿，其中2.5亿存于合约余额的销毁储备。V2合约：0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7。", f_q2: "如何用机器人流量赚SML？", f_a2: "在你的网站安装带网络脚本的Cloudflare Worker。Worker记录机器人并上报预言机。每个首次入库的独立IP为你的钱包铸造+3 SML。", f_q3: "每次铸造销毁多少？", f_a3: "每次从储备销毁10 SML：10销毁+3奖励（独立IP），10销毁+7归金库（重复攻击）。净结果恒为通缩：-7和-3。", f_q4: "Worker会拦截真人吗？", f_a4: "不会。只记录IP并放行流量。无验证码，无403。", f_q5: "接入需要什么？", f_a5: "Cloudflare上的域名（免费版即可）、BNB钱包地址。个人密钥由接入页面自动发放——原样粘贴到Worker。", f_q6: "奖励何时到账？", f_a6: "预言机约15分钟一轮：读D1→调用合约→标记已处理。首次铸造通常在攻击后15-30分钟内到账。", f_q7: "每天500次、每年250万次限制是什么？", f_a7: "反垃圾：全网每天最多500次铸造，每年最多销毁250万。时代：100年。发送虚假IP毫无意义。", f_q8: "V2与V1有何不同？", f_a8: "V2是带真实销毁的新合约（储备确实在余额中）。旧池不迁移：流动性在V2地址下重建。", f_q9: "哪里看网络数据？", f_a9: "数据页面：库中IP、已销毁、储备、合约年份。由预言机更新。", f_q10: "不用Cloudflare如何使用库？", f_a10: "取blocklist.txt（一行一IP）用于ipset/iptables或fail2ban定时任务。", m_conn: "脚本生成器", m_earn: "详情", m_math: "数学说明", m_fp: "误报说明", m_conn2: "接入页面", m_guide: "10分钟指南", m_stats: "数据页", m_how: "说明" }
+};
+</script>
+<script src="assets/site.js"></script>
 </body>
 </html>

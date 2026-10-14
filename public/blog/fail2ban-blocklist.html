@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blocklist + fail2ban без Cloudflare — SML блог</title>
-<meta name="description" content="Как использовать открытую базу бот-IP Sementsul Network на своем сервере: ipset, iptables и fail2ban без Cloudflare.">
+<title>No Cloudflare: blocklist + fail2ban — SML blog</title>
+<meta name="description" content="How to use the open Sementsul bot IP base on your own server: ipset, iptables and fail2ban without Cloudflare.">
 <link rel="canonical" href="https://gennadii75.github.io/sml-network-v2/blog/fail2ban-blocklist.html">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0A1C2E">
 <link rel="icon" href="../sml-256.png" type="image/png">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Blocklist + fail2ban без Cloudflare">
+<meta property="og:title" content="No Cloudflare: blocklist + fail2ban">
 <meta property="og:url" content="https://gennadii75.github.io/sml-network-v2/blog/fail2ban-blocklist.html">
 <meta property="og:image" content="https://gennadii75.github.io/sml-network-v2/sml-256.png">
 <meta name="twitter:card" content="summary">
@@ -28,6 +28,8 @@ header.top{border-bottom:1px solid var(--border);padding:14px 0;background:rgba(
 .top-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:12px;color:var(--gold);font-family:Cinzel,serif;font-weight:700;font-size:1.1rem;text-decoration:none}
 .brand img{height:44px;border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.4)}
+.lang-switch{display:flex;border:1px solid var(--gold);border-radius:6px;overflow:hidden}
+.lang-switch button{background:transparent;border:0;color:var(--gold);font-family:Montserrat,sans-serif;font-size:.72rem;font-weight:600;padding:7px 9px;cursor:pointer}
 nav.main{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto}
 nav.main a{color:var(--text);text-decoration:none;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
 nav.main a:hover{color:var(--gold)}
@@ -45,31 +47,41 @@ footer a:hover{color:var(--gold)}
 </head>
 <body>
 <header class="top"><div class="wrap top-in">
-<a class="brand" href="../stats.html"><img src="../sml-256.png" alt="Sementsul (SML)">SEMENTSUL NETWORK</a>
+<a class="brand" href="https://sementsul.net/"><img src="../sml-256.png" alt="Sementsul (SML)"><span data-i18n="brand">SEMENTSUL NETWORK</span></a>
+<span class="lang-switch"><button data-lang="en">EN</button><button data-lang="zh">CN</button><button data-lang="ru">RU</button></span>
 <nav class="main">
-<a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a class="home" href="https://sementsul.net/">Главная →</a>
+<a href="../stats.html" data-i18n="nav_stats">Stats</a><a href="../earn.html" data-i18n="nav_earn">Earn</a><a href="../harm.html" data-i18n="nav_harm">Bot harm</a><a href="../cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="./" data-i18n="nav_blog">Blog</a><a href="../faq.html" data-i18n="nav_faq">FAQ</a><a class="home" href="https://sementsul.net/" data-i18n="nav_home">Home →</a>
 </nav></div></header>
 <main class="wrap">
 <article>
-<p><a href="index.html">← Все статьи</a></p>
-<h1>Сервер без Cloudflare: blocklist + fail2ban + iptables</h1>
-<p>Общая база <a href="../blocklist.txt">blocklist.txt</a> — текст, один IP на строку. Ее ест любой Linux.</p>
-<div class="card"><h2>Вариант A: ipset, обновление по крону</h2>
-<pre># раз в 15 минут
+<p><a href="index.html" data-i18n="back">← All articles</a></p>
+<h1 data-i18n="a_h1">Server without Cloudflare: blocklist + fail2ban + iptables</h1>
+<p><span data-i18n="a_intro">The shared base</span> <a href="../blocklist.txt">blocklist.txt</a> <span data-i18n="a_intro2">is plain text, one IP per line. Any Linux eats it.</span></p>
+<div class="card"><h2 data-i18n="a_ah">Option A: ipset, refresh via cron</h2>
+<pre># every 15 minutes
 curl -s https://gennadii75.github.io/sml-network-v2/blocklist.txt -o /tmp/sml.txt
 ipset create sml-block hash:net -exist
 ipset flush sml-block
 while read ip; do ipset add sml-block "$ip" -exist; done &lt; /tmp/sml.txt
 iptables -I INPUT -m set --match-set sml-block src -j DROP</pre></div>
-<div class="card"><h2>Вариант B: fail2ban под свои логи</h2>
-<p>Пусть fail2ban ловит сканеры (404-пачки, перебор <code>wp-login</code>) как раньше, а blocklist держите вторым рубежом через ipset выше. Не скармливайте весь blocklist в один jail — тысячи IP тормозят перезапуск.</p></div>
-<div class="card"><h2>Важно</h2>
-<p>База обновляется каждые ~15 минут. Не баньте подсети целиком — только точные IP. Хотите еще и зарабатывать, а не только блокировать — <a href="connect-10-min.html">подключите воркер</a>.</p></div>
+<div class="card"><h2 data-i18n="a_bh">Option B: fail2ban on your own logs</h2>
+<p data-i18n="a_bp">Let fail2ban keep catching scanners (404 bursts, wp-login brute force) as before, and hold the blocklist as a second line via ipset above. Don't feed the whole blocklist into one jail — thousands of IPs slow down restarts.</p></div>
+<div class="card"><h2 data-i18n="a_ch">Important</h2>
+<p data-i18n="a_cp">The base updates roughly every 15 minutes. Don't ban whole subnets — exact IPs only. Want to earn, not just block — connect a worker.</p></div>
+<p><span data-i18n="next">Read next:</span> <a href="connect-10-min.html" data-i18n="rm_conn">10-minute setup</a> · <a href="false-positives.html" data-i18n="rm_fp">False positives</a></p>
 </article>
 </main>
 <footer><div class="wrap">
-<nav><a href="../stats.html">Статистика</a><a href="../earn.html">Заработок</a><a href="../harm.html">Вред ботов</a><a href="../cloudflare-connect.html">Подключение</a><a href="./">Блог</a><a href="../faq.html">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
-<div>Sementsul Network · контракт SML: 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
+<nav><a href="../stats.html" data-i18n="nav_stats">Stats</a><a href="../earn.html" data-i18n="nav_earn">Earn</a><a href="../harm.html" data-i18n="nav_harm">Bot harm</a><a href="../cloudflare-connect.html" data-i18n="nav_connect">Connect</a><a href="./" data-i18n="nav_blog">Blog</a><a href="../faq.html" data-i18n="nav_faq">FAQ</a><a href="https://sementsul.net/">sementsul.net</a></nav>
+<div><span data-i18n="foot_contract">Sementsul Network · SML contract:</span> 0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7</div>
 </div></footer>
+<script>
+window.PAGE_I18N = {
+en: { a_h1: "Server without Cloudflare: blocklist + fail2ban + iptables", a_intro: "The shared base", a_intro2: "is plain text, one IP per line. Any Linux eats it.", a_ah: "Option A: ipset, refresh via cron", a_bh: "Option B: fail2ban on your own logs", a_bp: "Let fail2ban keep catching scanners (404 bursts, wp-login brute force) as before, and hold the blocklist as a second line via ipset above. Don't feed the whole blocklist into one jail — thousands of IPs slow down restarts.", a_ch: "Important", a_cp: "The base updates roughly every 15 minutes. Don't ban whole subnets — exact IPs only. Want to earn, not just block — connect a worker." },
+ru: { a_h1: "Сервер без Cloudflare: blocklist + fail2ban + iptables", a_intro: "Общая база", a_intro2: "— текст, один IP на строку. Ее ест любой Linux.", a_ah: "Вариант A: ipset, обновление по крону", a_bh: "Вариант B: fail2ban под свои логи", a_bp: "Пусть fail2ban ловит сканеры (404-пачки, перебор wp-login) как раньше, а blocklist держите вторым рубежом через ipset выше. Не скармливайте весь blocklist в один jail — тысячи IP тормозят перезапуск.", a_ch: "Важно", a_cp: "База обновляется каждые ~15 минут. Не баньте подсети целиком — только точные IP. Хотите еще и зарабатывать, а не только блокировать — подключите воркер." },
+zh: { a_h1: "无Cloudflare服务器：封锁名单+fail2ban+iptables", a_intro: "公共库", a_intro2: "是纯文本，一行一IP。任何Linux都可用。", a_ah: "方案A：ipset，定时刷新", a_bh: "方案B：基于自身日志的fail2ban", a_bp: "让fail2ban照常抓扫描器（404 bursts、wp-login爆破），封锁名单用上面的ipset做第二道防线。别把整个名单塞进一个jail——数千IP会拖慢重启。", a_ch: "注意", a_cp: "库约15分钟更新一次。别封整个子网——只封精确IP。想赚钱而不只是拦截——请接入Worker。" }
+};
+</script>
+<script src="../assets/site.js"></script>
 </body>
 </html>
