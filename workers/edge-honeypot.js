@@ -137,8 +137,15 @@ export default {
     }
 
     // --- 2. Локальный перехват собственного домена ---
+    // Honeypot-ловушка: на статическом лендинге этих путей нет в принципе,
+    // любой стук сюда — сканер. Независит от тарифа Cloudflare (bot score
+    // на free виден частично). В клиентский шаблон НЕ переносить: там может
+    // быть живой WordPress, где wp-login.php легитимен.
+    const HONEY = ["/wp-login.php", "/xmlrpc.php", "/.env", "/phpmyadmin", "/pma/", "/.git/config", "/server-status", "/actuator", "/.aws/credentials", "/console/", "/solr/", "/cgi-bin/"];
+    const lowPath = url.pathname.toLowerCase();
+    const honeypot = HONEY.some((h) => lowPath === h || lowPath.startsWith(h.endsWith("/") ? h : h + "/"));
     const score = botScore(request);
-    if (score > 10 || url.searchParams.has("bot_trigger")) {
+    if (score > 10 || honeypot || url.searchParams.has("bot_trigger")) {
       const ip = request.headers.get("cf-connecting-ip") || "";
       if (isValidIp(ip)) {
         const now = Date.now();
