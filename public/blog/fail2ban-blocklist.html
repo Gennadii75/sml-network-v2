@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blocklist + fail2ban без Cloudflare — SML блог</title>
+<style>
+body{font-family:monospace;background:#0e1117;color:#c9d1d9;padding:40px;max-width:900px;margin:0 auto;line-height:1.7}
+h1,h2{color:#58a6ff}pre{background:#0d1117;padding:15px;border-radius:6px;overflow-x:auto;color:#c9d1d9}
+.card{background:#161b22;padding:20px;border:1px solid #30363d;border-radius:6px;margin:20px 0}
+a{color:#58a6ff}code{background:#0d1117;padding:2px 6px;color:#ff7b72;border-radius:4px}
+</style>
+</head>
+<body>
+<p><a href="index.html">← Блог</a></p>
+<h1>Сервер без Cloudflare: blocklist + fail2ban + iptables</h1>
+<p>Общая база <a href="../blocklist.txt">blocklist.txt</a> — обычный текст, один IP на строку. Ее ест любой Linux.</p>
+<div class="card"><h2>Вариант A: ipset, обновление по крону</h2>
+<pre># раз в 15 минут
+curl -s https://gennadii75.github.io/sml-network-v2/blocklist.txt -o /tmp/sml.txt
+ipset create sml-block hash:net -exist
+ipset flush sml-block
+while read ip; do ipset add sml-block "$ip" -exist; done &lt; /tmp/sml.txt
+iptables -I INPUT -m set --match-set sml-block src -j DROP</pre></div>
+<div class="card"><h2>Вариант B: fail2ban под свои логи</h2>
+<p>Оставьте fail2ban ловить сканеры (404-пачки, перебор <code>wp-login</code>) как раньше, а blocklist держите вторым рубежом через ipset выше. Не скармливайте fail2ban весь blocklist как jail — тысячи IP в одном jail тормозят перезапуск.</p></div>
+<div class="card"><h2>Важно</h2>
+<p>База обновляется каждые ~15 минут. Не баньте подсети целиком — только точные IP. Выход из бана: IP исчезает из активной выборки, при следующем обновлении ipset его не будет.</p></div>
+</body>
+</html>

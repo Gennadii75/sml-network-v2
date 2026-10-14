@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Подключение сайта к SML за 10 минут — SML блог</title>
+<style>
+body{font-family:monospace;background:#0e1117;color:#c9d1d9;padding:40px;max-width:900px;margin:0 auto;line-height:1.7}
+h1,h2{color:#58a6ff}code{background:#0d1117;padding:2px 6px;color:#ff7b72;border-radius:4px}
+pre{background:#0d1117;padding:15px;border-radius:6px;overflow-x:auto;color:#c9d1d9}
+.card{background:#161b22;padding:20px;border:1px solid #30363d;border-radius:6px;margin:20px 0}
+a{color:#58a6ff}.ok{color:#3fb950}
+</style>
+</head>
+<body>
+<p><a href="index.html">← Блог</a></p>
+<h1>Подключение сайта к SML за 10 минут</h1>
+<p>Нужны: домен на Cloudflare (любой тариф, хоть free) и адрес BNB-кошелька.</p>
+<div class="card"><h2>Шаг 1. Сгенерируй скрипт</h2>
+<p>Открой <a href="../cloudflare-connect.html">cloudflare-connect.html</a>, вставь адрес кошелька <code>0x...</code>, скопируй код.</p></div>
+<div class="card"><h2>Шаг 2. Создай Worker</h2>
+<p>Compute → Workers → Create → имя вида <code>мой-домен-guard</code> → Deploy → Edit code → вставь скрипт → Deploy.</p></div>
+<div class="card"><h2>Шаг 3. Секрет и роут</h2>
+<p>Settings → Variables and Secrets → Secret <code>SHARED_SECRET</code> (выдает оракул сети). Domains → Add → Route <code>твой-домен/*</code>. Redeploy.</p></div>
+<div class="card"><h2>Шаг 4. Проверка</h2>
+<pre>https://твой-домен/?bot_trigger=1</pre>
+<p>Открой этот URL — воркер отправит тестовый репорт. Убедись, что сайт работает как раньше (воркер пропускает весь трафик транзитом). Первый боевой минт придет после первой реальной атаки бота, обычно в пределах 15–30 минут: <span class="ok">D1 → оракул → контракт → твой кошелек</span>.</p></div>
+</body>
+</html>

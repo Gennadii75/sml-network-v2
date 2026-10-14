@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ложные срабатывания — SML блог</title>
+<style>
+body{font-family:monospace;background:#0e1117;color:#c9d1d9;padding:40px;max-width:900px;margin:0 auto;line-height:1.7}
+h1,h2{color:#3fb950}.card{background:#161b22;padding:20px;border:1px solid #30363d;border-radius:6px;margin:20px 0}
+a{color:#58a6ff}code{background:#0d1117;padding:2px 6px;color:#ff7b72;border-radius:4px}
+</style>
+</head>
+<body>
+<p><a href="index.html">← Блог</a></p>
+<h1>Ложные срабатывания: не заблокируй живых</h1>
+<div class="card"><h2>Главное: наш воркер никого не блокирует</h2>
+<p>Клиентский скрипт делает только одно — при высоком скоре шлет репорт на <code>sementsul.net/api/report-bot</code> и <b>пропускает запрос дальше</b> (<code>return fetch(request)</code>). Живой посетитель ничего не заметит даже при ложном скоре: ни капч, ни 403.</p></div>
+<div class="card"><h2>А если режете по blocklist на своем сервере?</h2>
+<ul>
+<li>Не применяйте базу к белым ботам: Googlebot, Bingbot проверяйте обратным DNS, а не IP.</li>
+<li>Начните с режима «только лог»: неделю пишите совпадения, потом включайте DROP.</li>
+<li>Следите за метриками воркера: Observability → Workers Logs покажет все репорты.</li>
+<li>Тестовый параметр <code>?bot_trigger=1</code> — только для проверки связи, не для бана себя.</li>
+</ul></div>
+</body>
+</html>

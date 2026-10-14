@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Как отличить ботов от живых — SML блог</title>
+<style>
+body{font-family:monospace;background:#0e1117;color:#c9d1d9;padding:40px;max-width:900px;margin:0 auto;line-height:1.7}
+h1,h2{color:#58a6ff}code{background:#0d1117;padding:2px 6px;color:#ff7b72;border-radius:4px}
+.card{background:#161b22;padding:20px;border:1px solid #30363d;border-radius:6px;margin:20px 0}
+a{color:#58a6ff}table{border-collapse:collapse;width:100%}td,th{border:1px solid #30363d;padding:8px;text-align:left}
+</style>
+</head>
+<body>
+<p><a href="index.html">← Блог</a></p>
+<h1>Как отличить ботов от живых посетителей</h1>
+<p>Наш воркер опирается на оценку Cloudflare, но понимать сигналы стоит каждому вебмастеру.</p>
+<div class="card">
+<h2>1. Bot Score</h2>
+<p><code>request.cf.botManagement.score</code> — от 1 (точно бот) до 99 (точно человек). Порог сети SML: все, у кого инвертированная угроза &gt; 10, считаются ботами. Старое поле <code>threatScore</code> deprecated, но оставлено как fallback.</p>
+</div>
+<div class="card">
+<h2>2. Быстрые признаки бота</h2>
+<table>
+<tr><th>Сигнал</th><th>Бот</th><th>Человек</th></tr>
+<tr><td>JavaScript / cookies</td><td>часто нет</td><td>есть</td></tr>
+<tr><td>ASN</td><td>дата-центр (хостинг)</td><td>домашний провайдер</td></tr>
+<tr><td>User-Agent</td><td>пустой, curl, python</td><td>браузерный</td></tr>
+<tr><td>Ритм запросов</td><td>ровный, десятки в секунду</td><td>неровный</td></tr>
+<tr><td>TLS-отпечаток (JA3)</td><td>библиотечный</td><td>браузерный</td></tr>
+</table>
+</div>
+<div class="card">
+<h2>3. Почему не стоит банить вручную</h2>
+<p>Ручные баны по одному признаку бьют по живым (мобильные сети, корпоративные прокси). Поэтому воркер SML <b>никого не блокирует</b> — он только фиксирует IP с высоким скором и отдает дальше. Блокировка — на вашей стороне и только осознанная, через <a href="fail2ban-blocklist.html">blocklist</a>.</p>
+</div>
+</body>
+</html>
