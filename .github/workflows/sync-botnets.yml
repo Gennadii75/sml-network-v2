@@ -67,5 +67,8 @@ jobs:
           git config user.name "Sementsul Oracle Bot"
           git config user.email "oracle@sementsul.net"
           git add public/blocklist.txt public/telemetry.json
-          git diff-index --quiet HEAD || git commit -m "chore: update blocklist [skip ci]"
+          # Без [skip ci]: этот пуш должен будить pages-деплой.
+          # Пуш через PAT (иначе GITHUB_TOKEN не триггерит workflows).
+          git diff-index --quiet HEAD || git commit -m "chore: update blocklist + telemetry"
+          git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/Gennadii75/sml-network-v2.git
           git push origin HEAD || echo "nothing to push"
