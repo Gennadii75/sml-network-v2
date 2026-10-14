@@ -28,4 +28,7 @@ jobs:
           git add .keepalive
           git commit -m "keepalive ping"
           git pull --rebase origin main || true
+          # Пуш через PAT, а не GITHUB_TOKEN: PAT-коммиты точно считаются
+          # активностью репозитория для 60-дневного правила крона.
+          git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/Gennadii75/sml-network-v2.git
           git push
