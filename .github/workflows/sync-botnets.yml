@@ -1,0 +1,49 @@
+name: Sync Botnet Logs + Mint SML
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm install ethers@6
+
+      - name: Fetch D1 + mint via oracle
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_D1_DATABASE_ID: ${{ secrets.CF_D1_DATABASE_ID }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          BNB_RPC_URL: ${{ secrets.BNB_RPC_URL }}
+          ORACLE_PRIVATE_KEY: ${{ secrets.ORACLE_PRIVATE_KEY }}
+          CONTRACT_ADDRESS: ${{ secrets.CONTRACT_ADDRESS }}
+        run: node scripts/oracle-sync.mjs
+
+      - name: Rebuild public blocklist from D1
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_D1_DATABASE_ID: ${{ secrets.CF_D1_DATABASE_ID }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+        run: |
+          RESP=$(curl -s -X POST "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID/d1/database/$CF_D1_DATABASE_ID/query" \
+            -H "Authorization: Bearer $CF_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"sql": "SELECT DISTINCT ip FROM bot_logs ORDER BY last_seen DESC LIMIT 50000"}')
+          echo "$RESP" | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-fA-F:]{3,45})' | sort -u > public/blocklist.txt || true
+          wc -l public/blocklist.txt
+
+      - name: Commit blocklist
+        run: |
+          git config user.name "Sementsul Oracle Bot"
+          git config user.email "oracle@sementsul.net"
+          git add public/blocklist.txt
+          git diff-index --quiet HEAD || git commit -m "chore: update blocklist [skip ci]"
+          git push origin HEAD || echo "nothing to push"

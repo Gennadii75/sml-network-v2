@@ -1,0 +1,14 @@
+name = "sementsul-edge"
+main = "workers/edge-honeypot.js"
+compatibility_date = "2024-11-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "sementsul-db"
+database_id = "REPLACE_WITH_WRANGLER_D1_ID"
+
+[vars]
+MY_TREASURY_WALLET = "0xREPLACE_TREASURY"
+
+# Секрет SaaS-приема (одинаковый в wrangler secret + GitHub Secrets + client-worker):
+# wrangler secret put REPORT_SECRET

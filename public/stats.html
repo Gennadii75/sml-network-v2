@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sementsul Network — Телеметрия SML</title>
+<style>
+body{font-family:monospace;background:#0e1117;color:#c9d1d9;padding:40px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:#161b22;padding:25px;border:1px solid #30363d;border-radius:6px}
+.number{font-size:1.6rem;color:#58a6ff;font-weight:bold;margin-top:10px;word-break:break-all}
+.burn{color:#f85149}
+.small{font-size:.8rem;color:#888}
+</style>
+</head>
+<body>
+<h1>Телеметрия сети SML (live)</h1>
+<p class="small">IP-база: <a href="blocklist.txt">blocklist.txt</a> · контракт читается через BNB RPC · обновление оракулом каждые 15 мин</p>
+<div class="grid">
+<div class="card"><h3>IP в базе</h3><div class="number" id="botCount">…</div></div>
+<div class="card"><h3>Всего сожжено (totalBurned)</h3><div class="number burn" id="burned">…</div></div>
+<div class="card"><h3>Резерв на контракте</h3><div class="number" id="reserve">…</div></div>
+<div class="card"><h3>Год / лимит года</h3><div class="number" id="year">…</div></div>
+</div>
+<script>
+// Адрес V2 подставить после деплоя
+const CONTRACT = "0x1FE40AAd7c3c3ccEB4efc9099EFBC57D2Dcc0dC7";
+const RPC = "https://bsc-dataseed.binance.org/";
+const SEL = { totalBurned: "0x16125cc9", burnReservePool: "0x2da9f9f6", currentYear: "0x2eb50c7d" };
+async function rpcCall(data){
+  const r = await fetch(RPC,{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({jsonrpc:"2.0",id:1,method:"eth_call",params:[{to:CONTRACT,data},"latest"]})});
+  const j = await r.json();
+  return BigInt(j.result || "0x0");
+}
+async function main(){
+  try{
+    const b = await (await fetch("blocklist.txt")).text();
+    const n = b.split("\n").map(s=>s.trim()).filter(Boolean).length;
+    document.getElementById("botCount").textContent = n.toLocaleString("en-US");
+  }catch{ document.getElementById("botCount").textContent = "—"; }
+  if(CONTRACT.startsWith("0xREPLACE")){ burned.textContent=reserve.textContent=year.textContent="deploy pending"; return; }
+  try{
+    const [tb, res, y] = await Promise.all([rpcCall(SEL.totalBurned),rpcCall(SEL.burnReservePool),rpcCall(SEL.currentYear)]);
+    const f = v => (Number(v/10n**15)/1000).toLocaleString("en-US")+" SML";
+    burned.textContent = f(tb); reserve.textContent = f(res); year.textContent = "year "+y.toString()+" / 2.5M cap";
+  }catch{ burned.textContent=reserve.textContent=year.textContent="RPC error"; }
+}
+main();
+</script>
+</body>
+</html>

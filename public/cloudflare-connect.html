@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head><meta charset="UTF-8"><title>SML — Подключение Cloudflare</title>
+<style>body{font-family:monospace;background:#0e1117;color:#c9d1d9;padding:40px}code{background:#0d1117;padding:10px;display:block;color:#ff7b72;border-radius:4px;margin:10px 0;white-space:pre-wrap}.btn{background:#238636;color:#fff;border:0;padding:10px 20px;border-radius:4px;cursor:pointer}</style>
+</head>
+<body>
+<h1>Подключение сайта к SML (исправлено)</h1>
+<div><h3>Шаг 1: кошелек BNB Chain</h3>
+<input id="wallet" placeholder="0x..." style="width:420px;padding:8px;background:#0d1117;color:#fff;border:1px solid #30363d">
+<button class="btn" onclick="generate()">Получить скрипт</button></div>
+<div id="result" style="display:none"><h3>Шаг 2: вставьте в ваш Cloudflare Worker, секрет запросите у оракула</h3><code id="output"></code></div>
+<script>
+function generate(){
+  const w=document.getElementById('wallet').value;
+  if(!/^0x[0-9a-fA-F]{40}$/.test(w)){alert('Неверный адрес');return;}
+  document.getElementById('output').innerText =
+`const WEBMASTER_WALLET = "${w}";
+const CENTRAL_GATEWAY = "https://sementsul.net/api/report-bot";
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    const bm = request.cf?.botManagement;
+    const threat = bm && typeof bm.score === "number" ? 100 - bm.score : request.cf?.threatScore || 0;
+    if (threat > 10 || url.searchParams.has('bot_trigger')) {
+      const ip = request.headers.get('cf-connecting-ip');
+      if (ip) ctx.waitUntil(fetch(CENTRAL_GATEWAY, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ip, webmaster: WEBMASTER_WALLET, asn: request.cf?.asn || 0,
+          country: request.cf?.country || 'unknown',
+          userAgent: request.headers.get('user-agent') || 'unknown',
+          secret: env.SHARED_SECRET })
+      }).catch(()=>{}));
+    }
+    return fetch(request);
+  }
+};`;
+  document.getElementById('result').style.display='block';
+}
+</script>
+</body>
+</html>

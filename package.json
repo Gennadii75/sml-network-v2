@@ -1,0 +1,12 @@
+{
+  "name": "sml-network-v2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "oracle": "node scripts/oracle-sync.mjs",
+    "check:workers": "node --check workers/edge-honeypot.js && node --check workers/client-worker.js && node --check scripts/oracle-sync.mjs && echo OK"
+  },
+  "dependencies": {
+    "ethers": "^6.13.0"
+  }
+}
