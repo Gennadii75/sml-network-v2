@@ -1,12 +1,17 @@
-// client-worker.js — ставит вебмастер у себя в Cloudflare.
-// Перед деплоем заменить WEBMASTER_WALLET и SHARED_SECRET (выдается на cloudflare-connect.html).
-// Требует: wrangler secret put SHARED_SECRET (значение = REPORT_SECRET центра).
+// client-worker.js — шаблон для вебмастера.
+// НЕ ЗАПОЛНЯЙ ВРУЧНУЮ: готовый код с твоим кошельком и персональным секретом
+// выдает страница подключения:
+//   https://gennadii75.github.io/sml-network-v2/cloudflare-connect.html
+// Ниже — тот же код, как он выглядит после генерации.
+// Воркер НИКОГО НЕ БЛОКИРУЕТ: фиксирует ботов и пропускает трафик дальше.
+
+const WEBMASTER_WALLET = "0x..."; // твой BNB-кошелек (подставит генератор)
+const SHARED_SECRET = "...";      // твой персональный секрет (выдаст генератор)
+const CENTRAL_GATEWAY = "https://sementsul.net/api/report-bot";
 
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
-    const WEBMASTER_WALLET = "0xВАШ_КОШЕЛЕК_BNB_CHAIN"; // <-- заменить
-    const CENTRAL_GATEWAY = "https://sementsul.net/api/report-bot";
 
     const bm = request.cf?.botManagement;
     const threat = bm && typeof bm.score === "number" ? 100 - bm.score : request.cf?.threatScore || 0;
@@ -20,7 +25,7 @@ export default {
           asn: request.cf?.asn || 0,
           country: request.cf?.country || "unknown",
           userAgent: request.headers.get("user-agent") || "unknown",
-          secret: env.SHARED_SECRET || "CHANGE_ME",
+          secret: SHARED_SECRET,
         };
         ctx.waitUntil(
           fetch(CENTRAL_GATEWAY, {

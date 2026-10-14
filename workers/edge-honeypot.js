@@ -13,9 +13,14 @@ function isValidIp(ip) {
   // IPv4
   const v4 = /^(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}$/;
   if (v4.test(ip)) return true;
-  // IPv6 (простая проверка, без зон)
-  const v6 = /^[0-9a-fA-F:]{3,45}$/;
-  return v6.test(ip) && ip.includes(":");
+  // IPv6 — строгая проверка через URL-парсер (отсекает мусор вида ":fa", "cce")
+  if (!ip.includes(":")) return false;
+  try {
+    new URL(`http://[${ip}]/`);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function isValidWallet(a) {

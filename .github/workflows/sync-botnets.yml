@@ -41,13 +41,14 @@ jobs:
             -H "Content-Type: application/json" \
             -d '{"sql": "SELECT DISTINCT ip FROM bot_logs ORDER BY last_seen DESC LIMIT 50000"}' \
             | python3 -c "
-          import json, sys, re
-          v4 = re.compile(r'^((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$')
+          import json, sys, ipaddress
           def is_ip(s):
               if not isinstance(s, str): return False
-              s = s.strip()
-              if v4.match(s): return True
-              return ':' in s and re.fullmatch(r'[0-9a-fA-F:]{3,45}', s) is not None
+              try:
+                  ipaddress.ip_address(s.strip())
+                  return True
+              except ValueError:
+                  return False
           d = json.load(sys.stdin)
           ips = set()
           try:

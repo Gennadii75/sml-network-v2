@@ -1,4 +1,6 @@
 -- Sementsul Network V2: Cloudflare D1 schema
+-- ВНИМАНИЕ: выполнять целиком только на пустой базе! DROP ниже сотрет bot_logs.
+-- Для догрузки отдельных таблиц копируй нужные блоки в Console вручную.
 -- Фикс ТЗ: вместо INSERT OR IGNORE (терял повторные атаки)
 -- используем UPSERT по клиенту воркера + счетчик hits.
 DROP TABLE IF EXISTS bot_logs;
