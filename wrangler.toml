@@ -5,7 +5,7 @@ compatibility_date = "2024-11-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "sementsul-db"
-database_id = "REPLACE_WITH_WRANGLER_D1_ID"
+database_id = "59c48891-122b-4cfa-bd57-c8cea5acb973"
 
 [vars]
 MY_TREASURY_WALLET = "0xREPLACE_TREASURY"
