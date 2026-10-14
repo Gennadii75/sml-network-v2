@@ -47,6 +47,6 @@ jobs:
         run: |
           git config user.name "Sementsul Oracle Bot"
           git config user.email "oracle@sementsul.net"
-          git add public/blocklist.txt
+          git add public/blocklist.txt public/telemetry.json
           git diff-index --quiet HEAD || git commit -m "chore: update blocklist [skip ci]"
           git push origin HEAD || echo "nothing to push"

@@ -15,6 +15,9 @@ const {
 const ABI = [
   "function processAttackMining(address webmaster, bytes32 ipHash, bool isCaughtByUs)",
   "function ipStatus(bytes32) view returns (uint8)",
+  "function totalBurned() view returns (uint256)",
+  "function balanceOf(address) view returns (uint256)",
+  "function currentYear() view returns (uint256)",
 ];
 
 async function d1Query(sql, params = []) {
@@ -45,6 +48,35 @@ async function main() {
     "SELECT ip, webmaster_address FROM bot_logs WHERE processed = 0 ORDER BY last_seen ASC LIMIT 200"
   );
   console.log(`D1 new rows: ${rows.length}`);
+
+  // Телеметрия для Pages (тот же домен — без CORS): пишется при каждом
+  // прогоне, даже когда новых строк нет.
+  if (BNB_RPC_URL && CONTRACT_ADDRESS) {
+    try {
+      const { ethers } = await import("ethers");
+      const provider = new ethers.JsonRpcProvider(BNB_RPC_URL);
+      const reader = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
+      const [tb, reserve, year] = await Promise.all([
+        reader.totalBurned(),
+        reader.balanceOf(CONTRACT_ADDRESS),
+        reader.currentYear(),
+      ]);
+      const { writeFileSync, mkdirSync } = await import("node:fs");
+      mkdirSync("public", { recursive: true });
+      const fmt = (v) => (Number(v / 10n ** 15n) / 1000).toString();
+      writeFileSync("public/telemetry.json", JSON.stringify({
+        totalBurned: fmt(tb),
+        burnReserve: fmt(reserve),
+        contractYear: Number(year),
+        contract: CONTRACT_ADDRESS,
+        updatedAt: new Date().toISOString(),
+      }, null, 2) + "\n");
+      console.log("telemetry.json written");
+    } catch (e) {
+      console.error("telemetry failed:", e.shortMessage || e.message);
+    }
+  }
+
   if (rows.length === 0) return;
 
   // DRY_RUN: только экспорт blocklist, без chain-вызовов (для проверки пайплайна)
